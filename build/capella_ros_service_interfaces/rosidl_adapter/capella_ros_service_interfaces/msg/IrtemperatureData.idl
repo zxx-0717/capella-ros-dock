@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from capella_ros_service_interfaces/msg/IrtemperatureData.msg
+// generated code does not contain a copyright notice
+
+
+module capella_ros_service_interfaces {
+  module msg {
+    struct IrtemperatureData {
+      @verbatim (language="comment", text=
+        "highest temperature of face area")
+      float irtemperature;
+
+      @verbatim (language="comment", text=
+        "x center of face area")
+      uint16 center_x;
+
+      @verbatim (language="comment", text=
+        "y center of face area")
+      uint16 center_y;
+
+      @verbatim (language="comment", text=
+        "width of face area")
+      uint16 width;
+
+      @verbatim (language="comment", text=
+        "height of face area")
+      uint16 height;
+    };
+  };
+};

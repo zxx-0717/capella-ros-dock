@@ -1,0 +1,12 @@
+// generated from rosidl_generator_c/resource/idl.h.em
+// with input from capella_ros_msg:msg/PID.idl
+// generated code does not contain a copyright notice
+
+#ifndef CAPELLA_ROS_MSG__MSG__PID_H_
+#define CAPELLA_ROS_MSG__MSG__PID_H_
+
+#include "capella_ros_msg/msg/detail/pid__struct.h"
+#include "capella_ros_msg/msg/detail/pid__functions.h"
+#include "capella_ros_msg/msg/detail/pid__type_support.h"
+
+#endif  // CAPELLA_ROS_MSG__MSG__PID_H_

@@ -1,0 +1,132 @@
+[0.218s] Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock': AMENT_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:/opt/ros/humble LD_LIBRARY_PATH=/home/ros2/git/mygit/capella_ros_dock/install/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages:${PYTHONPATH} WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake /home/ros2/git/mygit/capella_ros_dock/capella_ros_dock -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=On -Wall -Wextra -Wpedantic -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ros2/git/mygit/capella_ros_dock/install
+[0.227s] -- Found ament_cmake: 1.3.3 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.339s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.345s] -- Found angles: 1.15.0 (/opt/ros/humble/share/angles/cmake)
+[0.346s] -- Found geometry_msgs: 4.2.3 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.449s] -- Found rosidl_generator_c: 3.1.4 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.450s] -- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.455s] -- Found rosidl_generator_cpp: 3.1.4 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.462s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.472s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.541s] -- Found nav_msgs: 4.2.3 (/opt/ros/humble/share/nav_msgs/cmake)
+[0.591s] -- Found rclcpp: 16.0.3 (/opt/ros/humble/share/rclcpp/cmake)
+[0.620s] -- Found rmw_implementation_cmake: 6.1.1 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.621s] -- Found rmw_fastrtps_cpp: 6.2.2 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[3.500s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[3.585s] -- Found rclcpp_action: 16.0.3 (/opt/ros/humble/share/rclcpp_action/cmake)
+[3.646s] -- Found rclcpp_components: 16.0.3 (/opt/ros/humble/share/rclcpp_components/cmake)
+[3.683s] -- Found tf2: 0.25.2 (/opt/ros/humble/share/tf2/cmake)
+[3.687s] -- Found tf2_geometry_msgs: 0.25.2 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[3.690s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[3.691s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[3.808s] -- Found capella_ros_dock_msgs: 0.0.0 (/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake)
+[3.974s] -- Found capella_ros_msg: 0.0.0 (/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake)
+[4.028s] -- Found capella_ros_service_interfaces: 0.0.0 (/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/cmake)
+[4.097s] -- Found std_srvs: 4.2.3 (/opt/ros/humble/share/std_srvs/cmake)
+[4.166s] -- Configuring done
+[4.168s] [33mCMake Warning (dev) at CMakeLists.txt:53 (add_library):
+[4.168s]   Policy CMP0115 is not set: Source file extensions must be explicit.  Run
+[4.168s]   "cmake --help-policy CMP0115" for policy details.  Use the cmake_policy
+[4.168s]   command to set the policy and suppress this warning.
+[4.168s] 
+[4.168s]   File:
+[4.168s] 
+[4.169s]     /home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp
+[4.169s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[4.169s] [0m
+[4.185s] -- Generating done
+[4.187s] -- Build files have been written to: /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock
+[4.195s] Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock' returned '0': AMENT_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:/opt/ros/humble LD_LIBRARY_PATH=/home/ros2/git/mygit/capella_ros_dock/install/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages:${PYTHONPATH} WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake /home/ros2/git/mygit/capella_ros_dock/capella_ros_dock -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=On -Wall -Wextra -Wpedantic -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ros2/git/mygit/capella_ros_dock/install
+[4.196s] Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock': AMENT_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:/opt/ros/humble LD_LIBRARY_PATH=/home/ros2/git/mygit/capella_ros_dock/install/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages:${PYTHONPATH} WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock -- -j12 -l12
+[4.229s] [ 20%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/reflex_behavior.cpp.o[0m
+[4.230s] [ 20%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/docking_behavior.cpp.o[0m
+[4.230s] [ 30%] [32mBuilding CXX object CMakeFiles/hazard_publisher_lib.dir/src/hazards_vector_publisher.cpp.o[0m
+[4.230s] [ 40%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/motion_control_node.cpp.o[0m
+[4.230s] [ 60%] [32mBuilding CXX object CMakeFiles/motion_control.dir/rclcpp_components/node_main_motion_control.cpp.o[0m
+[4.230s] [ 60%] [32mBuilding CXX object CMakeFiles/hazard_vector_publisher.dir/rclcpp_components/node_main_hazard_vector_publisher.cpp.o[0m
+[4.237s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/motion_control_node.cpp:4:10:[m[K [01;31m[Kfatal error: [m[Kirobot_create_nodes/motion_control_node.hpp: No such file or directory
+[4.237s]     4 | #include [01;31m[K"irobot_create_nodes/motion_control_node.hpp"[m[K
+[4.237s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.237s] compilation terminated.
+[4.239s] gmake[2]: *** [CMakeFiles/motion_control_lib.dir/build.make:76: CMakeFiles/motion_control_lib.dir/src/motion_control_node.cpp.o] Error 1
+[4.239s] gmake[2]: *** Waiting for unfinished jobs....
+[4.267s] In file included from [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/docking_behavior.cpp:3[m[K:
+[4.267s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/include/capella_ros_dock/docking_behavior.hpp:12:10:[m[K [01;31m[Kfatal error: [m[Kcapella_ros_service_interfaces/action/dock.hpp: No such file or directory
+[4.267s]    12 | #include [01;31m[K"capella_ros_service_interfaces/action/dock.hpp"[m[K
+[4.267s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.267s] compilation terminated.
+[4.268s] gmake[2]: *** [CMakeFiles/motion_control_lib.dir/build.make:90: CMakeFiles/motion_control_lib.dir/src/docking_behavior.cpp.o] Error 1
+[4.343s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/reflex_behavior.cpp:12:10:[m[K [01;31m[Kfatal error: [m[Kirobot_create_nodes/motion_control/reflex_behavior.hpp: No such file or directory
+[4.344s]    12 | #include [01;31m[K"irobot_create_nodes/motion_control/reflex_behavior.hpp"[m[K
+[4.344s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.344s] compilation terminated.
+[4.345s] gmake[2]: *** [CMakeFiles/motion_control_lib.dir/build.make:104: CMakeFiles/motion_control_lib.dir/src/reflex_behavior.cpp.o] Error 1
+[4.345s] gmake[1]: *** [CMakeFiles/Makefile2:195: CMakeFiles/motion_control_lib.dir/all] Error 2
+[4.345s] gmake[1]: *** Waiting for unfinished jobs....
+[7.093s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:[m[K In constructor ‘[01m[Kcapella_ros_dock::HazardsVectorPublisher::HazardsVectorPublisher(const rclcpp::NodeOptions&)[m[K’:
+[7.094s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:28:33:[m[K [01;31m[Kerror: [m[K‘[01m[Kcapella_ros_service_interfaces[m[K’ was not declared in this scope
+[7.094s]    28 |   publisher_ = create_publisher<[01;31m[Kcapella_ros_service_interfaces[m[K::msg::HazardDetectionVector>(
+[7.094s]       |                                 [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[7.098s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:28:16:[m[K [01;31m[Kerror: [m[Kparse error in template argument list
+[7.098s]    28 |   publisher_ = [01;31m[Kcreate_publisher<capella_ros_service_interfaces::msg::HazardDetectionVector>[m[K(
+[7.098s]       |                [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[7.098s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:28:92:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kcapella_ros_dock::HazardsVectorPublisher::create_publisher<<expression error> >(std::string&, rclcpp::QoS&)[m[K’
+[7.098s]    28 |   publisher_ = [01;31m[Kcreate_publisher<capella_ros_service_interfaces::msg::HazardDetectionVector>([m[K
+[7.098s]       |                [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[7.098s]    29 | [01;31m[K    publisher_topic_, rclcpp::SensorDataQoS().reliable())[m[K;
+[7.098s]       |     [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K                                   
+[7.100s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/single_threaded_executor.hpp:28[m[K,
+[7.100s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:22[m[K,
+[7.100s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[7.100s]                  from [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/include/capella_ros_dock/hazards_vector_publisher.hpp:11[m[K,
+[7.100s]                  from [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:3[m[K:
+[7.100s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/node.hpp:195:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT, class PublisherT> std::shared_ptr<PublisherT> rclcpp::Node::create_publisher(const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)[m[K’
+[7.100s]   195 |   [01;36m[Kcreate_publisher[m[K(
+[7.100s]       |   [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[7.101s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/node.hpp:195:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[7.101s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:28:92:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[7.101s]    28 |   publisher_ = [01;31m[Kcreate_publisher<capella_ros_service_interfaces::msg::HazardDetectionVector>([m[K
+[7.101s]       |                [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[7.101s]    29 | [01;31m[K    publisher_topic_, rclcpp::SensorDataQoS().reliable())[m[K;
+[7.101s]       |     [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K                                   
+[7.103s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:52:8:[m[K [01;31m[Kerror: [m[Kparse error in template argument list
+[7.103s]    52 |       ([01;31m[Kcreate_subscription<capella_ros_service_interfaces::msg::HazardDetection>[m[K(
+[7.104s]       |        [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[7.108s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:54:22:[m[K [01;31m[Kerror: [m[K‘[01m[Kcapella_ros_service_interfaces[m[K’ does not name a type
+[7.108s]    54 |         [this](const [01;31m[Kcapella_ros_service_interfaces[m[K::msg::HazardDetection::SharedPtr msg) {
+[7.108s]       |                      [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[7.109s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:[m[K In lambda function:
+[7.109s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:57:11:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K{[m[K’ before ‘[01m[K)[m[K’ token
+[7.109s]    57 |         })[01;31m[K)[m[K);
+[7.109s]       |           [01;31m[K^[m[K
+[7.109s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:[m[K In constructor ‘[01m[Kcapella_ros_dock::HazardsVectorPublisher::HazardsVectorPublisher(const rclcpp::NodeOptions&)[m[K’:
+[7.109s] [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:52:81:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kcapella_ros_dock::HazardsVectorPublisher::create_subscription<capella_ros_service_interfaces>(std::string&, rclcpp::SensorDataQoS, capella_ros_dock::HazardsVectorPublisher::HazardsVectorPublisher(const rclcpp::NodeOptions&)::<lambda(int)>)[m[K’
+[7.109s]    52 |       ([01;31m[Kcreate_subscription<capella_ros_service_interfaces::msg::HazardDetection>([m[K
+[7.109s]       |        [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[7.109s]    53 | [01;31m[K        topic, rclcpp::SensorDataQoS(),[m[K
+[7.109s]       |         [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K                                          
+[7.109s]    54 | [01;31m[K        [this](const capella_ros_service_interfaces::msg::HazardDetection::SharedPtr msg) {[m[K
+[7.109s]       |         [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[7.109s]    55 | [01;31m[K          std::lock_guard<std::mutex> lock{this->mutex_};[m[K
+[7.109s]       |           [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K                        
+[7.109s]    56 | [01;31m[K          this->msg_.detections.push_back(*msg);[m[K
+[7.109s]       |           [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K                                 
+[7.109s]    57 | [01;31m[K        }))[m[K);
+[7.109s]       |         [01;31m[K~~~[m[K                                                                      
+[7.109s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/single_threaded_executor.hpp:28[m[K,
+[7.109s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:22[m[K,
+[7.109s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[7.109s]                  from [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/include/capella_ros_dock/hazards_vector_publisher.hpp:11[m[K,
+[7.109s]                  from [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp:3[m[K:
+[7.109s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/node.hpp:219:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class CallbackT, class AllocatorT, class SubscriptionT, class MessageMemoryStrategyT> std::shared_ptr<ROSMessageT> rclcpp::Node::create_subscription(const string&, const rclcpp::QoS&, CallbackT&&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename MessageMemoryStrategyT::SharedPtr)[m[K’
+[7.110s]   219 |   [01;36m[Kcreate_subscription[m[K(
+[7.110s]       |   [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[7.110s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/node.hpp:219:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[8.078s] gmake[2]: *** [CMakeFiles/hazard_publisher_lib.dir/build.make:76: CMakeFiles/hazard_publisher_lib.dir/src/hazards_vector_publisher.cpp.o] Error 1
+[8.078s] gmake[1]: *** [CMakeFiles/Makefile2:143: CMakeFiles/hazard_publisher_lib.dir/all] Error 2
+[8.632s] [ 70%] [32m[1mLinking CXX executable motion_control[0m
+[8.693s] [ 80%] [32m[1mLinking CXX executable hazard_vector_publisher[0m
+[8.795s] [ 80%] Built target motion_control
+[8.825s] [ 80%] Built target hazard_vector_publisher
+[8.825s] gmake: *** [Makefile:146: all] Error 2
+[8.827s] Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock' returned '2': AMENT_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:/opt/ros/humble LD_LIBRARY_PATH=/home/ros2/git/mygit/capella_ros_dock/install/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages:${PYTHONPATH} WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock -- -j12 -l12

@@ -1,0 +1,10 @@
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/Battery.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/Imu.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/PID.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/Velocities.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/AtomizeSwitchCtrStu.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/IrData.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/ContactDriveStu.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/SingleDetector.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:msg/DetectResult.idl
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_adapter/capella_ros_msg:srv/ChargePileWifi.idl

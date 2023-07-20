@@ -1,0 +1,17 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from capella_ros_msg/srv/ChargePileWifi.srv
+// generated code does not contain a copyright notice
+
+
+module capella_ros_msg {
+  module srv {
+    struct ChargePileWifi_Request {
+      @verbatim (language="comment", text=
+        "wifi SSID code")
+      uint64 ssid;
+    };
+    struct ChargePileWifi_Response {
+      boolean success;
+    };
+  };
+};

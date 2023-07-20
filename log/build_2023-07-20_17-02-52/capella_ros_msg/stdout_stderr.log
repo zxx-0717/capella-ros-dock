@@ -1,0 +1,294 @@
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_generator_c[0m
+[  0%] Built target capella_ros_msg__cpp
+[ 12%] Built target capella_ros_msg__rosidl_generator_c
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_cpp[0m
+[ 12%] Built target ament_cmake_python_symlink_capella_ros_msg
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_fastrtps_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_introspection_c[0m
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_introspection_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_c[0m
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_fastrtps_c[0m
+[ 23%] Built target capella_ros_msg__rosidl_typesupport_c
+[ 35%] Built target capella_ros_msg__rosidl_typesupport_introspection_c
+[ 46%] Built target capella_ros_msg__rosidl_typesupport_fastrtps_cpp
+[ 58%] Built target capella_ros_msg__rosidl_typesupport_cpp
+[ 70%] Built target capella_ros_msg__rosidl_typesupport_introspection_cpp
+[ 82%] Built target capella_ros_msg__rosidl_typesupport_fastrtps_c
+[ 82%] Built target capella_ros_msg
+[ 83%] Built target capella_ros_msg__py
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_generator_py[0m
+[ 94%] Built target capella_ros_msg__rosidl_generator_py
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_fastrtps_c__pyext[0m
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_introspection_c__pyext[0m
+[35m[1mConsolidate compiler generated dependencies of target capella_ros_msg__rosidl_typesupport_c__pyext[0m
+[ 96%] Built target capella_ros_msg__rosidl_typesupport_introspection_c__pyext
+[ 98%] Built target capella_ros_msg__rosidl_typesupport_c__pyext
+[100%] Built target capella_ros_msg__rosidl_typesupport_fastrtps_c__pyext
+running egg_info
+writing capella_ros_msg.egg-info/PKG-INFO
+writing dependency_links to capella_ros_msg.egg-info/dependency_links.txt
+writing top-level names to capella_ros_msg.egg-info/top_level.txt
+reading manifest file 'capella_ros_msg.egg-info/SOURCES.txt'
+writing manifest file 'capella_ros_msg.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_capella_ros_msg_egg
+-- Install configuration: "RelWithDebInfo"
+-- Execute custom install script
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/ament_index/resource_index/rosidl_interfaces/capella_ros_msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/atomize_switch_ctr_stu.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/battery.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/contact_drive_stu.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detect_result.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/imu.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/ir_data.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/pid.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/rosidl_generator_c__visibility_control.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/single_detector.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/velocities.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/charge_pile_wifi.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__functions.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__struct.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__type_support.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/environment/library_path.sh
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/environment/library_path.dsv
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/atomize_switch_ctr_stu.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/battery.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/contact_drive_stu.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detect_result.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/imu.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/ir_data.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/pid.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/single_detector.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/velocities.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/charge_pile_wifi.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__builder.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__struct.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__traits.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/atomize_switch_ctr_stu__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/battery__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/contact_drive_stu__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/detect_result__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/imu__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/ir_data__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/pid__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/single_detector__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/msg/detail/velocities__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_msg/capella_ros_msg/srv/detail/charge_pile_wifi__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/environment/pythonpath.sh
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/environment/pythonpath.dsv
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg-0.0.0-py3.10.egg-info/PKG-INFO
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg-0.0.0-py3.10.egg-info/top_level.txt
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/__init__.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/_capella_ros_msg_s.ep.rosidl_typesupport_c.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/_capella_ros_msg_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/_capella_ros_msg_s.ep.rosidl_typesupport_introspection_c.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/capella_ros_msg_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/capella_ros_msg_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/capella_ros_msg_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/libcapella_ros_msg__rosidl_generator_py.so
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/__init__.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_atomize_switch_ctr_stu.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_atomize_switch_ctr_stu_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_battery.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_battery_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_contact_drive_stu.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_contact_drive_stu_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_detect_result.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_detect_result_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_imu.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_imu_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_ir_data.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_ir_data_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_pid.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_pid_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_single_detector.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_single_detector_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_velocities.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_velocities_s.c
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/srv/__init__.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/srv/_charge_pile_wifi.py
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/srv/_charge_pile_wifi_s.c
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/capella_ros_msg_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/capella_ros_msg_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/capella_ros_msg_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/Battery.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/Imu.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/PID.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/Velocities.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/AtomizeSwitchCtrStu.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/IrData.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/ContactDriveStu.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/SingleDetector.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/DetectResult.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/srv/ChargePileWifi.idl
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/Battery.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/Imu.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/PID.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/Velocities.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/AtomizeSwitchCtrStu.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/IrData.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/ContactDriveStu.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/SingleDetector.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/msg/DetectResult.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/srv/ChargePileWifi.srv
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/srv/ChargePileWifi_Request.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/srv/ChargePileWifi_Response.msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/ament_index/resource_index/package_run_dependencies/capella_ros_msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/ament_index/resource_index/parent_prefix_path/capella_ros_msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/environment/ament_prefix_path.sh
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/environment/ament_prefix_path.dsv
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/environment/path.sh
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/environment/path.dsv
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/local_setup.bash
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/local_setup.sh
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/local_setup.zsh
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/local_setup.dsv
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.dsv
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/ament_index/resource_index/packages/capella_ros_msg
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/rosidl_cmake-extras.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/ament_cmake_export_libraries-extras.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/ament_cmake_export_targets-extras.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msgConfig.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msgConfig-version.cmake
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.xml
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_generator_c.so
+-- Set runtime path of "/home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_generator_c.so" to ""
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_fastrtps_c.so
+-- Set runtime path of "/home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_fastrtps_c.so" to ""
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_fastrtps_cpp.so
+-- Set runtime path of "/home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_introspection_c.so
+-- Set runtime path of "/home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_c.so
+-- Set runtime path of "/home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_c.so" to ""
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_introspection_cpp.so
+-- Set runtime path of "/home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_cpp.so
+-- Set runtime path of "/home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_typesupport_cpp.so" to ""
+Listing '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/__init__.py'...
+Listing '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/__init__.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_atomize_switch_ctr_stu.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_battery.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_contact_drive_stu.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_detect_result.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_imu.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_ir_data.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_pid.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_single_detector.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/msg/_velocities.py'...
+Listing '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/srv'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/srv/__init__.py'...
+Compiling '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_msg/srv/_charge_pile_wifi.py'...
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_generator_py.so
+-- Set runtime path of "/home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_msg__rosidl_generator_py.so" to ""
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_generator_cExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_generator_cExport-relwithdebinfo.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_typesupport_fastrtps_cExport-relwithdebinfo.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_generator_cppExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_typesupport_fastrtps_cppExport-relwithdebinfo.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msg__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msg__rosidl_typesupport_introspection_cExport-relwithdebinfo.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msg__rosidl_typesupport_cExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msg__rosidl_typesupport_cExport-relwithdebinfo.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msg__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msg__rosidl_typesupport_introspection_cppExport-relwithdebinfo.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msg__rosidl_typesupport_cppExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/capella_ros_msg__rosidl_typesupport_cppExport-relwithdebinfo.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_generator_pyExport.cmake
+-- Installing: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/cmake/export_capella_ros_msg__rosidl_generator_pyExport-relwithdebinfo.cmake

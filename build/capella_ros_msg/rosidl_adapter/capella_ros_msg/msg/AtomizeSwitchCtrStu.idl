@@ -1,0 +1,24 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from capella_ros_msg/msg/AtomizeSwitchCtrStu.msg
+// generated code does not contain a copyright notice
+
+
+module capella_ros_msg {
+  module msg {
+    @verbatim (language="comment", text=
+      "雾化开关控制状态消息")
+    struct AtomizeSwitchCtrStu {
+      @verbatim (language="comment", text=
+        "紧急按钮状态")
+      boolean emer_button;
+
+      @verbatim (language="comment", text=
+        "雾化控制状态")
+      boolean atomize_sw;
+
+      @verbatim (language="comment", text=
+        "雾化强度 0x01~0x03")
+      uint8 strength;
+    };
+  };
+};

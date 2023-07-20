@@ -1,0 +1,10 @@
+{
+  "package_name": "capella_ros_dock_msgs",
+  "non_idl_tuples": [
+    "/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs:msg/HazardDetection.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs:msg/HazardDetectionVector.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs:msg/KidnapStatus.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs:srv/EStop.srv",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs:srv/RobotPower.srv"
+  ]
+}

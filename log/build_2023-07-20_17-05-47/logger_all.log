@@ -1,0 +1,344 @@
+[0.291s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--merge-install', '--symlink-install', '--cmake-args', '-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic']
+[0.291s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=True, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic'], cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7fa3b502f6d0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7fa3b5844c10>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7fa3b5844c10>>)
+[0.312s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.312s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.312s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.312s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.312s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.312s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.312s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/ros2/git/mygit/capella_ros_dock'
+[0.312s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.313s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.320s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extension 'ignore'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extension 'ignore_ament_install'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extensions ['colcon_pkg']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extension 'colcon_pkg'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extensions ['colcon_meta']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extension 'colcon_meta'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extensions ['ros']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extension 'ros'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extensions ['cmake', 'python']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extension 'cmake'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extension 'python'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extensions ['python_setup_py']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs) by extension 'python_setup_py'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extensions ['ignore', 'ignore_ament_install']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extension 'ignore'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extension 'ignore_ament_install'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extensions ['colcon_pkg']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extension 'colcon_pkg'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extensions ['colcon_meta']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extension 'colcon_meta'
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extensions ['ros']
+[0.321s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_msg) by extension 'ros'
+[0.323s] DEBUG:colcon.colcon_core.package_identification:Package 'capella_msgs/capella_ros_msg' with type 'ros.ament_cmake' and name 'capella_ros_msg'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extension 'ignore'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extension 'ignore_ament_install'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extensions ['colcon_pkg']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extension 'colcon_pkg'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extensions ['colcon_meta']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extension 'colcon_meta'
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extensions ['ros']
+[0.323s] Level 1:colcon.colcon_core.package_identification:_identify(capella_msgs/capella_ros_service_interfaces) by extension 'ros'
+[0.324s] DEBUG:colcon.colcon_core.package_identification:Package 'capella_msgs/capella_ros_service_interfaces' with type 'ros.ament_cmake' and name 'capella_ros_service_interfaces'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extensions ['ignore', 'ignore_ament_install']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extension 'ignore'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extension 'ignore_ament_install'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extensions ['colcon_pkg']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extension 'colcon_pkg'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extensions ['colcon_meta']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extension 'colcon_meta'
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extensions ['ros']
+[0.324s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock) by extension 'ros'
+[0.324s] DEBUG:colcon.colcon_core.package_identification:Package 'capella_ros_dock' with type 'ros.ament_cmake' and name 'capella_ros_dock'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extension 'ignore'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extension 'ignore_ament_install'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extensions ['colcon_pkg']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extension 'colcon_pkg'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extensions ['colcon_meta']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extension 'colcon_meta'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extensions ['ros']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(capella_ros_dock_msgs) by extension 'ros'
+[0.325s] DEBUG:colcon.colcon_core.package_identification:Package 'capella_ros_dock_msgs' with type 'ros.ament_cmake' and name 'capella_ros_dock_msgs'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.325s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.326s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.326s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.326s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.326s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.326s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.326s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.341s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.341s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.344s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 386 installed packages in /opt/ros/humble
+[0.345s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'cmake_args' from command line to '['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic']'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'cmake_target' from command line to 'None'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'cmake_clean_cache' from command line to 'False'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'cmake_clean_first' from command line to 'False'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'cmake_force_configure' from command line to 'False'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'ament_cmake_args' from command line to 'None'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'catkin_cmake_args' from command line to 'None'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock_msgs' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.385s] DEBUG:colcon.colcon_core.verb:Building package 'capella_ros_dock_msgs' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ros2/git/mygit/capella_ros_dock/install', 'merge_install': True, 'path': '/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs', 'symlink_install': True, 'test_result_base': None}
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'cmake_args' from command line to '['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic']'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'cmake_target' from command line to 'None'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'cmake_clean_cache' from command line to 'False'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'cmake_clean_first' from command line to 'False'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'cmake_force_configure' from command line to 'False'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'ament_cmake_args' from command line to 'None'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'catkin_cmake_args' from command line to 'None'
+[0.385s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_msg' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.385s] DEBUG:colcon.colcon_core.verb:Building package 'capella_ros_msg' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ros2/git/mygit/capella_ros_dock/install', 'merge_install': True, 'path': '/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg', 'symlink_install': True, 'test_result_base': None}
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'cmake_args' from command line to '['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic']'
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.386s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_service_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.386s] DEBUG:colcon.colcon_core.verb:Building package 'capella_ros_service_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ros2/git/mygit/capella_ros_dock/install', 'merge_install': True, 'path': '/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_service_interfaces', 'symlink_install': True, 'test_result_base': None}
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'cmake_args' from command line to '['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic']'
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'cmake_target' from command line to 'None'
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'cmake_clean_cache' from command line to 'False'
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'cmake_clean_first' from command line to 'False'
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'cmake_force_configure' from command line to 'False'
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'ament_cmake_args' from command line to 'None'
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'catkin_cmake_args' from command line to 'None'
+[0.387s] Level 5:colcon.colcon_core.verb:set package 'capella_ros_dock' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.387s] DEBUG:colcon.colcon_core.verb:Building package 'capella_ros_dock' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ros2/git/mygit/capella_ros_dock/install', 'merge_install': True, 'path': '/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock', 'symlink_install': True, 'test_result_base': None}
+[0.387s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.389s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.389s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs' with build type 'ament_cmake'
+[0.389s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs'
+[0.393s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.393s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.393s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.396s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg' with build type 'ament_cmake'
+[0.396s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg'
+[0.397s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.397s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.399s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_service_interfaces' with build type 'ament_cmake'
+[0.400s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_service_interfaces'
+[0.400s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.400s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.406s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs -- -j12 -l12
+[0.411s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg -- -j12 -l12
+[0.416s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces -- -j12 -l12
+[0.672s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs -- -j12 -l12
+[0.702s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces -- -j12 -l12
+[0.704s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg -- -j12 -l12
+[0.723s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --install /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs
+[0.771s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(capella_ros_dock_msgs)
+[0.772s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --install /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs
+[0.775s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake module files
+[0.776s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake config files
+[0.778s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_dock_msgs', 'cmake_prefix_path')
+[0.779s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/cmake_prefix_path.ps1'
+[0.779s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/cmake_prefix_path.dsv'
+[0.779s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/cmake_prefix_path.sh'
+[0.780s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib'
+[0.780s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_dock_msgs', 'ld_library_path_lib')
+[0.781s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/ld_library_path_lib.ps1'
+[0.782s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/ld_library_path_lib.dsv'
+[0.782s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/ld_library_path_lib.sh'
+[0.782s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[0.782s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/pkgconfig/capella_ros_dock_msgs.pc'
+[0.782s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/python3.10/site-packages'
+[0.782s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[0.784s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.ps1'
+[0.784s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.dsv'
+[0.785s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.sh'
+[0.785s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.bash'
+[0.786s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.zsh'
+[0.786s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros2/git/mygit/capella_ros_dock/install/share/colcon-core/packages/capella_ros_dock_msgs)
+[0.820s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --install /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg
+[0.832s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(capella_ros_dock_msgs)
+[0.833s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake module files
+[0.847s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake config files
+[0.853s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_dock_msgs', 'cmake_prefix_path')
+[0.854s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/cmake_prefix_path.ps1'
+[0.855s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/cmake_prefix_path.dsv'
+[0.857s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/cmake_prefix_path.sh'
+[0.857s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib'
+[0.857s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_dock_msgs', 'ld_library_path_lib')
+[0.858s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/ld_library_path_lib.ps1'
+[0.858s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/ld_library_path_lib.dsv'
+[0.858s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/hook/ld_library_path_lib.sh'
+[0.859s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[0.859s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/pkgconfig/capella_ros_dock_msgs.pc'
+[0.859s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/python3.10/site-packages'
+[0.859s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[0.860s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.ps1'
+[0.861s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.dsv'
+[0.861s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.sh'
+[0.861s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.bash'
+[0.861s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.zsh'
+[0.862s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros2/git/mygit/capella_ros_dock/install/share/colcon-core/packages/capella_ros_dock_msgs)
+[0.864s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --install /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces
+[0.887s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(capella_ros_msg)
+[0.889s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake module files
+[0.895s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake config files
+[0.897s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --install /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg
+[0.918s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_msg', 'cmake_prefix_path')
+[0.919s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/cmake_prefix_path.ps1'
+[0.919s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/cmake_prefix_path.dsv'
+[0.919s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/cmake_prefix_path.sh'
+[0.920s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib'
+[0.920s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_msg', 'ld_library_path_lib')
+[0.920s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/ld_library_path_lib.ps1'
+[0.921s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/ld_library_path_lib.dsv'
+[0.921s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/ld_library_path_lib.sh'
+[0.921s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[0.921s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/pkgconfig/capella_ros_msg.pc'
+[0.921s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/python3.10/site-packages'
+[0.921s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[0.922s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.ps1'
+[0.922s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.dsv'
+[0.923s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.sh'
+[0.923s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.bash'
+[0.923s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.zsh'
+[0.923s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros2/git/mygit/capella_ros_dock/install/share/colcon-core/packages/capella_ros_msg)
+[0.946s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(capella_ros_service_interfaces)
+[0.947s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake module files
+[0.948s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --install /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces
+[0.948s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake config files
+[0.951s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_service_interfaces', 'cmake_prefix_path')
+[0.952s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/cmake_prefix_path.ps1'
+[0.952s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/cmake_prefix_path.dsv'
+[0.953s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/cmake_prefix_path.sh'
+[0.953s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib'
+[0.953s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_service_interfaces', 'ld_library_path_lib')
+[0.954s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/ld_library_path_lib.ps1'
+[0.954s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/ld_library_path_lib.dsv'
+[0.954s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/ld_library_path_lib.sh'
+[0.954s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[0.954s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/pkgconfig/capella_ros_service_interfaces.pc'
+[0.955s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/python3.10/site-packages'
+[0.955s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[0.956s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.ps1'
+[0.956s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.dsv'
+[0.956s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.sh'
+[0.957s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.bash'
+[0.957s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.zsh'
+[0.957s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros2/git/mygit/capella_ros_dock/install/share/colcon-core/packages/capella_ros_service_interfaces)
+[1.045s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(capella_ros_msg)
+[1.047s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake module files
+[1.047s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake config files
+[1.049s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_msg', 'cmake_prefix_path')
+[1.050s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/cmake_prefix_path.ps1'
+[1.051s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/cmake_prefix_path.dsv'
+[1.051s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/cmake_prefix_path.sh'
+[1.051s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib'
+[1.052s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_msg', 'ld_library_path_lib')
+[1.053s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/ld_library_path_lib.ps1'
+[1.053s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/ld_library_path_lib.dsv'
+[1.053s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/hook/ld_library_path_lib.sh'
+[1.054s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[1.054s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/pkgconfig/capella_ros_msg.pc'
+[1.054s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/python3.10/site-packages'
+[1.054s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[1.056s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.ps1'
+[1.056s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.dsv'
+[1.056s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.sh'
+[1.057s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.bash'
+[1.057s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_msg/package.zsh'
+[1.057s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros2/git/mygit/capella_ros_dock/install/share/colcon-core/packages/capella_ros_msg)
+[1.117s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(capella_ros_service_interfaces)
+[1.119s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake module files
+[1.120s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake config files
+[1.123s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_service_interfaces', 'cmake_prefix_path')
+[1.124s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/cmake_prefix_path.ps1'
+[1.125s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/cmake_prefix_path.dsv'
+[1.125s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/cmake_prefix_path.sh'
+[1.126s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib'
+[1.126s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_service_interfaces', 'ld_library_path_lib')
+[1.128s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/ld_library_path_lib.ps1'
+[1.129s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/ld_library_path_lib.dsv'
+[1.129s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/hook/ld_library_path_lib.sh'
+[1.129s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[1.129s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/pkgconfig/capella_ros_service_interfaces.pc'
+[1.130s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/python3.10/site-packages'
+[1.130s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[1.132s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.ps1'
+[1.133s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.dsv'
+[1.134s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.sh'
+[1.134s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.bash'
+[1.135s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_service_interfaces/package.zsh'
+[1.135s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros2/git/mygit/capella_ros_dock/install/share/colcon-core/packages/capella_ros_service_interfaces)
+[1.135s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock' with build type 'ament_cmake'
+[1.136s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock'
+[1.137s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.137s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.358s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock': AMENT_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:/opt/ros/humble LD_LIBRARY_PATH=/home/ros2/git/mygit/capella_ros_dock/install/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages:${PYTHONPATH} WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake /home/ros2/git/mygit/capella_ros_dock/capella_ros_dock -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=On -Wall -Wextra -Wpedantic -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ros2/git/mygit/capella_ros_dock/install
+[5.334s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock' returned '0': AMENT_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:/opt/ros/humble LD_LIBRARY_PATH=/home/ros2/git/mygit/capella_ros_dock/install/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages:${PYTHONPATH} WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake /home/ros2/git/mygit/capella_ros_dock/capella_ros_dock -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=On -Wall -Wextra -Wpedantic -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/ros2/git/mygit/capella_ros_dock/install
+[5.336s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock': AMENT_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:/opt/ros/humble LD_LIBRARY_PATH=/home/ros2/git/mygit/capella_ros_dock/install/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages:${PYTHONPATH} WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock -- -j12 -l12
+[9.967s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock' returned '2': AMENT_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ros2/git/mygit/capella_ros_dock/install:/opt/ros/humble LD_LIBRARY_PATH=/home/ros2/git/mygit/capella_ros_dock/install/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages:${PYTHONPATH} WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock -- -j12 -l12
+[9.986s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(capella_ros_dock)
+[9.987s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake module files
+[9.987s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install' for CMake config files
+[9.990s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_dock', 'cmake_prefix_path')
+[9.990s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/hook/cmake_prefix_path.ps1'
+[9.991s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/hook/cmake_prefix_path.dsv'
+[9.991s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/hook/cmake_prefix_path.sh'
+[9.991s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib'
+[9.991s] Level 1:colcon.colcon_core.shell:create_environment_hook('capella_ros_dock', 'ld_library_path_lib')
+[9.992s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/hook/ld_library_path_lib.ps1'
+[9.993s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/hook/ld_library_path_lib.dsv'
+[9.993s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/hook/ld_library_path_lib.sh'
+[9.993s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[9.993s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/pkgconfig/capella_ros_dock.pc'
+[9.993s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/lib/python3.10/site-packages'
+[9.994s] Level 1:colcon.colcon_core.environment:checking '/home/ros2/git/mygit/capella_ros_dock/install/bin'
+[9.994s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/package.ps1'
+[9.995s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/package.dsv'
+[9.995s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/package.sh'
+[9.995s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/package.bash'
+[9.996s] INFO:colcon.colcon_core.shell:Creating package script '/home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock/package.zsh'
+[9.997s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ros2/git/mygit/capella_ros_dock/install/share/colcon-core/packages/capella_ros_dock)
+[10.007s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[10.007s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[10.007s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '2'
+[10.007s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[10.038s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[10.038s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[10.038s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[10.038s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[10.045s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.Notifications was not provided by any .service files
+[10.045s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[10.047s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ros2/git/mygit/capella_ros_dock/install/local_setup.ps1'
+[10.047s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ros2/git/mygit/capella_ros_dock/install/_local_setup_util_ps1.py'
+[10.048s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ros2/git/mygit/capella_ros_dock/install/setup.ps1'
+[10.049s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ros2/git/mygit/capella_ros_dock/install/local_setup.sh'
+[10.050s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ros2/git/mygit/capella_ros_dock/install/_local_setup_util_sh.py'
+[10.050s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ros2/git/mygit/capella_ros_dock/install/setup.sh'
+[10.051s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ros2/git/mygit/capella_ros_dock/install/local_setup.bash'
+[10.051s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ros2/git/mygit/capella_ros_dock/install/setup.bash'
+[10.052s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ros2/git/mygit/capella_ros_dock/install/local_setup.zsh'
+[10.052s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ros2/git/mygit/capella_ros_dock/install/setup.zsh'

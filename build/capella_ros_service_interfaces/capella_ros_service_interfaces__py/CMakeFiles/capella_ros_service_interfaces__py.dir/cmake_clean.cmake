@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  "../rosidl_generator_py/capella_ros_service_interfaces/_capella_ros_service_interfaces_s.ep.rosidl_typesupport_c.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/_capella_ros_service_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/_capella_ros_service_interfaces_s.ep.rosidl_typesupport_introspection_c.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/__init__.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_charge_marker_visible.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_charge_marker_visible_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_charge_state.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_charge_state_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_compressed_occupancy_grid.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_compressed_occupancy_grid_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_irdetection_status.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_irdetection_status_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_irimage_data.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_irimage_data_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_irsdk_data.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_irsdk_data_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_irtemperature_data.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_irtemperature_data_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_mission_status.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_mission_status_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_person_distance.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/msg/_person_distance_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/__init__.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_cartographer_mode.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_cartographer_mode_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_infrared_face_detection.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_infrared_face_detection_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_nav_launch_mode.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_nav_launch_mode_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_stop_nav_and_carto.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_stop_nav_and_carto_s.c"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_switch_mode.py"
+  "../rosidl_generator_py/capella_ros_service_interfaces/srv/_switch_mode_s.c"
+  "CMakeFiles/capella_ros_service_interfaces__py"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang )
+  include(CMakeFiles/capella_ros_service_interfaces__py.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

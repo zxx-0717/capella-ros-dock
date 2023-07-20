@@ -1,0 +1,11 @@
+source;share/capella_ros_dock/hook/cmake_prefix_path.ps1
+source;share/capella_ros_dock/hook/cmake_prefix_path.dsv
+source;share/capella_ros_dock/hook/cmake_prefix_path.sh
+source;share/capella_ros_dock/hook/ld_library_path_lib.ps1
+source;share/capella_ros_dock/hook/ld_library_path_lib.dsv
+source;share/capella_ros_dock/hook/ld_library_path_lib.sh
+source;share/capella_ros_dock/local_setup.bash
+source;share/capella_ros_dock/local_setup.dsv
+source;share/capella_ros_dock/local_setup.ps1
+source;share/capella_ros_dock/local_setup.sh
+source;share/capella_ros_dock/local_setup.zsh

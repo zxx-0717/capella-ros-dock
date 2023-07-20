@@ -1,0 +1,130 @@
+[  2%] Built target capella_ros_dock_msgs__cpp
+[ 12%] Built target capella_ros_dock_msgs__rosidl_generator_c
+[ 12%] Built target ament_cmake_python_symlink_capella_ros_dock_msgs
+[ 25%] Built target capella_ros_dock_msgs__rosidl_typesupport_cpp
+[ 33%] Built target capella_ros_dock_msgs__rosidl_typesupport_introspection_cpp
+[ 43%] Built target capella_ros_dock_msgs__rosidl_typesupport_fastrtps_cpp
+[ 53%] Built target capella_ros_dock_msgs__rosidl_typesupport_introspection_c
+[ 64%] Built target capella_ros_dock_msgs__rosidl_typesupport_c
+[ 74%] Built target capella_ros_dock_msgs__rosidl_typesupport_fastrtps_c
+[ 74%] Built target capella_ros_dock_msgs
+[ 76%] Built target capella_ros_dock_msgs__py
+[ 84%] Built target capella_ros_dock_msgs__rosidl_generator_py
+[ 97%] Built target capella_ros_dock_msgs__rosidl_typesupport_c__pyext
+[ 97%] Built target capella_ros_dock_msgs__rosidl_typesupport_introspection_c__pyext
+[100%] Built target capella_ros_dock_msgs__rosidl_typesupport_fastrtps_c__pyext
+running egg_info
+writing capella_ros_dock_msgs.egg-info/PKG-INFO
+writing dependency_links to capella_ros_dock_msgs.egg-info/dependency_links.txt
+writing top-level names to capella_ros_dock_msgs.egg-info/top_level.txt
+reading manifest file 'capella_ros_dock_msgs.egg-info/SOURCES.txt'
+writing manifest file 'capella_ros_dock_msgs.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_capella_ros_dock_msgs_egg
+-- Install configuration: "RelWithDebInfo"
+-- Execute custom install script
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/ament_index/resource_index/rosidl_interfaces/capella_ros_dock_msgs
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__functions.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__struct.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__type_support.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__functions.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__struct.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__type_support.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/hazard_detection.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/hazard_detection_vector.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/rosidl_generator_c__visibility_control.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/environment/library_path.sh
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/environment/library_path.dsv
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__rosidl_typesupport_introspection_c.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__rosidl_typesupport_introspection_c.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__builder.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__struct.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__traits.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__builder.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__struct.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__traits.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/hazard_detection.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/hazard_detection_vector.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/include/capella_ros_dock_msgs/capella_ros_dock_msgs/msg/detail/hazard_detection_vector__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/environment/pythonpath.sh
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/environment/pythonpath.dsv
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs-0.0.0-py3.10.egg-info/PKG-INFO
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs-0.0.0-py3.10.egg-info/top_level.txt
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/__init__.py
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/_capella_ros_dock_msgs_s.ep.rosidl_typesupport_c.c
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/_capella_ros_dock_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/_capella_ros_dock_msgs_s.ep.rosidl_typesupport_introspection_c.c
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/capella_ros_dock_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/capella_ros_dock_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/capella_ros_dock_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/libcapella_ros_dock_msgs__rosidl_generator_py.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/msg/__init__.py
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/msg/_hazard_detection.py
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/msg/_hazard_detection_s.c
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/msg/_hazard_detection_vector.py
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/msg/_hazard_detection_vector_s.c
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/capella_ros_dock_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/capella_ros_dock_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/capella_ros_dock_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/msg/HazardDetection.idl
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/msg/HazardDetectionVector.idl
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/msg/HazardDetection.msg
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/msg/HazardDetectionVector.msg
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/ament_index/resource_index/package_run_dependencies/capella_ros_dock_msgs
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/ament_index/resource_index/parent_prefix_path/capella_ros_dock_msgs
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/environment/path.sh
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/environment/path.dsv
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/local_setup.bash
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/local_setup.sh
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/local_setup.zsh
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/local_setup.dsv
+-- Symlinking: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.dsv
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/ament_index/resource_index/packages/capella_ros_dock_msgs
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/rosidl_cmake-extras.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/ament_cmake_export_targets-extras.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgsConfig.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgsConfig-version.cmake
+-- Up-to-date symlink: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/package.xml
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_dock_msgs__rosidl_generator_c.so
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_dock_msgs__rosidl_typesupport_fastrtps_c.so
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_dock_msgs__rosidl_typesupport_introspection_c.so
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_dock_msgs__rosidl_typesupport_c.so
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_dock_msgs__rosidl_typesupport_fastrtps_cpp.so
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_dock_msgs__rosidl_typesupport_introspection_cpp.so
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_dock_msgs__rosidl_typesupport_cpp.so
+Listing '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs'...
+Listing '/home/ros2/git/mygit/capella_ros_dock/install/local/lib/python3.10/dist-packages/capella_ros_dock_msgs/msg'...
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/lib/libcapella_ros_dock_msgs__rosidl_generator_py.so
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_generator_cExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_generator_cExport-relwithdebinfo.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_typesupport_fastrtps_cExport-relwithdebinfo.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgs__rosidl_typesupport_introspection_cExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgs__rosidl_typesupport_introspection_cExport-relwithdebinfo.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgs__rosidl_typesupport_cExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgs__rosidl_typesupport_cExport-relwithdebinfo.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_generator_cppExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_typesupport_fastrtps_cppExport-relwithdebinfo.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgs__rosidl_typesupport_introspection_cppExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgs__rosidl_typesupport_introspection_cppExport-relwithdebinfo.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgs__rosidl_typesupport_cppExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/capella_ros_dock_msgs__rosidl_typesupport_cppExport-relwithdebinfo.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_generator_pyExport.cmake
+-- Up-to-date: /home/ros2/git/mygit/capella_ros_dock/install/share/capella_ros_dock_msgs/cmake/export_capella_ros_dock_msgs__rosidl_generator_pyExport-relwithdebinfo.cmake

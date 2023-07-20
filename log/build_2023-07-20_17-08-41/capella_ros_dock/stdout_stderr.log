@@ -1,0 +1,29 @@
+[35m[1mConsolidate compiler generated dependencies of target hazard_publisher_lib[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/reflex_behavior.cpp.o[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/motion_control_node.cpp.o[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/docking_behavior.cpp.o[0m
+[ 50%] Built target hazard_vector_publisher
+[ 70%] Built target motion_control
+[01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/motion_control_node.cpp:4:10:[m[K [01;31m[Kfatal error: [m[Kirobot_create_nodes/motion_control_node.hpp: No such file or directory
+    4 | #include [01;31m[K"irobot_create_nodes/motion_control_node.hpp"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/motion_control_lib.dir/build.make:76: CMakeFiles/motion_control_lib.dir/src/motion_control_node.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+[ 80%] [32mBuilding CXX object CMakeFiles/hazard_publisher_lib.dir/src/hazards_vector_publisher.cpp.o[0m
+In file included from [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/docking_behavior.cpp:3[m[K:
+[01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/include/capella_ros_dock/docking_behavior.hpp:12:10:[m[K [01;31m[Kfatal error: [m[Kcapella_ros_service_interfaces/action/dock.hpp: No such file or directory
+   12 | #include [01;31m[K"capella_ros_service_interfaces/action/dock.hpp"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/motion_control_lib.dir/build.make:90: CMakeFiles/motion_control_lib.dir/src/docking_behavior.cpp.o] Error 1
+[01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/reflex_behavior.cpp:12:10:[m[K [01;31m[Kfatal error: [m[Kirobot_create_nodes/motion_control/reflex_behavior.hpp: No such file or directory
+   12 | #include [01;31m[K"irobot_create_nodes/motion_control/reflex_behavior.hpp"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/motion_control_lib.dir/build.make:104: CMakeFiles/motion_control_lib.dir/src/reflex_behavior.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:195: CMakeFiles/motion_control_lib.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 90%] [32m[1mLinking CXX shared library libhazard_publisher_lib.so[0m
+[ 90%] Built target hazard_publisher_lib
+gmake: *** [Makefile:146: all] Error 2

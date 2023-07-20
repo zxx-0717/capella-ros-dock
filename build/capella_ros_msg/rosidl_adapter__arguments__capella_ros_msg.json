@@ -1,0 +1,15 @@
+{
+  "package_name": "capella_ros_msg",
+  "non_idl_tuples": [
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/Battery.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/Imu.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/PID.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/Velocities.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/AtomizeSwitchCtrStu.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/IrData.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/ContactDriveStu.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/SingleDetector.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:msg/DetectResult.msg",
+    "/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg:srv/ChargePileWifi.srv"
+  ]
+}

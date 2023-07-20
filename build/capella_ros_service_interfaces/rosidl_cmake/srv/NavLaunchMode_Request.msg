@@ -1,0 +1,11 @@
+# uint8[] data
+uint8[] image
+float64 resolution
+float64 x
+float64 y
+float64 z
+int32 negate
+float64 occupied_thresh
+float64 free_thresh
+#  nav_mode: start_nav = 1
+int8 NAV_MODE = 1

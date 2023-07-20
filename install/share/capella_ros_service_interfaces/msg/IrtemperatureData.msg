@@ -1,0 +1,1 @@
+/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_service_interfaces/msg/IrtemperatureData.msg

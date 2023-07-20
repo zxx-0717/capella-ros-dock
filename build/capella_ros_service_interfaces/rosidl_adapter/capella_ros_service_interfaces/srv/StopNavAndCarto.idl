@@ -1,0 +1,22 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from capella_ros_service_interfaces/srv/StopNavAndCarto.srv
+// generated code does not contain a copyright notice
+
+
+module capella_ros_service_interfaces {
+  module srv {
+    module StopNavAndCarto_Request_Constants {
+      const uint8 STOP_CMD = 0;
+    };
+    @verbatim (language="comment", text=
+      "stop nav and carto : STOP_CMD = 0")
+    struct StopNavAndCarto_Request {
+      uint8 structure_needs_at_least_one_member;
+    };
+    @verbatim (language="comment", text=
+      "if nav and carto are both off : status = 0")
+    struct StopNavAndCarto_Response {
+      uint8 status;
+    };
+  };
+};

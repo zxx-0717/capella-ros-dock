@@ -1,0 +1,162 @@
+[0.000000] (-) TimerEvent: {}
+[0.000406] (capella_ros_dock_msgs) JobQueued: {'identifier': 'capella_ros_dock_msgs', 'dependencies': OrderedDict()}
+[0.000783] (capella_ros_msg) JobQueued: {'identifier': 'capella_ros_msg', 'dependencies': OrderedDict()}
+[0.000902] (capella_ros_service_interfaces) JobQueued: {'identifier': 'capella_ros_service_interfaces', 'dependencies': OrderedDict()}
+[0.000936] (capella_ros_dock) JobQueued: {'identifier': 'capella_ros_dock', 'dependencies': OrderedDict([('capella_ros_dock_msgs', '/home/ros2/git/mygit/capella_ros_dock/install'), ('capella_ros_service_interfaces', '/home/ros2/git/mygit/capella_ros_dock/install')])}
+[0.000965] (capella_ros_dock_msgs) JobStarted: {'identifier': 'capella_ros_dock_msgs'}
+[0.007967] (capella_ros_service_interfaces) JobStarted: {'identifier': 'capella_ros_service_interfaces'}
+[0.012361] (capella_ros_msg) JobStarted: {'identifier': 'capella_ros_msg'}
+[0.017183] (capella_ros_dock_msgs) JobProgress: {'identifier': 'capella_ros_dock_msgs', 'progress': 'cmake'}
+[0.017412] (capella_ros_dock_msgs) Command: {'cmd': ['/usr/bin/cmake', '/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock_msgs', '-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/ros2/git/mygit/capella_ros_dock/install'], 'cwd': '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'ros2'), ('GIT_ASKPASS', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('WT_PROFILE_ID', '{51855cb2-8cce-5362-8f54-464b92b32386}'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/ros2'), ('TERM_PROGRAM_VERSION', '1.79.2'), ('VSCODE_IPC_HOOK_CLI', '/mnt/wslg/runtime-dir/vscode-ipc-eb6a2756-3cd2-400a-9cd3-c9e29c3d432f.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/node'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ros2'), ('NAME', 'Code'), ('_', '/usr/bin/colcon'), ('WSL_INTEROP', '/run/WSL/386_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/bin/remote-cli:/home/ros2/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/CMake/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/d/libs/mingw64/bin:/mnt/d/libs/OpenCV/build_mingw/install/x64/mingw/bin:/Docker/host/bin:/mnt/d/Program Files/MATLAB/R2021b/runtime/win64:/mnt/d/Program Files/MATLAB/R2021b/bin:/mnt/c/Users/zxx/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/zxx/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin'), ('WT_SESSION', '65caf522-1be5-4c97-b998-10a86ba63de6'), ('XDG_RUNTIME_DIR', '/mnt/wslg/runtime-dir'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/mnt/wslg/runtime-dir/vscode-git-0f3612a42f.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', 'ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.019515] (capella_ros_service_interfaces) JobProgress: {'identifier': 'capella_ros_service_interfaces', 'progress': 'cmake'}
+[0.020066] (capella_ros_service_interfaces) Command: {'cmd': ['/usr/bin/cmake', '/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_service_interfaces', '-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/ros2/git/mygit/capella_ros_dock/install'], 'cwd': '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'ros2'), ('GIT_ASKPASS', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('WT_PROFILE_ID', '{51855cb2-8cce-5362-8f54-464b92b32386}'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/ros2'), ('TERM_PROGRAM_VERSION', '1.79.2'), ('VSCODE_IPC_HOOK_CLI', '/mnt/wslg/runtime-dir/vscode-ipc-eb6a2756-3cd2-400a-9cd3-c9e29c3d432f.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/node'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ros2'), ('NAME', 'Code'), ('_', '/usr/bin/colcon'), ('WSL_INTEROP', '/run/WSL/386_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/bin/remote-cli:/home/ros2/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/CMake/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/d/libs/mingw64/bin:/mnt/d/libs/OpenCV/build_mingw/install/x64/mingw/bin:/Docker/host/bin:/mnt/d/Program Files/MATLAB/R2021b/runtime/win64:/mnt/d/Program Files/MATLAB/R2021b/bin:/mnt/c/Users/zxx/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/zxx/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin'), ('WT_SESSION', '65caf522-1be5-4c97-b998-10a86ba63de6'), ('XDG_RUNTIME_DIR', '/mnt/wslg/runtime-dir'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/mnt/wslg/runtime-dir/vscode-git-0f3612a42f.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', 'ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.024570] (capella_ros_msg) JobProgress: {'identifier': 'capella_ros_msg', 'progress': 'cmake'}
+[0.025187] (capella_ros_msg) Command: {'cmd': ['/usr/bin/cmake', '/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg', '-DCMAKE_BUILD_TYPE=RelWithDebInfo', '-DCMAKE_EXPORT_COMPILE_COMMANDS=On', '-Wall', '-Wextra', '-Wpedantic', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/ros2/git/mygit/capella_ros_dock/install'], 'cwd': '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'ros2'), ('GIT_ASKPASS', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('WT_PROFILE_ID', '{51855cb2-8cce-5362-8f54-464b92b32386}'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/ros2'), ('TERM_PROGRAM_VERSION', '1.79.2'), ('VSCODE_IPC_HOOK_CLI', '/mnt/wslg/runtime-dir/vscode-ipc-eb6a2756-3cd2-400a-9cd3-c9e29c3d432f.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/node'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'ros2'), ('NAME', 'Code'), ('_', '/usr/bin/colcon'), ('WSL_INTEROP', '/run/WSL/386_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/ros2/.vscode-server/bin/695af097c7bd098fbf017ce3ac85e09bbc5dda06/bin/remote-cli:/home/ros2/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/CMake/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/d/libs/mingw64/bin:/mnt/d/libs/OpenCV/build_mingw/install/x64/mingw/bin:/Docker/host/bin:/mnt/d/Program Files/MATLAB/R2021b/runtime/win64:/mnt/d/Program Files/MATLAB/R2021b/bin:/mnt/c/Users/zxx/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/zxx/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin'), ('WT_SESSION', '65caf522-1be5-4c97-b998-10a86ba63de6'), ('XDG_RUNTIME_DIR', '/mnt/wslg/runtime-dir'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/mnt/wslg/runtime-dir/vscode-git-0f3612a42f.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', 'ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.099693] (-) TimerEvent: {}
+[0.148278] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.3.0\n'}
+[0.148716] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.3.0\n'}
+[0.149305] (capella_ros_msg) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.3.0\n'}
+[0.199859] (-) TimerEvent: {}
+[0.300398] (-) TimerEvent: {}
+[0.400796] (-) TimerEvent: {}
+[0.501195] (-) TimerEvent: {}
+[0.573347] (capella_ros_msg) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.3.0\n'}
+[0.598220] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.3.0\n'}
+[0.601382] (-) TimerEvent: {}
+[0.665552] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.3.0\n'}
+[0.701535] (-) TimerEvent: {}
+[0.801990] (-) TimerEvent: {}
+[0.902586] (-) TimerEvent: {}
+[0.938172] (capella_ros_msg) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.002723] (-) TimerEvent: {}
+[1.004663] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.056754] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.081709] (capella_ros_msg) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.086680] (capella_ros_msg) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.087121] (capella_ros_msg) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.087964] (capella_ros_msg) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.091441] (capella_ros_msg) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.102836] (-) TimerEvent: {}
+[1.125680] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.133380] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.133712] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.133944] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.136472] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.170283] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.175688] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.176002] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.176223] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.178425] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.202974] (-) TimerEvent: {}
+[1.225303] (capella_ros_msg) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.234259] (capella_ros_msg) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.234567] (capella_ros_msg) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.235130] (capella_ros_msg) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.241392] (capella_ros_msg) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.3 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.281569] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.286845] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.287141] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.287396] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.289261] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.3 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.303064] (-) TimerEvent: {}
+[1.310595] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.316714] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.317061] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.317565] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.319104] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.3 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.370147] (capella_ros_msg) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3.10 (found version "3.10.6") found components: Interpreter \n'}
+[1.403165] (-) TimerEvent: {}
+[1.410810] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3.10 (found version "3.10.6") found components: Interpreter \n'}
+[1.420571] (capella_ros_msg) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[1.439832] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3.10 (found version "3.10.6") found components: Interpreter \n'}
+[1.457540] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[1.458028] (capella_ros_msg) StdoutLine: {'line': b'-- Found geometry_msgs: 4.2.3 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[1.478629] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.483542] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.488834] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[1.492129] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.503266] (-) TimerEvent: {}
+[1.505883] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.508387] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.512221] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.603407] (-) TimerEvent: {}
+[1.605397] (capella_ros_msg) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.4 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.609488] (capella_ros_msg) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.4 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.618248] (capella_ros_msg) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.4 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.633662] (capella_ros_msg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.656031] (capella_ros_msg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.656216] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.666098] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.687218] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found sensor_msgs: 4.2.3 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[1.693781] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Found sensor_msgs: 4.2.3 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[1.703518] (-) TimerEvent: {}
+[1.758814] (capella_ros_msg) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.764538] (capella_ros_msg) StdoutLine: {'line': b'-- Found sensor_msgs: 4.2.3 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[1.803658] (-) TimerEvent: {}
+[1.900465] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found nav_msgs: 4.2.3 (/opt/ros/humble/share/nav_msgs/cmake)\n'}
+[1.901199] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Found nav_msgs: 4.2.3 (/opt/ros/humble/share/nav_msgs/cmake)\n'}
+[1.903710] (-) TimerEvent: {}
+[2.003935] (-) TimerEvent: {}
+[2.082566] (capella_ros_msg) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[2.102651] (capella_ros_dock_msgs) StderrLine: {'line': b'\x1b[31mCMake Error at /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:229 (message):\n'}
+[2.102933] (capella_ros_dock_msgs) StderrLine: {'line': b'  Packages installing interfaces must include\n'}
+[2.103015] (capella_ros_dock_msgs) StderrLine: {'line': b"  '<member_of_group>rosidl_interface_packages</member_of_group>' in their\n"}
+[2.103063] (capella_ros_dock_msgs) StderrLine: {'line': b'  package.xml\n'}
+[2.103106] (capella_ros_dock_msgs) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[2.103148] (capella_ros_dock_msgs) StderrLine: {'line': b'  CMakeLists.txt:31 (rosidl_generate_interfaces)\n'}
+[2.103193] (capella_ros_dock_msgs) StderrLine: {'line': b'\n'}
+[2.103235] (capella_ros_dock_msgs) StderrLine: {'line': b'\x1b[0m\n'}
+[2.103274] (capella_ros_dock_msgs) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[2.103323] (capella_ros_dock_msgs) StdoutLine: {'line': b'See also "/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs/CMakeFiles/CMakeOutput.log".\n'}
+[2.104011] (-) TimerEvent: {}
+[2.109849] (capella_ros_dock_msgs) CommandEnded: {'returncode': 1}
+[2.128934] (capella_ros_dock_msgs) JobEnded: {'identifier': 'capella_ros_dock_msgs', 'rc': 1}
+[2.204114] (-) TimerEvent: {}
+[2.237066] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[2.304218] (-) TimerEvent: {}
+[2.404496] (-) TimerEvent: {}
+[2.411389] (capella_ros_msg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[2.429988] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[2.504647] (-) TimerEvent: {}
+[2.534375] (capella_ros_msg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.604776] (-) TimerEvent: {}
+[2.612086] (capella_ros_msg) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.6", minimum required is "3.6") \n'}
+[2.613780] (capella_ros_msg) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[2.704992] (-) TimerEvent: {}
+[2.715808] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.805172] (-) TimerEvent: {}
+[2.867336] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.6", minimum required is "3.6") \n'}
+[2.868657] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[2.905538] (-) TimerEvent: {}
+[2.988812] (capella_ros_msg) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.6", minimum required is "3.5") \n'}
+[2.989303] (capella_ros_msg) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[2.989490] (capella_ros_msg) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[2.989600] (capella_ros_msg) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[3.004042] (capella_ros_msg) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[3.005592] (-) TimerEvent: {}
+[3.099602] (capella_ros_msg) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.5 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[3.105803] (-) TimerEvent: {}
+[3.130308] (capella_ros_msg) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[3.132411] (capella_ros_msg) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[3.133836] (capella_ros_msg) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[3.136749] (capella_ros_msg) StdoutLine: {'line': b'-- Configuring done\n'}
+[3.176990] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.6", minimum required is "3.5") \n'}
+[3.177201] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[3.177247] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[3.177281] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[3.186557] (capella_ros_msg) StdoutLine: {'line': b'-- Generating done\n'}
+[3.189494] (capella_ros_msg) StdoutLine: {'line': b'-- Build files have been written to: /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg\n'}
+[3.194026] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[3.197820] (capella_ros_msg) JobEnded: {'identifier': 'capella_ros_msg', 'rc': 'SIGINT'}
+[3.205937] (-) TimerEvent: {}
+[3.267940] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.5 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[3.281364] (capella_ros_service_interfaces) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[3.282389] (capella_ros_service_interfaces) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[3.283008] (capella_ros_service_interfaces) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[3.285234] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Configuring done\n'}
+[3.306077] (-) TimerEvent: {}
+[3.338391] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Generating done\n'}
+[3.341868] (capella_ros_service_interfaces) StdoutLine: {'line': b'-- Build files have been written to: /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces\n'}
+[3.353084] (capella_ros_service_interfaces) JobEnded: {'identifier': 'capella_ros_service_interfaces', 'rc': 'SIGINT'}
+[3.363852] (capella_ros_dock) JobSkipped: {'identifier': 'capella_ros_dock'}
+[3.363979] (-) EventReactorShutdown: {}

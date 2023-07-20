@@ -1,0 +1,4 @@
+source;share/capella_ros_dock_msgs/environment/ament_prefix_path.sh
+source;share/capella_ros_dock_msgs/environment/library_path.sh
+source;share/capella_ros_dock_msgs/environment/path.sh
+source;share/capella_ros_dock_msgs/environment/pythonpath.sh

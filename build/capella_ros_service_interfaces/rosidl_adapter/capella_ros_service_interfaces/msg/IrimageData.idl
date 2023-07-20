@@ -1,0 +1,19 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from capella_ros_service_interfaces/msg/IrimageData.msg
+// generated code does not contain a copyright notice
+
+#include "capella_ros_service_interfaces/msg/IrtemperatureData.idl"
+
+module capella_ros_service_interfaces {
+  module msg {
+    struct IrimageData {
+      @verbatim (language="comment", text=
+        "irfrared face detection image data")
+      sequence<uint8> irimage;
+
+      @verbatim (language="comment", text=
+        "irfrared face detection temperature data")
+      sequence<capella_ros_service_interfaces::msg::IrtemperatureData> irtemp_and_coord;
+    };
+  };
+};

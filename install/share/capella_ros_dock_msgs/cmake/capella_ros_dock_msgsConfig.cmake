@@ -1,0 +1,1 @@
+/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs/ament_cmake_core/capella_ros_dock_msgsConfig.cmake

@@ -1,0 +1,26 @@
+[33mCMake Warning (dev) at CMakeLists.txt:49 (add_library):
+  Policy CMP0115 is not set: Source file extensions must be explicit.  Run
+  "cmake --help-policy CMP0115" for policy details.  Use the cmake_policy
+  command to set the policy and suppress this warning.
+
+  File:
+
+    /home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/hazards_vector_publisher.cpp
+This warning is for project developers.  Use -Wno-dev to suppress it.
+[0m
+In file included from [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/docking_behavior.cpp:3[m[K:
+[01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/include/capella_ros_dock/docking_behavior.hpp:11:10:[m[K [01;31m[Kfatal error: [m[Kcapella_ros_dock_msgs/action/dock.hpp: No such file or directory
+   11 | #include [01;31m[K"capella_ros_dock_msgs/action/dock.hpp"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/motion_control_lib.dir/build.make:90: CMakeFiles/motion_control_lib.dir/src/docking_behavior.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+In file included from [01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/src/motion_control_node.cpp:3[m[K:
+[01m[K/home/ros2/git/mygit/capella_ros_dock/capella_ros_dock/include/capella_ros_dock/motion_control_node.hpp:17:10:[m[K [01;31m[Kfatal error: [m[Kcapella_ros_dock_msgs/msg/wheel_status.hpp: No such file or directory
+   17 | #include [01;31m[K"capella_ros_dock_msgs/msg/wheel_status.hpp"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/motion_control_lib.dir/build.make:76: CMakeFiles/motion_control_lib.dir/src/motion_control_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:195: CMakeFiles/motion_control_lib.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+gmake: *** [Makefile:146: all] Error 2
