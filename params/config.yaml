@@ -1,0 +1,13 @@
+# parameters for all capella_ros_dock's nodes
+
+hazards_vector_publisher:
+  ros__parameters:
+    publisher_topic: hazard_detection
+    subscription_topics:
+    - backup_limit
+    - bump
+    - cliff
+    - stalled
+    - wheel_drop
+    - object_proximity    
+    publish_rate: 30
