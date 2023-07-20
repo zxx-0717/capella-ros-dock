@@ -1,4 +1,4 @@
-build
-install
-log
-capella_msgs
+build/*
+install/*
+log/*
+capella_msgs/*
