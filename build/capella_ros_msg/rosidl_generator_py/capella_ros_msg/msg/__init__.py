@@ -1,9 +1,0 @@
-from capella_ros_msg.msg._atomize_switch_ctr_stu import AtomizeSwitchCtrStu  # noqa: F401
-from capella_ros_msg.msg._battery import Battery  # noqa: F401
-from capella_ros_msg.msg._contact_drive_stu import ContactDriveStu  # noqa: F401
-from capella_ros_msg.msg._detect_result import DetectResult  # noqa: F401
-from capella_ros_msg.msg._imu import Imu  # noqa: F401
-from capella_ros_msg.msg._ir_data import IrData  # noqa: F401
-from capella_ros_msg.msg._pid import PID  # noqa: F401
-from capella_ros_msg.msg._single_detector import SingleDetector  # noqa: F401
-from capella_ros_msg.msg._velocities import Velocities  # noqa: F401

@@ -1,9 +1,0 @@
-from capella_ros_service_interfaces.msg._charge_marker_visible import ChargeMarkerVisible  # noqa: F401
-from capella_ros_service_interfaces.msg._charge_state import ChargeState  # noqa: F401
-from capella_ros_service_interfaces.msg._compressed_occupancy_grid import CompressedOccupancyGrid  # noqa: F401
-from capella_ros_service_interfaces.msg._irdetection_status import IrdetectionStatus  # noqa: F401
-from capella_ros_service_interfaces.msg._irimage_data import IrimageData  # noqa: F401
-from capella_ros_service_interfaces.msg._irsdk_data import IrsdkData  # noqa: F401
-from capella_ros_service_interfaces.msg._irtemperature_data import IrtemperatureData  # noqa: F401
-from capella_ros_service_interfaces.msg._mission_status import MissionStatus  # noqa: F401
-from capella_ros_service_interfaces.msg._person_distance import PersonDistance  # noqa: F401

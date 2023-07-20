@@ -1,1 +1,0 @@
-Invoking command in '/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg': CMAKE_PREFIX_PATH=/opt/ros/humble WSLENV=ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID /usr/bin/cmake --build /home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg -- -j12 -l12

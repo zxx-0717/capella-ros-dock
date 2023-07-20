@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock/hazard_vector_publisher" "TARGETS" "hazard_vector_publisher" "DESTINATION" "lib/capella_ros_dock")

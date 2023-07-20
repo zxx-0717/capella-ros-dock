@@ -1,9 +1,0 @@
-[35m[1mConsolidate compiler generated dependencies of target hazard_publisher_lib[0m
-[ 30%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/reflex_behavior.cpp.o[0m
-[ 30%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/motion_control_node.cpp.o[0m
-[ 30%] [32mBuilding CXX object CMakeFiles/motion_control_lib.dir/src/docking_behavior.cpp.o[0m
-[ 50%] Built target hazard_vector_publisher
-[ 70%] Built target motion_control
-[ 80%] [32mBuilding CXX object CMakeFiles/hazard_publisher_lib.dir/src/hazards_vector_publisher.cpp.o[0m
-[ 90%] [32m[1mLinking CXX shared library libhazard_publisher_lib.so[0m
-[ 90%] Built target hazard_publisher_lib

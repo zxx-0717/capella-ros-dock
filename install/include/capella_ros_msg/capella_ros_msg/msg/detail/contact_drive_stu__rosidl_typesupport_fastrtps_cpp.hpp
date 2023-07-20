@@ -1,1 +1,0 @@
-/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_typesupport_fastrtps_cpp/capella_ros_msg/msg/detail/contact_drive_stu__rosidl_typesupport_fastrtps_cpp.hpp

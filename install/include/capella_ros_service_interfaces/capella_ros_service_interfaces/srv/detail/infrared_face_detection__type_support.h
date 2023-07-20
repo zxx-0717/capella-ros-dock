@@ -1,1 +1,0 @@
-/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_service_interfaces/rosidl_generator_c/capella_ros_service_interfaces/srv/detail/infrared_face_detection__type_support.h

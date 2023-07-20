@@ -1,1 +1,0 @@
-/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_generator_c/capella_ros_msg/msg/detail/imu__type_support.h

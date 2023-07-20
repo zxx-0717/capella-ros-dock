@@ -1,1 +1,0 @@
-/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_msg/rosidl_generator_py/capella_ros_msg/_capella_ros_msg_s.ep.rosidl_typesupport_introspection_c.c

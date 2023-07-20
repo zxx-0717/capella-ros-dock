@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ros2/git/mygit/capella_ros_dock/build/capella_ros_dock_msgs/rosidl_generator_py/capella_ros_dock_msgs/capella_ros_dock_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" "TARGETS" "capella_ros_dock_msgs__rosidl_typesupport_c__pyext" "DESTINATION" "local/lib/python3.10/dist-packages/capella_ros_dock_msgs")

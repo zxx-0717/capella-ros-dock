@@ -1,1 +1,0 @@
-/home/ros2/git/mygit/capella_ros_dock/capella_msgs/capella_ros_msg/msg/DetectResult.msg

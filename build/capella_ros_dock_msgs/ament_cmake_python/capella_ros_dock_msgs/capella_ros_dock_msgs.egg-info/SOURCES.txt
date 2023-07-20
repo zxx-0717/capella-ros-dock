@@ -1,9 +1,0 @@
-setup.py
-capella_ros_dock_msgs/__init__.py
-capella_ros_dock_msgs.egg-info/PKG-INFO
-capella_ros_dock_msgs.egg-info/SOURCES.txt
-capella_ros_dock_msgs.egg-info/dependency_links.txt
-capella_ros_dock_msgs.egg-info/top_level.txt
-capella_ros_dock_msgs/msg/__init__.py
-capella_ros_dock_msgs/msg/_hazard_detection.py
-capella_ros_dock_msgs/msg/_hazard_detection_vector.py

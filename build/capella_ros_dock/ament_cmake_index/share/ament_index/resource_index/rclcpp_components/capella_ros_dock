@@ -1,2 +1,0 @@
-capella_ros_dock::HazardVectorPublisher;lib/libhazard_publisher_lib.so
-capella_ros_dock::MotionControlNode;lib/libmotion_control_lib.so
