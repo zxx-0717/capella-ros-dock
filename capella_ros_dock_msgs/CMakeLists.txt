@@ -27,11 +27,25 @@ find_package(nav_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/DockStatus.msg"
   "msg/HazardDetection.msg"
   "msg/HazardDetectionVector.msg"
+  "msg/IrIntensity.msg"
+  "msg/IrIntensityVector.msg"
+  "msg/IrOpcode.msg"
   "msg/KidnapStatus.msg"
+  "msg/StopStatus.msg"
+  "msg/WheelStatus.msg"
+  "msg/WheelVels.msg"
   "srv/EStop.srv"
   "srv/RobotPower.srv"
+  "action/Dock.action"
+  "action/DriveArc.action"
+  "action/DriveDistance.action"
+  "action/NavigateToPosition.action"
+  "action/RotateAngle.action"
+  "action/Undock.action"
+  "action/WallFollow.action"
   DEPENDENCIES nav_msgs
   DEPENDENCIES sensor_msgs
   DEPENDENCIES std_msgs

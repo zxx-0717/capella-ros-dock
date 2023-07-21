@@ -10,7 +10,7 @@
 #include "boost/optional.hpp"
 #include "geometry_msgs/msg/twist.hpp"
 #include "tf2/LinearMath/Transform.h"
-#include "capella_ros_dock_msgs/msg/hazard_detection.hpp"
+#include "capella_ros_dock_msgs/msg/hazard_detection_vector.hpp"
 
 namespace capella_ros_dock
 {

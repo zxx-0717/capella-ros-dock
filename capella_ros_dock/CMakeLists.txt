@@ -12,9 +12,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(angles REQUIRED)
-# find_package(control_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-# find_package(sensor_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
@@ -53,6 +51,15 @@ ament_target_dependencies(hazard_publisher_lib ${dependencies})
 rclcpp_components_register_node(hazard_publisher_lib
     PLUGIN "capella_ros_dock::HazardVectorPublisher"
     EXECUTABLE hazard_vector_publisher)
+
+# Robot status publisher
+add_library(robot_status_lib SHARED)
+target_sources(robot_status_lib PRIVATE src/robot_state.cpp)
+target_include_directories(robot_status_lib PUBLIC include)
+ament_target_dependencies(robot_status_lib ${dependencies})
+rclcpp_components_register_node(robot_status_lib
+    PLUGIN "capella_ros_dock::RobotState"
+    EXECUTABLE robot_state)
 
 #Motion control node
 add_library(motion_control_lib SHARED)
