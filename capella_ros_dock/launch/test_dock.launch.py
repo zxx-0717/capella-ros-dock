@@ -16,10 +16,10 @@ def generate_launch_description():
     # get pkg path
     camera_pkg_path = get_package_share_directory('astra_camera')
     aruco_pkg_path = get_package_share_directory('aruco_ros')
-    dock_pkg_path = get_package_share_directory('dock_visual')
+    dock_pkg_path = get_package_share_directory('capella_ros_dock')
 
     # create launch configuration variables
-    params_file_path = LaunchConfiguration('params_file', default=os.path.join(dock_pkg_path, 'param', 'dock.yaml'))
+    params_file_path = LaunchConfiguration('params_file', default=os.path.join(dock_pkg_path, 'params', 'config.yaml'))
     motion_control_log_level = LaunchConfiguration('motion_control_log_level')
     test_count = LaunchConfiguration('test_count', default = 1)
     
@@ -68,7 +68,7 @@ def generate_launch_description():
     # motion_control Node
     motion_control_node = Node(
         executable='motion_control',
-        package='dock_visual',
+        package='capella_ros_dock',
         name='motion_control',
         namespace='',
         output='screen',
@@ -79,7 +79,7 @@ def generate_launch_description():
     # test docking Node
     test_docking_node = Node(
         executable='test_dock',
-        package='dock_visual',
+        package='capella_ros_dock',
         name='test_dock',
         parameters=[configured_params],
     )
