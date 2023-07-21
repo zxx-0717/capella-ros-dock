@@ -226,7 +226,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 		robot_pose = last_robot_pose_;
 	}
 	servo_cmd = goal_controller_.get_velocity_for_position(robot_pose, sees_dock_, is_docked_,
-	                                                       raw_vel_msg, clock_, logger_);
+	                                                       raw_vel_msg, clock_, logger_, params_ptr);
 	if(this->is_docked_)
 	{
 		RCLCPP_DEBUG(logger_, "zero cmd time => sec: %f", this->clock_.get()->now().seconds());
@@ -363,7 +363,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 		robot_pose = last_robot_pose_;
 	}
 	servo_cmd = goal_controller_.get_velocity_for_position(robot_pose, sees_dock_,
-	                                                       is_docked_,  raw_vel_msg, clock_, logger_);
+	                                                       is_docked_,  raw_vel_msg, clock_, logger_, params_ptr);
 
 	bool exceeded_runtime = false;
 	if (clock_->now() - action_start_time_ > max_action_runtime_) {

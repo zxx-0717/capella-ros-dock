@@ -20,11 +20,13 @@
 #include <rclcpp/time.hpp>
 #include <capella_ros_msg/msg/velocities.hpp>
 #include "rclcpp/rclcpp.hpp"
+#include "capella_ros_dock/utils.hpp"
 
 using namespace std;
 
 namespace capella_ros_dock
 {
+
 
 /**
  * @brief This class provides an API to give velocity commands given a goal and robot position.
@@ -84,8 +86,9 @@ void reset()
 // \return empty optional if no goal or velocity command to get to next goal point
 BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	const tf2::Transform & current_pose, bool sees_dock, bool is_docked,
-	capella_ros_msg::msg::Velocities raw_vel_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_)
+	capella_ros_msg::msg::Velocities raw_vel_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr)
 {
+	// RCLCPP_INFO_STREAM(logger_, "simple_goal_controller => max_dock_action_run_time: " << params_ptr->max_dock_action_run_time << " seconds.");
 	time_start = std::chrono::high_resolution_clock::now();
 	BehaviorsScheduler::optional_output_t servo_vel;
 	const std::lock_guard<std::mutex> lock(mutex_);
