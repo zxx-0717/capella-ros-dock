@@ -22,6 +22,8 @@ MotionControlNode::MotionControlNode(const rclcpp::NodeOptions & options)
   repeat_print_(1s)
 {
   RCLCPP_INFO(this->get_logger(), "motion_control node constructor.");
+
+  init_params();
   // Declare ROS 2 parameters for robot safety.
   this->declare_safety_parameters();
   // Setup transform tools for frames at time
@@ -50,6 +52,7 @@ MotionControlNode::MotionControlNode(const rclcpp::NodeOptions & options)
     this->get_node_logging_interface(),
     this->get_node_topics_interface(),
     this->get_node_waitables_interface(),
+    &(this->params),
     scheduler_);
   // Create Reflex Behavior manager
   reflex_behavior_ = std::make_shared<ReflexBehavior>(
@@ -163,6 +166,53 @@ MotionControlNode::MotionControlNode(const rclcpp::NodeOptions & options)
     this->get_clock(),
     rclcpp::Duration(backup_pub_period),
     std::bind(&MotionControlNode::check_backup_buffer, this));
+}
+
+void MotionControlNode::init_params()
+{
+  this->declare_parameter<int>("max_dock_action_run_time", 180);
+  this->declare_parameter<float>("min_rotation", 0.15);
+  this->declare_parameter<float>("max_rotation", 0.3);
+  this->declare_parameter<float>("min_translation", 0.02);
+  this->declare_parameter<float>("max_translation", 0.2);
+  this->declare_parameter<float>("angle_to_goal_angle_converged", 0.10);
+  this->declare_parameter<float>("go_to_goal_angle_too_far", 0.15);
+  this->declare_parameter<float>("go_to_goal_apply_rotation_angle", 0.10);
+  this->declare_parameter<float>("goal_angle_converged", 0.15);
+  this->declare_parameter<float>("dist_goal_converged", 0.10);
+  this->declare_parameter<float>("last_docked_distance_offset_", 0.32);
+  this->declare_parameter<float>("distance_low_speed", 0.10);
+  this->declare_parameter<float>("translate_low_speed", 0.02);
+  this->declare_parameter<float>("rotation_low_speed", 0.05);
+  this->declare_parameter<float>("first_goal_distance", 0.0);
+  this->declare_parameter<float>("second_goal_distance", 0.5);
+  this->declare_parameter<float>("buffer_goal_distance", 1.0);
+  this->declare_parameter<float>("camera_horizontal_view", 64.0);
+  this->declare_parameter<int>("localization_converged_time", 2);
+  this->declare_parameter<std::string>("motion_control_log_level", "info");
+
+  params.max_dock_action_run_time = this->get_parameter_or<int>("max_dock_action_run_time", 180);
+  params.min_rotation = this->get_parameter_or<float>("min_rotation", 0.15);
+  params.max_rotation = this->get_parameter_or<float>("max_rotation", 0.30);
+  params.min_translation = this->get_parameter_or<float>("min_translation", 0.02);
+  params.max_translation = this->get_parameter_or<float>("max_translation", 0.20);
+  params.angle_to_goal_angle_converged = this->get_parameter_or<float>("angle_to_goal_angle_converged", 0.10);
+  params.go_to_goal_angle_too_far = this->get_parameter_or<float>("go_to_goal_angle_too_far", 0.15);
+  params.go_to_goal_apply_rotation_angle = this->get_parameter_or<float>("go_to_goal_apply_rotation_angle", 0.10);
+  params.goal_angle_converged = this->get_parameter_or<float>("goal_angle_converged", 0.15);
+  params.dist_goal_converged = this->get_parameter_or<float>("dist_goal_converged", 0.10);
+  params.last_docked_distance_offset_ = this->get_parameter_or<float>("last_docked_distance_offset_", 0.32);
+  params.distance_low_speed = this->get_parameter_or<float>("distance_low_speed", 0.10);
+  params.translate_low_speed = this->get_parameter_or<float>("translate_low_speed", 0.02);
+  params.rotation_low_speed = this->get_parameter_or<float>("rotation_low_speed", 0.05);
+  params.first_goal_distance = this->get_parameter_or<float>("first_goal_distance", 0.0);
+  params.second_goal_distance = this->get_parameter_or<float>("second_goal_distance", 0.50);
+  params.buffer_goal_distance = this->get_parameter_or<float>("buffer_goal_distance", 1.0);
+  params.camera_horizontal_view = this->get_parameter_or<float>("camera_horizontal_view", 64.0);
+  params.localization_converged_time = this->get_parameter_or<int>("localization_converged_time", 2);
+  params.motion_control_log_level = this->get_parameter_or<std::string>("motion_control_log_level", "info");
+  
+  // RCLCPP_INFO_STREAM(this->get_logger(), "max_dock_action_run_time: " << params.max_dock_action_run_time << " s.");
 }
 
 void MotionControlNode::declare_safety_parameters()

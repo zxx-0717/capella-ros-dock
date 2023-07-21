@@ -15,6 +15,7 @@ DockingBehavior::DockingBehavior(
 	rclcpp::node_interfaces::NodeLoggingInterface::SharedPtr node_logging_interface,
 	rclcpp::node_interfaces::NodeTopicsInterface::SharedPtr node_topics_interface,
 	rclcpp::node_interfaces::NodeWaitablesInterface::SharedPtr node_waitables_interface,
+	motion_control_params* params_ptr,
 	std::shared_ptr<BehaviorsScheduler> behavior_scheduler)
 	: clock_(node_clock_interface->get_clock()),
 	logger_(node_logging_interface->get_logger()),
@@ -23,23 +24,16 @@ DockingBehavior::DockingBehavior(
 	RCLCPP_INFO(logger_, "DockingBehavior constructor.");
 	behavior_scheduler_ = behavior_scheduler;
 	last_feedback_time_ = clock_->now();
+	this->params_ptr = params_ptr;
+	// RCLCPP_INFO_STREAM(logger_, "max_dock_action_run_time: " << params_ptr->max_dock_action_run_time << " seconds.");
 
 	dock_visible_sub_ = rclcpp::create_subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>(
 		node_topics_interface,
 		"/marker_visible",
-		20,
+		5,
 		std::bind(&DockingBehavior::dock_visible_callback, this, _1)
 		);
 
-	// rclcpp::QoS charger_state_qos(1);
-	// charger_state_qos.reliability(rclcpp::ReliabilityPolicy::Reliable);
-	// charger_state_qos.durability(rclcpp::DurabilityPolicy::TransientLocal);
-	// charge_state_sub_ = rclcpp::create_subscription<capella_ros_service_interfaces::msg::ChargeState>(
-	// 	node_topics_interface,
-	// 	"charger/state",
-	// 	charger_state_qos,
-	// 	std::bind(&DockingBehavior::charge_state_callback, this, _1)
-	// 	);
 	charge_state_sub_ = rclcpp::create_subscription<capella_ros_service_interfaces::msg::ChargeState>(
 		node_topics_interface,
 		"charger/state",
@@ -52,12 +46,6 @@ DockingBehavior::DockingBehavior(
 		"/aruco_single/pose",
 		rclcpp::SensorDataQoS(),
 		std::bind(&DockingBehavior::robot_pose_callback, this, _1));
-
-	// dock_pose_sub_ = rclcpp::create_subscription<geometry_msgs::msg::PoseStamped>(
-	//   node_topics_interface,
-	//   "/aruco_single/Dockpose",
-	//   rclcpp::SensorDataQoS(),
-	//   std::bind(&DockingBehavior::dock_pose_callback, this, _1));
 
 	raw_vel_sub_ = rclcpp::create_subscription<capella_ros_msg::msg::Velocities>(
 		node_topics_interface,
@@ -95,6 +83,7 @@ DockingBehavior::DockingBehavior(
 	last_docked_distance_offset_ = 0.32;
 	action_start_time_ = clock_->now();
 }
+
 
 void DockingBehavior::raw_vel_sub_callback(capella_ros_msg::msg::Velocities raw_vel)
 {

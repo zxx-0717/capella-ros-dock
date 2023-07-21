@@ -11,3 +11,30 @@ hazards_vector_publisher:
     - wheel_drop
     - object_proximity    
     publish_rate: 30
+
+test_dock:
+  ros__parameters:
+    test_count: 3
+
+motion_control:
+  ros__parameters:
+    max_dock_action_run_time: 160
+    min_rotation: 0.15
+    max_rotation: 0.3
+    min_translation: 0.02
+    max_translation: 0.2
+    angle_to_goal_angle_converged: 0.10
+    go_to_goal_angle_too_far: 0.15
+    go_to_goal_apply_rotation_angle: 0.10 # when angle_dist > this value,apply rotation
+    goal_angle_converged: 0.15
+    dist_goal_converged: 0.10
+    last_docked_distance_offset_: 0.32
+    distance_low_speed: 0.10
+    translate_low_speed: 0.02
+    rotation_low_speed: 0.05
+    first_goal_distance: 0.0
+    second_goal_distance: 0.5
+    buffer_goal_distance: 1.0
+    camera_horizontal_view: 64.0
+    localization_converged_time: 2 # wait (n) seconds for coordinates to be converged
+    motion_control_log_level: 'info'

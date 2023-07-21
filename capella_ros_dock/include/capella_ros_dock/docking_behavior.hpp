@@ -24,6 +24,30 @@
 namespace capella_ros_dock
 {
 
+struct motion_control_params
+{
+	int max_dock_action_run_time;
+	float min_rotation;
+	float max_rotation;
+	float min_translation;
+	float max_translation;
+	float angle_to_goal_angle_converged;
+	float go_to_goal_angle_too_far;
+	float go_to_goal_apply_rotation_angle;
+	float goal_angle_converged;
+	float dist_goal_converged;
+	float last_docked_distance_offset_;
+	float distance_low_speed;
+	float translate_low_speed;
+	float rotation_low_speed;
+	float first_goal_distance;
+	float second_goal_distance;
+	float buffer_goal_distance;
+	float camera_horizontal_view;
+	float localization_converged_time;
+	std::string motion_control_log_level;
+};
+
 /**
  * @brief This class allows to create and manage Docking and Undocking action
  * servers.
@@ -31,97 +55,98 @@ namespace capella_ros_dock
 class DockingBehavior
 {
 public:
-  DockingBehavior(
-    rclcpp::node_interfaces::NodeBaseInterface::SharedPtr node_base_interface,
-    rclcpp::node_interfaces::NodeClockInterface::SharedPtr node_clock_interface,
-    rclcpp::node_interfaces::NodeLoggingInterface::SharedPtr node_logging_interface,
-    rclcpp::node_interfaces::NodeTopicsInterface::SharedPtr node_topics_interface,
-    rclcpp::node_interfaces::NodeWaitablesInterface::SharedPtr node_waitables_interface,
-    std::shared_ptr<BehaviorsScheduler> behavior_scheduler);
-  ~DockingBehavior() = default;
+DockingBehavior(
+	rclcpp::node_interfaces::NodeBaseInterface::SharedPtr node_base_interface,
+	rclcpp::node_interfaces::NodeClockInterface::SharedPtr node_clock_interface,
+	rclcpp::node_interfaces::NodeLoggingInterface::SharedPtr node_logging_interface,
+	rclcpp::node_interfaces::NodeTopicsInterface::SharedPtr node_topics_interface,
+	rclcpp::node_interfaces::NodeWaitablesInterface::SharedPtr node_waitables_interface,
+  motion_control_params *params_ptr,
+	std::shared_ptr<BehaviorsScheduler> behavior_scheduler);
+~DockingBehavior() = default;
 
 private:
-  bool docking_behavior_is_done();
+bool docking_behavior_is_done();
 
-  void calibrate_docked_distance_offset(
-    const tf2::Transform & docked_robot_pose,
-    const tf2::Transform & dock_pose);
-
-  
-  // callback
-  void robot_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg);
-  // void dock_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg);
-  void dock_visible_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible::ConstSharedPtr msg);
-  void charge_state_callback(capella_ros_service_interfaces::msg::ChargeState::ConstSharedPtr msg);
+void calibrate_docked_distance_offset(
+	const tf2::Transform & docked_robot_pose,
+	const tf2::Transform & dock_pose);
 
 
-
-  rclcpp_action::GoalResponse handle_dock_servo_goal(
-    const rclcpp_action::GoalUUID & uuid,
-    std::shared_ptr<const capella_ros_dock_msgs::action::Dock::Goal> goal);
-
-  rclcpp_action::CancelResponse handle_dock_servo_cancel(
-    const std::shared_ptr<
-      rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Dock>> goal_handle);
-
-  void handle_dock_servo_accepted(
-    const std::shared_ptr<
-      rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Dock>> goal_handle);
-
-  BehaviorsScheduler::optional_output_t execute_dock_servo(
-    const std::shared_ptr<
-      rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Dock>> goal_handle,
-    const RobotState & current_state);
-
-  rclcpp_action::GoalResponse handle_undock_goal(
-    const rclcpp_action::GoalUUID & uuid,
-    std::shared_ptr<const capella_ros_dock_msgs::action::Undock::Goal> goal);
-
-  rclcpp_action::CancelResponse handle_undock_cancel(
-    const std::shared_ptr<
-      rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock>> goal_handle);
-
-  void handle_undock_accepted(
-    const std::shared_ptr<
-      rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock>> goal_handle);
-
-  BehaviorsScheduler::optional_output_t execute_undock(
-    const std::shared_ptr<
-      rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock>> goal_handle,
-    const RobotState & current_state);
-
-  rclcpp_action::Server<capella_ros_dock_msgs::action::Dock>::SharedPtr docking_action_server_;
-  rclcpp_action::Server<capella_ros_dock_msgs::action::Undock>::SharedPtr undocking_action_server_;
+// callback
+void robot_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg);
+// void dock_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg);
+void dock_visible_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible::ConstSharedPtr msg);
+void charge_state_callback(capella_ros_service_interfaces::msg::ChargeState::ConstSharedPtr msg);
 
 
-  rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr dock_visible_sub_;
-  rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeState>::SharedPtr charge_state_sub_;
-  rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr robot_pose_sub_;
-  rclcpp::Subscription<capella_ros_msg::msg::Velocities>::SharedPtr raw_vel_sub_;
-  // rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr dock_pose_sub_;
 
-  rclcpp::Clock::SharedPtr clock_;
-  rclcpp::Logger logger_;
-  std::shared_ptr<BehaviorsScheduler> behavior_scheduler_;
-  std::atomic<bool> is_docked_ {false};
-  std::atomic<bool> sees_dock_ {false};
-  std::atomic<bool> running_dock_action_ {false};
-  SimpleGoalController goal_controller_;
-  std::mutex robot_pose_mutex_;
-  tf2::Transform last_robot_pose_;
-  std::mutex dock_pose_mutex_;
-  tf2::Transform last_dock_pose_;
-  rclcpp::Time action_start_time_;
-  const rclcpp::Duration max_action_runtime_;
-  double last_docked_distance_offset_ {0.32};
-  bool calibrated_offset_ {false};
-  const double MAX_DOCK_INTERMEDIATE_GOAL_OFFSET {0.6}; // 0.5 + 0.1
-  const double UNDOCK_GOAL_OFFSET {0.5};
-  rclcpp::Time last_feedback_time_;
-  const rclcpp::Duration report_feedback_interval_ {std::chrono::seconds(3)};
-  capella_ros_msg::msg::Velocities raw_vel_msg;
+rclcpp_action::GoalResponse handle_dock_servo_goal(
+	const rclcpp_action::GoalUUID & uuid,
+	std::shared_ptr<const capella_ros_dock_msgs::action::Dock::Goal> goal);
 
-  void raw_vel_sub_callback(capella_ros_msg::msg::Velocities);
+rclcpp_action::CancelResponse handle_dock_servo_cancel(
+	const std::shared_ptr<
+		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Dock> > goal_handle);
+
+void handle_dock_servo_accepted(
+	const std::shared_ptr<
+		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Dock> > goal_handle);
+
+BehaviorsScheduler::optional_output_t execute_dock_servo(
+	const std::shared_ptr<
+		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Dock> > goal_handle,
+	const RobotState & current_state);
+
+rclcpp_action::GoalResponse handle_undock_goal(
+	const rclcpp_action::GoalUUID & uuid,
+	std::shared_ptr<const capella_ros_dock_msgs::action::Undock::Goal> goal);
+
+rclcpp_action::CancelResponse handle_undock_cancel(
+	const std::shared_ptr<
+		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle);
+
+void handle_undock_accepted(
+	const std::shared_ptr<
+		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle);
+
+BehaviorsScheduler::optional_output_t execute_undock(
+	const std::shared_ptr<
+		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle,
+	const RobotState & current_state);
+
+rclcpp_action::Server<capella_ros_dock_msgs::action::Dock>::SharedPtr docking_action_server_;
+rclcpp_action::Server<capella_ros_dock_msgs::action::Undock>::SharedPtr undocking_action_server_;
+
+
+rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr dock_visible_sub_;
+rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeState>::SharedPtr charge_state_sub_;
+rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr robot_pose_sub_;
+rclcpp::Subscription<capella_ros_msg::msg::Velocities>::SharedPtr raw_vel_sub_;
+
+rclcpp::Clock::SharedPtr clock_;
+rclcpp::Logger logger_;
+std::shared_ptr<BehaviorsScheduler> behavior_scheduler_;
+std::atomic<bool> is_docked_ {false};
+std::atomic<bool> sees_dock_ {false};
+std::atomic<bool> running_dock_action_ {false};
+SimpleGoalController goal_controller_;
+std::mutex robot_pose_mutex_;
+tf2::Transform last_robot_pose_;
+std::mutex dock_pose_mutex_;
+tf2::Transform last_dock_pose_;
+rclcpp::Time action_start_time_;
+const rclcpp::Duration max_action_runtime_;
+double last_docked_distance_offset_ {0.32};
+bool calibrated_offset_ {false};
+const double MAX_DOCK_INTERMEDIATE_GOAL_OFFSET {0.6};   // 0.5 + 0.1
+const double UNDOCK_GOAL_OFFSET {0.5};
+rclcpp::Time last_feedback_time_;
+const rclcpp::Duration report_feedback_interval_ {std::chrono::seconds(3)};
+capella_ros_msg::msg::Velocities raw_vel_msg;
+motion_control_params *params_ptr;
+
+void raw_vel_sub_callback(capella_ros_msg::msg::Velocities);
 };
 
 }  // namespace capella_ros_dock
