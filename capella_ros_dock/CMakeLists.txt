@@ -53,11 +53,11 @@ rclcpp_components_register_node(hazard_publisher_lib
     EXECUTABLE hazard_vector_publisher)
 
 # Robot status publisher
-add_library(robot_status_lib SHARED)
-target_sources(robot_status_lib PRIVATE src/robot_state.cpp)
-target_include_directories(robot_status_lib PUBLIC include)
-ament_target_dependencies(robot_status_lib ${dependencies})
-rclcpp_components_register_node(robot_status_lib
+add_library(robot_state_lib SHARED)
+target_sources(robot_state_lib PRIVATE src/robot_state.cpp)
+target_include_directories(robot_state_lib PUBLIC include)
+ament_target_dependencies(robot_state_lib ${dependencies})
+rclcpp_components_register_node(robot_state_lib
     PLUGIN "capella_ros_dock::RobotState"
     EXECUTABLE robot_state)
 
@@ -77,6 +77,38 @@ rclcpp_components_register_node(motion_control_lib
   PLUGIN "capella_ros_dock::MotionControlNode"
   EXECUTABLE motion_control)
 
+# test_dock node for test succcess rate
+add_executable(test_dock src/test_dock_node.cpp src/test_dock.cpp)
+target_include_directories(test_dock PUBLIC include)
+ament_target_dependencies(test_dock
+  ${dependencies}
+)
+install(TARGETS test_dock 
+  DESTINATION lib/${PROJECT_NAME})
+
+############install libraries
+set(libraries_names
+  hazard_publisher_lib
+  motion_control_lib
+  robot_state_lib
+)
+install(TARGETS ${libraries_names}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
+install(DIRECTORY include/
+  DESTINATION include
+)
+
+install(DIRECTORY launch params
+DESTINATION share/${PROJECT_NAME}
+)
+
+ament_export_include_directories(include)
+ament_export_libraries(${libraries_names})
+ament_export_dependencies(${dependencies})
 
 
 ament_package()
