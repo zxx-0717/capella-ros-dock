@@ -33,6 +33,21 @@ TestDock::TestDock(std::string name, GoalRect goal_rect) : Node(name)
     this->get_parameter_or<int>("test_count", test_count, 5);
     RCLCPP_INFO(this->get_logger(), "test_count: %d", test_count);
     // cout << endl << "test_count: " << test_count << endl << endl;
+    this->declare_parameter<int>("x_min", -200);
+    this->declare_parameter<int>("x_max", -90);
+    this->declare_parameter<int>("y_min", -10);
+    this->declare_parameter<int>("y_max", 100);
+
+    goal_rect.x_min = this->get_parameter_or<int>("x_min", -200);
+    goal_rect.x_max = this->get_parameter_or<int>("x_max", -90);
+    goal_rect.y_min = this->get_parameter_or<int>("y_min", -10);
+    goal_rect.y_max = this->get_parameter_or<int>("y_max", -100);
+    
+    RCLCPP_DEBUG(this->get_logger(), "x_min: %d", goal_rect.x_min);
+    RCLCPP_DEBUG(this->get_logger(), "x_max: %d", goal_rect.x_max);
+    RCLCPP_DEBUG(this->get_logger(), "y_min: %d", goal_rect.y_min);
+    RCLCPP_DEBUG(this->get_logger(), "y_max: %d", goal_rect.y_max);
+
     this->goal_rect = goal_rect;
 
     __th_process_ = std::make_shared<std::thread>(std::bind(&TestDock::run, this));

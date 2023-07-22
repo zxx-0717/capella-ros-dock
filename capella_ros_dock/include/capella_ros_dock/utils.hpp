@@ -26,6 +26,12 @@ struct motion_control_params
 	float buffer_goal_distance;
 	float camera_horizontal_view;
 	float localization_converged_time;
+	float tolerance_angle;
+	float tolerance_r;
+	float deviate_second_goal_x;
+	float dist_error_y_1;
+	float dist_error_x_and_y;
+
 	std::string motion_control_log_level;
 };
 } // end namespace capella_ros_dock
