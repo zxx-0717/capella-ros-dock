@@ -23,7 +23,7 @@ test_dock:
 motion_control:
   ros__parameters:
     max_dock_action_run_time: 160
-    min_rotation: 0.15
+    min_rotation: 0.12
     max_rotation: 0.3
     min_translation: 0.02
     max_translation: 0.1

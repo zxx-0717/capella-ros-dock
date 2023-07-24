@@ -208,7 +208,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		}
 		else
 		{
-			bound_rotation(angle_dist, params_ptr);
+			bound_rotation(angle_dist, params_ptr->min_rotation, params_ptr->max_rotation);
 			if(std::abs(angle_dist) < params_ptr->min_rotation)                                                                                                                                                                                             // 0.1 => 0.8 => raw_vel output 0
 			{
 				angle_dist = std::copysign(params_ptr->min_rotation, angle_dist);
@@ -265,7 +265,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		}
 		else
 		{
-			bound_rotation(dist_yaw, params_ptr);
+			bound_rotation(dist_yaw, params_ptr->min_rotation, params_ptr->max_rotation);
 			if(std::abs(dist_yaw) < params_ptr->min_rotation)                                                                                                                                                                                             // 0.1 => 0.8 => raw_vel output 0
 			{
 				dist_yaw = std::copysign(params_ptr->min_rotation, dist_yaw);
@@ -298,7 +298,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			double ang = diff_angle(gp, current_position, current_angle, logger_);
 			double ang_save = ang;
 			RCLCPP_DEBUG(logger_, "diff angle: %f", ang);
-			bound_rotation(ang, params_ptr);
+			bound_rotation(ang, params_ptr->min_rotation, params_ptr->max_rotation);
 			RCLCPP_DEBUG(logger_, "bound angle: %f", ang);
 			RCLCPP_DEBUG(logger_, "--------------------------------");
 			servo_vel = geometry_msgs::msg::Twist();
@@ -337,7 +337,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		} else if (abs_ang > params_ptr->go_to_goal_angle_too_far && delta_y > params_ptr->dist_error_y_1 && (delta_x + delta_y) > params_ptr->dist_error_x_and_y) {
 			navigate_state_ = NavigateStates::ANGLE_TO_GOAL;
 			RCLCPP_DEBUG(logger_, " ******** change to state ANGLE_TO_GOAL ******** ");
-			// If niether of above conditions met, drive towards goal
+			// If neither of above conditions met, drive towards goal
 		} else {
 			double translate_velocity = dist_to_goal;
 			if (translate_velocity > params_ptr->max_translation) {
@@ -355,14 +355,15 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			double angle_dist = angles::shortest_angular_distance(current_angle, 0);
 			if(std::abs(current_position.getX()) < (params_ptr->last_docked_distance_offset_ + params_ptr->distance_low_speed) && std::abs(angle_dist) > params_ptr->rotation_low_speed)
 			{
+				bound_rotation(angle_dist, 0.01, params_ptr->rotation_low_speed);
 				servo_vel->angular.z = angle_dist;
-				RCLCPP_DEBUG(logger_, "angle_: %f", angle_dist);
+				RCLCPP_DEBUG(logger_, "angular.z: %f", angle_dist);
 			} else
 			{
 				if (abs_ang > params_ptr->go_to_goal_apply_rotation_angle) {
-					bound_rotation(ang, params_ptr);
+					bound_rotation(ang, params_ptr->min_rotation, params_ptr->max_rotation);
 					servo_vel->angular.z = ang;
-					RCLCPP_DEBUG(logger_, "angle__: %f", ang);
+					RCLCPP_DEBUG(logger_, "angle_dist: %f", ang);
 				}
 			}
 
@@ -381,7 +382,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		             current_pose.getOrigin().getX(), current_pose.getOrigin().getY(),
 		             current_angle);
 		double ang = angles::shortest_angular_distance(current_angle, gp.theta);
-		bound_rotation(ang, params_ptr);
+		bound_rotation(ang, params_ptr->min_rotation, params_ptr->max_rotation);
 		RCLCPP_DEBUG(logger_, "diff angle: %f", ang);
 		if (std::abs(ang) > params_ptr->goal_angle_converged) {
 			servo_vel = geometry_msgs::msg::Twist();
@@ -426,14 +427,14 @@ struct GoalPoint
 	bool drive_backwards;
 };
 
-void bound_rotation(double & rotation_velocity, motion_control_params *params_ptr)
+void bound_rotation(double & rotation_velocity, float min, float max)
 {
 	double abs_rot = std::abs(rotation_velocity);
-	if (abs_rot > params_ptr->max_rotation) {
-		rotation_velocity = std::copysign(params_ptr->max_rotation, rotation_velocity);
-	} else if (abs_rot < params_ptr->min_rotation && abs_rot > 0.01) {
+	if (abs_rot > max) {
+		rotation_velocity = std::copysign(max, rotation_velocity);
+	} else if (abs_rot < min && abs_rot > 0.01) {
 		// min speed if desire small non zero velocity
-		rotation_velocity = std::copysign(params_ptr->min_rotation, rotation_velocity);
+		rotation_velocity = std::copysign(min, rotation_velocity);
 	}
 }
 

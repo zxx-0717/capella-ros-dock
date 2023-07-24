@@ -106,7 +106,7 @@ public:
 	bool dock_end = false;
 	double time_start;
 	double time_end;
-	double time_max = 25.0; // seconds (to find charger)
+	double time_max = 40.0; // seconds (to find charger)
 
 	rclcpp::TimerBase::SharedPtr timer_pub_vel;
 	geometry_msgs::msg::Twist pub_vel_msg;

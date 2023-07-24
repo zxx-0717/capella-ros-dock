@@ -75,7 +75,7 @@ bool TestDock::get_robot_pose()
 		double pre_time, now_time, dt;
 		pre_time = this->now().seconds();
 		double angular_z;
-		while (std::abs(rotation_angle) < M_PI && !sees_dock)
+		while (std::abs(rotation_angle) < (2.0 * M_PI) && !sees_dock)
 		{
 			now_time = this->now().seconds();
 			if (now_time - time_start > time_max)
