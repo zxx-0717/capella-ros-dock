@@ -34,8 +34,9 @@ namespace capella_ros_dock
 class SimpleGoalController
 {
 public:
-SimpleGoalController()
+SimpleGoalController(motion_control_params *params_ptr)
 {
+	this->params_ptr = params_ptr;
 }
 
 /// \brief Structure to keep information for each point in commanded path
@@ -128,8 +129,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			now_time = clock_->now().seconds();
 			if (now_time - first_sees_dock_time > params_ptr->localization_converged_time)
 			{
-				double robot_x = current_position.getX();
-				double robot_y = current_position.getY();
+				double robot_x = current_pose.getOrigin().getX();
+				double robot_y = current_pose.getOrigin().getY();
 				float distance_tmp = params_ptr->last_docked_distance_offset_
 				                     + params_ptr->distance_low_speed
 				                     + params_ptr->first_goal_distance;
@@ -402,6 +403,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	RCLCPP_DEBUG(logger_, "cost %d ms.", time_cost);
 	return servo_vel;
 }
+	motion_control_params *params_ptr;
 
 private:
 enum class NavigateStates

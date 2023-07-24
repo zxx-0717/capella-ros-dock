@@ -174,7 +174,7 @@ void MotionControlNode::init_params()
   this->declare_parameter<float>("min_rotation", 0.15);
   this->declare_parameter<float>("max_rotation", 0.3);
   this->declare_parameter<float>("min_translation", 0.02);
-  this->declare_parameter<float>("max_translation", 0.2);
+  this->declare_parameter<float>("max_translation", 0.1);
   this->declare_parameter<float>("angle_to_goal_angle_converged", 0.10);
   this->declare_parameter<float>("go_to_goal_angle_too_far", 0.15);
   this->declare_parameter<float>("go_to_goal_apply_rotation_angle", 0.10);
@@ -200,7 +200,7 @@ void MotionControlNode::init_params()
   params.min_rotation = this->get_parameter_or<float>("min_rotation", 0.15);
   params.max_rotation = this->get_parameter_or<float>("max_rotation", 0.30);
   params.min_translation = this->get_parameter_or<float>("min_translation", 0.02);
-  params.max_translation = this->get_parameter_or<float>("max_translation", 0.20);
+  params.max_translation = this->get_parameter_or<float>("max_translation", 0.10);
   params.angle_to_goal_angle_converged = this->get_parameter_or<float>("angle_to_goal_angle_converged", 0.10);
   params.go_to_goal_angle_too_far = this->get_parameter_or<float>("go_to_goal_angle_too_far", 0.15);
   params.go_to_goal_apply_rotation_angle = this->get_parameter_or<float>("go_to_goal_apply_rotation_angle", 0.10);

@@ -25,6 +25,7 @@ DockingBehavior::DockingBehavior(
 	behavior_scheduler_ = behavior_scheduler;
 	last_feedback_time_ = clock_->now();
 	this->params_ptr = params_ptr;
+	goal_controller_ = std::make_shared<SimpleGoalController>(params_ptr);
 	// RCLCPP_INFO_STREAM(logger_, "max_dock_action_run_time: " << params_ptr->max_dock_action_run_time << " seconds.");
 
 	dock_visible_sub_ = rclcpp::create_subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>(
@@ -177,7 +178,7 @@ void DockingBehavior::handle_dock_servo_accepted(
 	// face_dock.setRotation(dock_rotation);
 	// dock_path.emplace_back(dock_pose * dock_offset * face_dock, 0.1, true);
 	dock_path.emplace_back(dock_pose, 0.1, true);
-	goal_controller_.initialize_goal(dock_path, 0.2, 0.10);
+	goal_controller_->initialize_goal(dock_path, 0.2, 0.10);
 	// Setup behavior to override other commanded motion
 	BehaviorsScheduler::BehaviorsData data;
 	data.run_func = std::bind(&DockingBehavior::execute_dock_servo, this, goal_handle, _1);
@@ -209,7 +210,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 		auto result = std::make_shared<capella_ros_dock_msgs::action::Dock::Result>();
 		result->is_docked = is_docked_;
 		goal_handle->canceled(result);
-		goal_controller_.reset();
+		goal_controller_->reset();
 		running_dock_action_ = false;
 		return servo_cmd;
 	}
@@ -225,7 +226,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 		const std::lock_guard<std::mutex> lock(robot_pose_mutex_);
 		robot_pose = last_robot_pose_;
 	}
-	servo_cmd = goal_controller_.get_velocity_for_position(robot_pose, sees_dock_, is_docked_,
+	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_, is_docked_,
 	                                                       raw_vel_msg, clock_, logger_, params_ptr);
 	if(this->is_docked_)
 	{
@@ -242,7 +243,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 			RCLCPP_INFO(logger_, "Dock Servo Goal Aborted\n");
 			goal_handle->abort(result);
 		}
-		goal_controller_.reset();
+		goal_controller_->reset();
 		running_dock_action_ = false;
 		return servo_cmd;
 	}
@@ -320,7 +321,7 @@ void DockingBehavior::handle_undock_accepted(
 	face_away_dock.setRotation(undock_rotation);
 	tf2::Transform undocked_goal = undock_offset * face_away_dock;
 	undock_path.emplace_back(undocked_goal, 0.05, false);
-	goal_controller_.initialize_goal(undock_path, M_PI / 4.0, 0.10);
+	goal_controller_->initialize_goal(undock_path, M_PI / 4.0, 0.10);
 
 	BehaviorsScheduler::BehaviorsData data;
 	data.run_func = std::bind(&DockingBehavior::execute_undock, this, goal_handle, _1);
@@ -335,7 +336,7 @@ void DockingBehavior::handle_undock_accepted(
 		auto result = std::make_shared<capella_ros_dock_msgs::action::Undock::Result>();
 		result->is_docked = is_docked_;
 		goal_handle->abort(result);
-		goal_controller_.reset();
+		goal_controller_->reset();
 		running_dock_action_ = false;
 	}
 	last_feedback_time_ = clock_->now();
@@ -352,7 +353,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 		auto result = std::make_shared<capella_ros_dock_msgs::action::Undock::Result>();
 		result->is_docked = is_docked_;
 		goal_handle->canceled(result);
-		goal_controller_.reset();
+		goal_controller_->reset();
 		running_dock_action_ = false;
 		return BehaviorsScheduler::optional_output_t();
 	}
@@ -362,7 +363,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 		const std::lock_guard<std::mutex> lock(robot_pose_mutex_);
 		robot_pose = last_robot_pose_;
 	}
-	servo_cmd = goal_controller_.get_velocity_for_position(robot_pose, sees_dock_,
+	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_,
 	                                                       is_docked_,  raw_vel_msg, clock_, logger_, params_ptr);
 
 	bool exceeded_runtime = false;
@@ -381,7 +382,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 			RCLCPP_INFO(logger_, "Undock Goal Aborted");
 			goal_handle->abort(result);
 		}
-		goal_controller_.reset();
+		goal_controller_->reset();
 		running_dock_action_ = false;
 		return BehaviorsScheduler::optional_output_t();
 	}

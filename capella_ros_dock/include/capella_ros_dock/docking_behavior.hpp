@@ -108,7 +108,7 @@ std::shared_ptr<BehaviorsScheduler> behavior_scheduler_;
 std::atomic<bool> is_docked_ {false};
 std::atomic<bool> sees_dock_ {false};
 std::atomic<bool> running_dock_action_ {false};
-SimpleGoalController goal_controller_;
+std::shared_ptr<SimpleGoalController> goal_controller_;
 std::mutex robot_pose_mutex_;
 tf2::Transform last_robot_pose_;
 std::mutex dock_pose_mutex_;
