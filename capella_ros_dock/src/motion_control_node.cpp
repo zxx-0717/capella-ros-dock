@@ -147,7 +147,7 @@ MotionControlNode::MotionControlNode(const rclcpp::NodeOptions & options)
   last_backup_pose_.setIdentity();
   last_teleop_ts_ = this->now();
   // Create timer to periodically execute behaviors and control the robot
-  constexpr auto control_period = std::chrono::duration<double>(1.0 / 40.0);
+  constexpr auto control_period = std::chrono::duration<double>(1.0 / 40);
   // control_timer_ = rclcpp::create_timer(
   //   this,
   //   this->get_clock(),
@@ -195,6 +195,7 @@ void MotionControlNode::init_params()
   this->declare_parameter<float>("dist_error_y_1", 0.05);
   this->declare_parameter<float>("dist_error_x_and_y", 0.3);
   this->declare_parameter<std::string>("motion_control_log_level", "info");
+  this->declare_parameter<int>("cmd_vel_hz", 10);
 
   params.max_dock_action_run_time = this->get_parameter_or<int>("max_dock_action_run_time", 180);
   params.min_rotation = this->get_parameter_or<float>("min_rotation", 0.15);
@@ -221,6 +222,7 @@ void MotionControlNode::init_params()
   params.dist_error_y_1 = this->get_parameter_or<float>("dist_error_y_1", 0.05);
   params.dist_error_x_and_y = this->get_parameter_or<float>("dist_error_x_and_y", 0.3);
   params.motion_control_log_level = this->get_parameter_or<std::string>("motion_control_log_level", "info");
+  params.cmd_vel_hz = this->get_parameter("cmd_vel_hz").get_value<int>();
   
   // RCLCPP_INFO_STREAM(this->get_logger(), "max_dock_action_run_time: " << params.max_dock_action_run_time << " s.");
 }
@@ -296,7 +298,7 @@ void MotionControlNode::start_control_timer_callback()
   {
     if(!control_timer_)
     {
-      constexpr auto control_period = std::chrono::duration<double>(1.0 / 40.0);
+      auto control_period = std::chrono::duration<double>(1.0 / params.cmd_vel_hz);
       control_timer_ = rclcpp::create_timer(
       this,
       this->get_clock(),

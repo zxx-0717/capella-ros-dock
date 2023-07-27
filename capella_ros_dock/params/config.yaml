@@ -33,7 +33,7 @@ motion_control:
     goal_angle_converged: 0.15
     dist_goal_converged: 0.10
     last_docked_distance_offset_: 0.32
-    distance_low_speed: 0.20
+    distance_low_speed: 0.30
     translate_low_speed: 0.02
     rotation_low_speed: 0.05
     first_goal_distance: 0.0
@@ -47,3 +47,4 @@ motion_control:
     dist_error_y_1: 0.05
     dist_error_x_and_y: 0.3
     motion_control_log_level: 'info'
+    cmd_vel_hz: 10

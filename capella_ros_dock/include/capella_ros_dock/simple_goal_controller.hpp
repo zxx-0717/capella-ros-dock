@@ -21,6 +21,7 @@
 #include <capella_ros_msg/msg/velocities.hpp>
 #include "rclcpp/rclcpp.hpp"
 #include "capella_ros_dock/utils.hpp"
+#include <inttypes.h>
 
 using namespace std;
 

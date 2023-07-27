@@ -207,6 +207,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 	BehaviorsScheduler::optional_output_t servo_cmd;
 	// Handle if goal is cancelling
 	if (goal_handle->is_canceling()) {
+		RCLCPP_INFO(logger_, "Cancelling the goal.");
 		auto result = std::make_shared<capella_ros_dock_msgs::action::Dock::Result>();
 		result->is_docked = is_docked_;
 		goal_handle->canceled(result);
