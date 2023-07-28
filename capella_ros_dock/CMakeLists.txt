@@ -44,22 +44,22 @@ set(dependencies
 )
 
 # Hazards vector publisher
-add_library(hazard_publisher_lib  SHARED)
-target_sources(hazard_publisher_lib PRIVATE src/hazards_vector_publisher)
-target_include_directories(hazard_publisher_lib PUBLIC include)
-ament_target_dependencies(hazard_publisher_lib ${dependencies})
-rclcpp_components_register_node(hazard_publisher_lib
-    PLUGIN "capella_ros_dock::HazardVectorPublisher"
-    EXECUTABLE hazard_vector_publisher)
+# add_library(hazard_publisher_lib  SHARED)
+# target_sources(hazard_publisher_lib PRIVATE src/hazards_vector_publisher)
+# target_include_directories(hazard_publisher_lib PUBLIC include)
+# ament_target_dependencies(hazard_publisher_lib ${dependencies})
+# rclcpp_components_register_node(hazard_publisher_lib
+#     PLUGIN "capella_ros_dock::HazardVectorPublisher"
+#     EXECUTABLE hazard_vector_publisher)
 
 # Robot status publisher
-add_library(robot_state_lib SHARED)
-target_sources(robot_state_lib PRIVATE src/robot_state.cpp)
-target_include_directories(robot_state_lib PUBLIC include)
-ament_target_dependencies(robot_state_lib ${dependencies})
-rclcpp_components_register_node(robot_state_lib
-    PLUGIN "capella_ros_dock::RobotState"
-    EXECUTABLE robot_state)
+# add_library(robot_state_lib SHARED)
+# target_sources(robot_state_lib PRIVATE src/robot_state.cpp)
+# target_include_directories(robot_state_lib PUBLIC include)
+# ament_target_dependencies(robot_state_lib ${dependencies})
+# rclcpp_components_register_node(robot_state_lib
+#     PLUGIN "capella_ros_dock::RobotState"
+#     EXECUTABLE robot_state)
 
 #Motion control node
 add_library(motion_control_lib SHARED)
@@ -68,10 +68,10 @@ target_sources(
   PRIVATE
   src/motion_control_node.cpp
   src/docking_behavior.cpp
-  src/reflex_behavior.cpp
-  src/drive_goal_behaviors.cpp
-  src/wall_follow_behavior.cpp
-  src/wall_follow_states.cpp
+  # src/reflex_behavior.cpp
+  # src/drive_goal_behaviors.cpp
+  # src/wall_follow_behavior.cpp
+  # src/wall_follow_states.cpp
 )
 target_include_directories(motion_control_lib PUBLIC include)
 ament_target_dependencies(motion_control_lib
@@ -91,9 +91,9 @@ install(TARGETS test_dock
 
 ############install libraries
 set(libraries_names
-  hazard_publisher_lib
+  # hazard_publisher_lib
   motion_control_lib
-  robot_state_lib
+  # robot_state_lib
 )
 install(TARGETS ${libraries_names}
   ARCHIVE DESTINATION lib

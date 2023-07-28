@@ -414,35 +414,6 @@ void DockingBehavior::robot_pose_callback(geometry_msgs::msg::PoseStamped::Const
 {
 	const std::lock_guard<std::mutex> lock(robot_pose_mutex_);
 	tf2::convert(msg->pose, last_robot_pose_);
-
-	// kalman_filter process
-	// float x, y, z;
-	// double roll, pitch, yaw;
-	// tf2::Vector3 position;
-	// KF_Struct kfs_x, kfs_y, kfs_z, kfs_roll, kfs_pitch, kfs_yaw;
-	// KF_Struct_Init(&kfs_x);
-	// KF_Struct_Init(&kfs_y);
-	// KF_Struct_Init(&kfs_z);
-	// KF_Struct_Init(&kfs_roll);
-	// KF_Struct_Init(&kfs_pitch);
-	// KF_Struct_Init(&kfs_yaw);
-	// position = last_robot_pose_.getOrigin();
-	// tf2::Quaternion rotation = last_robot_pose_.getRotation();
-	// x = KMFilter(&kfs_x, position.getX());
-	// y = KMFilter(&kfs_y, position.getY());
-	// z = KMFilter(&kfs_z, position.getZ());
-	// tf2::getEulerYPR(rotation, yaw, pitch, roll);
-	// yaw = KMFilter(&kfs_yaw, yaw);
-	// pitch = KMFilter(&kfs_pitch, pitch);
-	// roll = KMFilter(&kfs_roll, roll);
-	// tf2::Quaternion rotation_kf;
-	// rotation_kf.setRPY(roll, pitch, yaw);
-	// last_robot_pose_.setOrigin(tf2::Vector3(x,y,z));
-	// last_robot_pose_.setRotation(rotation_kf);
-
-	// auto position = last_robot_pose_.getOrigin();
-	// auto yaw = tf2::getYaw(last_robot_pose_.getRotation());
-	// RCLCPP_INFO(logger_, "robot_pose => x: %f, y: %f, angular: %f", position.getX(), position.getY(), yaw);
 }
 
 // void DockingBehavior::dock_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg)
