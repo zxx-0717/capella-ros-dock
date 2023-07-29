@@ -87,8 +87,6 @@ void initialize_goal(const CmdPath & cmd_path, double max_rotation, double max_t
 		gp.drive_backwards = cmd_path[i].drive_backwards;
 	}
 	navigate_state_ = NavigateStates::LOOKUP_ARUCO_MARKER;
-	max_rotation_ = max_rotation;
-	max_translation_ = max_translation;
 }
 
 /// \brief Clear goal
@@ -478,28 +476,10 @@ double diff_angle(const GoalPoint & goal_pt, const tf2::Vector3 & cur_position, 
 std::mutex mutex_;
 std::deque<GoalPoint> goal_points_;
 NavigateStates navigate_state_;
-double max_rotation_;
-double max_translation_;
-double MIN_ROTATION {0.12}; // send 0.1 ,raw_vel = 0.8; if  < 0.8, raw_vel = 0;
-// const double TO_GOAL_ANGLE_CONVERGED {0.03};
-double TO_GOAL_ANGLE_CONVERGED {0.10};
-double GO_TO_GOAL_ANGLE_TOO_FAR {0.15};
-// const double GO_TO_GOAL_APPLY_ROTATION_ANGLE {0.02};
-double GO_TO_GOAL_APPLY_ROTATION_ANGLE {0.10};
-// const double GOAL_ANGLE_CONVERGED {0.02};
-double GOAL_ANGLE_CONVERGED {0.15};
-double LOOKUP_MARKER_CONVERGED {0.1};
 
 std::chrono::high_resolution_clock::time_point time_start;
 std::chrono::high_resolution_clock::time_point time_end;
 int64_t time_cost;
-// int64_t time_interval = 100;
-
-double DIS_ERROR = 0.05;
-double DIS_ERROR2 = 0.3;
-double NEAR_POSITION_X = 0.32 + 0.20;
-double NEAR_ANGULAR = 0.05;
-double NEAR_LINEAR_X = 0.02;
 
 double dist_buffer_point;
 double dist_buffer_point_yaw;
@@ -512,7 +492,6 @@ double thre_angle_diff = 0.30; // 0.4461565280195475968735605160853 <= tan(32-ar
 // buffer_goal_point
 double buffer_goal_point_x; // docked,low_vel_dist,first_goal_dist, buffer_goal_dist
 double buffer_goal_point_y = 0.0;
-double buffer_goal_point_theta = 0;
 double robot_angle_to_buffer_point_yaw;
 double robot_current_yaw;
 double robot_current_yaw_positive;
