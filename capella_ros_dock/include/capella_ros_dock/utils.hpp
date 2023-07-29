@@ -33,6 +33,8 @@ struct motion_control_params
 	float dist_error_x_and_y;
 	std::string motion_control_log_level;
 	int cmd_vel_hz;
+	float angle_delta;
+	float marker_size;
 };
 } // end namespace capella_ros_dock
 

@@ -38,6 +38,21 @@ public:
 SimpleGoalController(motion_control_params *params_ptr)
 {
 	this->params_ptr = params_ptr;
+	init_params();
+}
+
+void init_params()
+{
+	buffer_goal_point_x = -(params_ptr->last_docked_distance_offset_
+	                        + params_ptr->second_goal_distance
+	                        + params_ptr->buffer_goal_distance);
+
+	// 0.4461565280195475968735605160853 <= tan(32-arctan2(0.12/(0.32+0.1+0.5))
+	thre_angle_diff = std::tan(params_ptr->camera_horizontal_view  * 0.5 / 180.0 * M_PI
+	                           - std::atan(0.5 * params_ptr->marker_size / (params_ptr->last_docked_distance_offset_ + params_ptr->distance_low_speed + params_ptr->second_goal_distance))
+	                           - params_ptr->angle_delta
+	                           );
+	RCLCPP_INFO(rclcpp::get_logger("simple_goal_controller"), "thre_angle_diff: %f", thre_angle_diff);
 }
 
 /// \brief Structure to keep information for each point in commanded path
@@ -334,7 +349,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		if (dist_to_goal < goal_points_.front().radius) {
 			navigate_state_ = NavigateStates::GOAL_ANGLE;
 			RCLCPP_DEBUG(logger_, " ******** change to state GOAL_ANGLE ******** ");
-		// If robot angle has deviated too much from path, reset
+			// If robot angle has deviated too much from path, reset
 		} else if (abs_ang > params_ptr->go_to_goal_angle_too_far && delta_y > params_ptr->dist_error_y_1 && (delta_x + delta_y) > params_ptr->dist_error_x_and_y) {
 			navigate_state_ = NavigateStates::ANGLE_TO_GOAL;
 			RCLCPP_DEBUG(logger_, " ******** change to state ANGLE_TO_GOAL ******** ");
@@ -405,7 +420,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	RCLCPP_DEBUG(logger_, "cost %d ms.", time_cost);
 	return servo_vel;
 }
-	motion_control_params *params_ptr;
+motion_control_params *params_ptr;
 
 private:
 enum class NavigateStates
@@ -495,7 +510,7 @@ bool first_sees_dock = true;
 double thre_angle_diff = 0.30; // 0.4461565280195475968735605160853 <= tan(32-arctan2(0.12/(0.32+0.1+0.5))
 
 // buffer_goal_point
-double buffer_goal_point_x = -(0.32 + 0.1 + 0.5 + 1); // docked,low_vel_dist,first_goal_dist, buffer_goal_dist
+double buffer_goal_point_x; // docked,low_vel_dist,first_goal_dist, buffer_goal_dist
 double buffer_goal_point_y = 0.0;
 double buffer_goal_point_theta = 0;
 double robot_angle_to_buffer_point_yaw;

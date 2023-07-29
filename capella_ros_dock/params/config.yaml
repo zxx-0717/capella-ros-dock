@@ -48,3 +48,5 @@ motion_control:
     dist_error_x_and_y: 0.3
     motion_control_log_level: 'info'
     cmd_vel_hz: 10
+    angle_delta: 0.1
+    marker_size: 0.2
