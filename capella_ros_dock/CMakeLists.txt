@@ -89,6 +89,26 @@ ament_target_dependencies(test_dock
 install(TARGETS test_dock 
   DESTINATION lib/${PROJECT_NAME})
 
+# for point_cloud test
+add_executable(point_cloud_test src/point_cloud_test.cpp)
+target_include_directories(point_cloud_test PUBLIC include)
+ament_target_dependencies(point_cloud_test ${dependencies})
+install(TARGETS point_cloud_test DESTINATION lib/${PROJECT_NAME})
+
+# camera_point_cloud_process library
+add_library(camera_point_cloud_process_lib SHARED)
+target_sources(camera_point_cloud_process_lib
+  PRIVATE
+  src/camera_point_cloud_process.cpp
+)
+
+target_include_directories(camera_point_cloud_process_lib PUBLIC include)
+ament_target_dependencies(camera_point_cloud_process_lib
+  ${dependencies})
+rclcpp_components_register_node(camera_point_cloud_process_lib
+  PLUGIN "capella_ros_dock::CameraPointCloudProcessNode"
+  EXECUTABLE CameraPointCloudProcess)
+
 ############install libraries
 set(libraries_names
   # hazard_publisher_lib

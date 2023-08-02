@@ -51,7 +51,7 @@ def generate_launch_description():
     wifi_node = Node(
         executable='charge_server_node',
         package='capella_charge_service',
-        name='wifi_node',
+        name='wifi_server',
         respawn=True
     )
 
