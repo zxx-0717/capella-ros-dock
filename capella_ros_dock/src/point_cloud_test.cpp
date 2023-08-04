@@ -52,6 +52,9 @@ int main()
 
 	tf_tmp1.setIdentity();
 	tf_tmp1.setRotation(q_tmp1);
+	tf2::Transform tf_identity;
+	tf_identity.setIdentity();
+	tf_tmp1 = tf_identity * tf_tmp1;
 	q_tmp2 = tf_tmp1.inverse().getRotation();
 
 	cout << "******** q_tmp2 ********" << endl;

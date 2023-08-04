@@ -1,14 +1,50 @@
+
 #ifndef CAPELLA_ROS_DOCK__CAMERA_POINT_CLOUD_PROCESS_HPP_
 #define CAPELLA_ROS_DOCK__CAMERA_POINT_CLOUD_PROCESS_HPP_
 
 #include "rclcpp/rclcpp.hpp"
 
+#include "sensor_msgs/msg/point_cloud2.hpp"
+#include "capella_ros_dock_msgs/msg/hazard_detection.hpp"
+#include "opencv2/opencv.hpp"
+#include <vector>
+
 namespace capella_ros_dock
 {
 class CameraPointCloudProcess : public rclcpp::Node
 {
-        CameraPointCloudProcess();
-        ~CameraPointCloudProcess();
+public:
+explicit CameraPointCloudProcess(const rclcpp::NodeOptions & options = rclcpp::NodeOptions());
+~CameraPointCloudProcess();
+
+void init_params();
+void point_cloud_sub_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg);
+
+private:
+rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr point_cloud_sub_;
+rclcpp::CallbackGroup::SharedPtr cb_group_point_cloud_;
+
+rclcpp::Publisher<capella_ros_dock_msgs::msg::HazardDetection>::SharedPtr hazeard_pub_;
+
+rclcpp::TimerBase::SharedPtr timer_pub_hazard_;
+double time_pub_interval;
+std::string topic_point_cloud;
+bool camera_params_updated {false};
+int frame_width;
+int frame_height;
+bool is_bigendian;
+std::vector<unsigned char> point_cloud_data;
+rclcpp::Time last_pub_time;
+rclcpp::Time now_time;
+unsigned char* uchar_data_ptr;
+int data_count;
+cv::Mat mat_point_cloud_xyz;
+bool has_obstacle{false};
+cv::Mat img_nan;
+cv::Mat img_obstacle;
+
+int count_tmp = 0;  // for tmp use
+
 };
 
 

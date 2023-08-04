@@ -17,6 +17,7 @@
   <depend>rclcpp</depend>
   <depend>boost</depend>
   <depend>tf2</depend>
+  <depend>libopencv-dev</depend>
 
   <build_depend>capella_ros_msg</build_depend>
   <build_depend>capella_ros_service_interfaces</build_depend>

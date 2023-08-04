@@ -25,6 +25,7 @@ find_package(capella_ros_dock_msgs REQUIRED)
 find_package(capella_ros_msg REQUIRED)
 find_package(capella_ros_service_interfaces REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(OpenCV REQUIRED)
 
 set(dependencies
   angles
@@ -41,16 +42,17 @@ set(dependencies
   capella_ros_msg
   capella_ros_service_interfaces
   std_srvs
+  OpenCV
 )
 
 # Hazards vector publisher
-# add_library(hazard_publisher_lib  SHARED)
-# target_sources(hazard_publisher_lib PRIVATE src/hazards_vector_publisher)
-# target_include_directories(hazard_publisher_lib PUBLIC include)
-# ament_target_dependencies(hazard_publisher_lib ${dependencies})
-# rclcpp_components_register_node(hazard_publisher_lib
-#     PLUGIN "capella_ros_dock::HazardVectorPublisher"
-#     EXECUTABLE hazard_vector_publisher)
+add_library(hazard_publisher_lib  SHARED)
+target_sources(hazard_publisher_lib PRIVATE src/hazards_vector_publisher)
+target_include_directories(hazard_publisher_lib PUBLIC include)
+ament_target_dependencies(hazard_publisher_lib ${dependencies})
+rclcpp_components_register_node(hazard_publisher_lib
+    PLUGIN "capella_ros_dock::HazardVectorPublisher"
+    EXECUTABLE hazard_vector_publisher)
 
 # Robot status publisher
 # add_library(robot_state_lib SHARED)
@@ -106,13 +108,14 @@ target_include_directories(camera_point_cloud_process_lib PUBLIC include)
 ament_target_dependencies(camera_point_cloud_process_lib
   ${dependencies})
 rclcpp_components_register_node(camera_point_cloud_process_lib
-  PLUGIN "capella_ros_dock::CameraPointCloudProcessNode"
-  EXECUTABLE CameraPointCloudProcess)
+  PLUGIN "capella_ros_dock::CameraPointCloudProcess" 
+  EXECUTABLE camera_point_cloud_process)
 
 ############install libraries
 set(libraries_names
   # hazard_publisher_lib
   motion_control_lib
+  camera_point_cloud_process_lib
   # robot_state_lib
 )
 install(TARGETS ${libraries_names}

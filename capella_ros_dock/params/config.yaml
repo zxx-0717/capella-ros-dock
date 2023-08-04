@@ -2,14 +2,14 @@
 
 hazards_vector_publisher:
   ros__parameters:
-    publisher_topic: hazard_detection
+    publisher_topic: "hazard_detection"
     subscription_topics:
-    - backup_limit
-    - bump
-    - cliff
-    - stalled
-    - wheel_drop
-    - object_proximity    
+    - "backup_limit"
+    - "bump"
+    - "cliff"
+    - "stalled"
+    - "wheel_drop"
+    - "object_proximity"   
     publish_rate: 30
 
 test_dock:
@@ -50,3 +50,9 @@ motion_control:
     cmd_vel_hz: 10
     angle_delta: 0.1
     marker_size: 0.2
+
+camera_point_cloud_process:
+  ros__parameters:
+    topic_name: '/camera/depth/points'
+    pub_frequency: 5
+  
