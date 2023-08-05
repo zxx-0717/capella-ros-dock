@@ -4,13 +4,13 @@ hazards_vector_publisher:
   ros__parameters:
     publisher_topic: "hazard_detection"
     subscription_topics:
-    - "backup_limit"
-    - "bump"
-    - "cliff"
-    - "stalled"
-    - "wheel_drop"
+    # - "backup_limit"
+    # - "bump"
+    # - "cliff"
+    # - "stalled"
+    # - "wheel_drop"
     - "object_proximity"   
-    publish_rate: 30
+    publish_rate: 15
 
 test_dock:
   ros__parameters:
@@ -55,4 +55,10 @@ camera_point_cloud_process:
   ros__parameters:
     topic_name: '/camera/depth/points'
     pub_frequency: 5
+    obstacle_x_min: -0.2  # obstacle coordinates range; camera depth frame => (x,right) (y,down) (z,front) use camera orientation for reference
+    obstacle_x_max: 0.2
+    obstacle_y_min: -0.8
+    obstacle_y_max: 0.3
+    obstacle_z_min: 0.26
+    obstacle_z_max: 0.4
   

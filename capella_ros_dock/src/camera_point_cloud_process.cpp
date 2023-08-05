@@ -19,6 +19,7 @@ CameraPointCloudProcess::CameraPointCloudProcess(const rclcpp::NodeOptions & opt
 	RCLCPP_INFO(this->get_logger(), "camera point cloud process node started.");
 
 	init_params();
+	this->last_pub_time = this->now();
 
 	// create subscription to point_cloud topic
 	cb_group_point_cloud_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
@@ -28,31 +29,44 @@ CameraPointCloudProcess::CameraPointCloudProcess(const rclcpp::NodeOptions & opt
 	auto qos = rclcpp::SensorDataQoS();
 	point_cloud_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(topic_point_cloud, qos, std::bind(&CameraPointCloudProcess::point_cloud_sub_callback, this, _1), point_cloud_sub_options);
 
+	// create publisher for hazard
+	hazard_pub_ = this->create_publisher<capella_ros_dock_msgs::msg::HazardDetection>("object_proximity", rclcpp::QoS(10).best_effort());
 
 
 }
 
 CameraPointCloudProcess::~CameraPointCloudProcess()
 {
+	delete ob_range;
 }
 
 void CameraPointCloudProcess::init_params()
 {
 	this->declare_parameter<std::string>("topic_name", "/camera/depth/points");
 	this->declare_parameter<int>("pub_frequency", 5);
+	this->declare_parameter<float>("obstacle_x_min", -0.2);
+	this->declare_parameter<float>("obstacle_x_max", 0.2);
+	this->declare_parameter<float>("obstacle_y_min", -0.8);
+	this->declare_parameter<float>("obstacle_y_max", 0.3);
+	this->declare_parameter<float>("obstacle_z_min", 0.26);
+	this->declare_parameter<float>("obstacle_z_max", 0.5);
 
 	this->topic_point_cloud = this->get_parameter_or<std::string>("topic_name", "/camera/depth/points");
 	int pub_frequency = this->get_parameter_or<int>("pub_frequency", 5);
+	// RCLCPP_INFO(this->get_logger(), "frequency: %d", pub_frequency);
 	this->time_pub_interval = 1.0 / pub_frequency;
-
-	this->last_pub_time = this->now();
+	this->ob_range = new obstacle_range();
+	this->ob_range->x_min = this->get_parameter_or<float>("obstacle_x_min", -0.2);
+	this->ob_range->x_max = this->get_parameter_or<float>("obstacle_x_max", 0.2);
+	this->ob_range->y_min = this->get_parameter_or<float>("obstacle_y_min", -0.8);
+	this->ob_range->y_max = this->get_parameter_or<float>("obstacle_y_max", 0.3);
+	this->ob_range->z_min = this->get_parameter_or<float>("obstacle_z_min", 0.26);
+	this->ob_range->z_max = this->get_parameter_or<float>("obstacle_z_max", 0.5);
 }
 
 void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
 {
-	// RCLCPP_INFO(this->get_logger(), "time_sta: %f s.", this->get_clock()->now().seconds());
-	// rclcpp::Time time_sub = msg->header.stamp;
-	// RCLCPP_INFO(this->get_logger(), "time_sub: %f s.", time_sub.seconds());
+	this->has_obstacle = false;
 	if (!camera_params_updated)
 	{
 		frame_width = msg->width;
@@ -60,7 +74,6 @@ void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCl
 		is_bigendian = msg->is_bigendian;
 		data_count = msg->row_step * frame_height;
 		uchar_data_ptr = new unsigned char[data_count];
-		count_tmp = 0;
 
 		camera_params_updated = true;
 	}
@@ -81,18 +94,9 @@ void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCl
 			mat_point_cloud_xyz.at<cv::Vec3f>(row, col)[2] = tmp.at<cv::Vec4f>(row, col)[2];
 		}
 	}
-	this->now_time = this->get_clock()->now();
-	double time_elapse;
-	time_elapse = now_time.seconds() - last_pub_time.seconds();
-
-	if (time_elapse > this->time_pub_interval)
-	{
-		last_pub_time = now_time;
-	}
 
 	cv::Point3f point3f;
-	img_nan = cv::Mat::zeros(frame_height, frame_width, CV_8UC3);
-	img_obstacle = cv::Mat::zeros(frame_height, frame_width, CV_8UC3);
+	img_depth_points = cv::Mat::zeros(frame_height, frame_width, CV_8UC3);
 	int obstacle_count = 0;
 
 	for (int row = 0; row < frame_height; row++)
@@ -100,41 +104,69 @@ void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCl
 		for (int col = 0; col < frame_width; col++)
 		{
 			point3f = mat_point_cloud_xyz.at<cv::Vec3f>(row, col);
+			// RCLCPP_INFO_STREAM(this->get_logger(), "(" << row << ", " << col << ")" << point3f);
 			if(point3f.x == point3f.x && point3f.y == point3f.y && point3f.z == point3f.z)
 			{
-				if (std::abs(point3f.x) < 0.2 && point3f.z < 0.5 && point3f.y > -0.30)
+				if (in_range(point3f))
 				{
-					img_obstacle.at<cv::Vec3b>(row, col)[0] = 0;
-					img_obstacle.at<cv::Vec3b>(row, col)[1] = 0;
-					img_obstacle.at<cv::Vec3b>(row, col)[2] = 255;
+					img_depth_points.at<cv::Vec3b>(row, col)[0] = 0;
+					img_depth_points.at<cv::Vec3b>(row, col)[1] = 0;
+					img_depth_points.at<cv::Vec3b>(row, col)[2] = 255;
 					obstacle_count++;
+					has_obstacle = true;
+				}
+				else
+				{
+					img_depth_points.at<cv::Vec3b>(row, col)[0] = 0;
+					img_depth_points.at<cv::Vec3b>(row, col)[1] = 255;
+					img_depth_points.at<cv::Vec3b>(row, col)[2] = 0;
 				}
 			}
 			else
 			{
-				img_nan.at<cv::Vec3b>(row, col)[0] = 255;
-				img_nan.at<cv::Vec3b>(row, col)[1] = 255;
-				img_nan.at<cv::Vec3b>(row, col)[2] = 0;
-				// std::cout << "(" << row << ", " << col <<") => " << point3f << std::endl;
+				img_depth_points.at<cv::Vec3b>(row, col)[0] = 255;
+				img_depth_points.at<cv::Vec3b>(row, col)[1] = 0;
+				img_depth_points.at<cv::Vec3b>(row, col)[2] = 0;
 			}
 		} // end cols
 	} // end rows
-	// RCLCPP_INFO(this->get_logger(), "obstacle_count: %d", obstacle_count);
-	RCLCPP_INFO_STREAM(this->get_logger(), "" << mat_point_cloud_xyz.at<cv::Vec3f>(240, 320));
+	  // RCLCPP_INFO(this->get_logger(), "obstacle_count: %d", obstacle_count);
+	  // RCLCPP_INFO_STREAM(this->get_logger(), "" << mat_point_cloud_xyz.at<cv::Vec3f>(240, 320));
 
-	// for (; count_tmp < frame_width; count_tmp++)
-	// {
-	// 	point3f = mat_point_cloud_xyz.at<cv::Vec3f>(240, count_tmp);
-	// 	RCLCPP_INFO_STREAM(this->get_logger(), "" << count_tmp << ": " << point3f);
-	// }
+	this->now_time = this->get_clock()->now();
+	double time_elapse;
+	time_elapse = now_time.seconds() - last_pub_time.seconds();
 
-	
-	cv::imshow("img_nan", img_nan);
-	cv::imshow("img_obstacle", img_obstacle);
+	if (time_elapse > this->time_pub_interval && has_obstacle)
+	{
+		auto hazard_msg = capella_ros_dock_msgs::msg::HazardDetection();
+		hazard_msg.header = msg->header;
+		hazard_msg.type = capella_ros_dock_msgs::msg::HazardDetection::OBJECT_PROXIMITY;
+		hazard_pub_->publish(hazard_msg);
+		last_pub_time = now_time;
+	}
+
+	cv::imshow("img_depth_points", img_depth_points);
 
 	cv::waitKey(10);
 
 	// RCLCPP_INFO(this->get_logger(), "time_end: %f s.", this->get_clock()->now().seconds());
+}
+
+bool CameraPointCloudProcess::in_range(const cv::Point3f& point3f)
+{
+	bool ret = false;
+	float x = point3f.x;
+	float y = point3f.y;
+	float z = point3f.z;
+	if (x > ob_range->x_min && x < ob_range->x_max &&
+	    y > ob_range->y_min && y < ob_range->y_max &&
+	    z > ob_range->z_min && z < ob_range->z_max)
+	{
+		ret = true;
+	}
+
+	return ret;
 }
 
 } // namespace capella_ros_dock

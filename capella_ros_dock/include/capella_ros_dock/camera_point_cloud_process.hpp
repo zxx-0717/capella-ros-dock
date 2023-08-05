@@ -11,6 +11,17 @@
 
 namespace capella_ros_dock
 {
+
+struct obstacle_range
+{
+        float x_min;
+        float x_max;
+        float y_min;
+        float y_max;
+        float z_min;
+        float z_max;
+};
+
 class CameraPointCloudProcess : public rclcpp::Node
 {
 public:
@@ -19,12 +30,13 @@ explicit CameraPointCloudProcess(const rclcpp::NodeOptions & options = rclcpp::N
 
 void init_params();
 void point_cloud_sub_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg);
+bool in_range(const cv::Point3f& point3f);
 
 private:
 rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr point_cloud_sub_;
 rclcpp::CallbackGroup::SharedPtr cb_group_point_cloud_;
 
-rclcpp::Publisher<capella_ros_dock_msgs::msg::HazardDetection>::SharedPtr hazeard_pub_;
+rclcpp::Publisher<capella_ros_dock_msgs::msg::HazardDetection>::SharedPtr hazard_pub_;
 
 rclcpp::TimerBase::SharedPtr timer_pub_hazard_;
 double time_pub_interval;
@@ -40,10 +52,9 @@ unsigned char* uchar_data_ptr;
 int data_count;
 cv::Mat mat_point_cloud_xyz;
 bool has_obstacle{false};
-cv::Mat img_nan;
-cv::Mat img_obstacle;
+cv::Mat img_depth_points;
 
-int count_tmp = 0;  // for tmp use
+struct obstacle_range* ob_range;
 
 };
 
