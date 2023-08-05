@@ -40,7 +40,7 @@ HazardsVectorPublisher::HazardsVectorPublisher(const rclcpp::NodeOptions & optio
   timer_ = rclcpp::create_timer(
     this,
     this->get_clock(),
-    rclcpp::Duration(std::chrono::duration<double>(1 / publish_rate)), [this]() {
+    rclcpp::Duration(std::chrono::duration<double>(1. / publish_rate)), [this]() {
       std::lock_guard<std::mutex> lock{this->mutex_};
 
       // Set header timestamp.
