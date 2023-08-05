@@ -34,7 +34,7 @@ HazardsVectorPublisher::HazardsVectorPublisher(const rclcpp::NodeOptions & optio
   RCLCPP_DEBUG_STREAM(this->get_logger(), "subscription_topics: " << s.str());
 
   publisher_ = create_publisher<capella_ros_dock_msgs::msg::HazardDetectionVector>(
-    publisher_topic_, rclcpp::SensorDataQoS().reliable());
+    publisher_topic_, rclcpp::SensorDataQoS());
   RCLCPP_INFO_STREAM(get_logger(), "Advertised topic: " << publisher_topic_);
 
   timer_ = rclcpp::create_timer(

@@ -27,6 +27,13 @@ MotionControlNode::MotionControlNode(const rclcpp::NodeOptions & options)
 
 	init_params();
 
+	// create subscription to hazards
+	auto options_hazard_detection = rclcpp::SubscriptionOptions();
+	cb_group_hazards_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+	options_hazard_detection.callback_group = cb_group_hazards_;
+	sub_hazards_ = this->create_subscription<capella_ros_dock_msgs::msg::HazardDetectionVector>
+	                       ("hazard_detection", rclcpp::SensorDataQoS(), std::bind(&MotionControlNode::cb_hazard_detection, this, _1), options_hazard_detection);
+
 	// Create behaviors scheduler
 	scheduler_ = std::make_shared<BehaviorsScheduler>();
 	// Create Docking Behavior manager
@@ -39,8 +46,8 @@ MotionControlNode::MotionControlNode(const rclcpp::NodeOptions & options)
 		&(this->params),
 		scheduler_);
 
-  cmd_vel_out_pub_ = this->create_publisher<geometry_msgs::msg::Twist>(
-    "/cmd_vel", rclcpp::SystemDefaultsQoS());
+	cmd_vel_out_pub_ = this->create_publisher<geometry_msgs::msg::Twist>(
+		"/cmd_vel", rclcpp::SystemDefaultsQoS());
 
 	// Create timer to periodically execute behaviors and control the robot
 	constexpr auto control_period = std::chrono::duration<double>(1.0 / 40);
@@ -114,6 +121,13 @@ void MotionControlNode::init_params()
 	// RCLCPP_INFO_STREAM(this->get_logger(), "max_dock_action_run_time: " << params.max_dock_action_run_time << " s.");
 }
 
+void MotionControlNode::cb_hazard_detection(capella_ros_dock_msgs::msg::HazardDetectionVector::SharedPtr msg)
+{
+	std::lock_guard<std::mutex> lock(current_state_mutex_);
+	current_state_.hazards = *msg;
+
+}
+
 void MotionControlNode::start_control_timer_callback()
 {
 	if(scheduler_->has_behavior())
@@ -148,7 +162,7 @@ void MotionControlNode::control_robot()
 		command = geometry_msgs::msg::Twist();
 	}
 	auto cmd_out_msg = std::make_unique<geometry_msgs::msg::Twist>();
-	*cmd_out_msg = * command;
+	*cmd_out_msg = *command;
 	cmd_vel_out_pub_->publish(std::move(cmd_out_msg));
 }
 }  // namespace capella_ros_dock

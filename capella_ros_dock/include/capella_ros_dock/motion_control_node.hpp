@@ -10,6 +10,7 @@
 
 #include "capella_ros_dock/docking_behavior.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "capella_ros_dock_msgs/msg/hazard_detection_vector.hpp"
 
 namespace capella_ros_dock
 {
@@ -29,6 +30,14 @@ void start_control_timer_callback();
 
 /// @brief declare and get parameters
 void init_params();
+
+/// @brief callback for hazard_detection topic
+void cb_hazard_detection(capella_ros_dock_msgs::msg::HazardDetectionVector::SharedPtr msg);
+
+
+/// @brief subscription to hazards
+rclcpp::Subscription<capella_ros_dock_msgs::msg::HazardDetectionVector>::SharedPtr sub_hazards_;
+rclcpp::CallbackGroup::SharedPtr cb_group_hazards_;
 
 rclcpp::TimerBase::SharedPtr control_timer_ {nullptr};
 rclcpp::TimerBase::SharedPtr start_control_timer {nullptr};
