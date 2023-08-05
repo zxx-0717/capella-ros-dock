@@ -202,7 +202,7 @@ void DockingBehavior::handle_dock_servo_accepted(
 BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 	const std::shared_ptr<
 		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Dock> > goal_handle,
-	const RobotState & /*current_state*/)
+	const RobotState & current_state)
 {
 	BehaviorsScheduler::optional_output_t servo_cmd;
 	// Handle if goal is cancelling
@@ -227,8 +227,9 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 		const std::lock_guard<std::mutex> lock(robot_pose_mutex_);
 		robot_pose = last_robot_pose_;
 	}
+	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_, is_docked_,
-	                                                       raw_vel_msg, clock_, logger_, params_ptr);
+	                                                       raw_vel_msg, clock_, logger_, params_ptr, hazards);
 	if(this->is_docked_)
 	{
 		RCLCPP_DEBUG(logger_, "zero cmd time => sec: %f", this->clock_.get()->now().seconds());
@@ -346,7 +347,7 @@ void DockingBehavior::handle_undock_accepted(
 BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	const std::shared_ptr<
 		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle,
-	const RobotState & /*current_state*/)
+	const RobotState & current_state)
 {
 	BehaviorsScheduler::optional_output_t servo_cmd;
 	// Handle if goal is cancelling
@@ -364,8 +365,9 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 		const std::lock_guard<std::mutex> lock(robot_pose_mutex_);
 		robot_pose = last_robot_pose_;
 	}
+	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_,
-	                                                       is_docked_,  raw_vel_msg, clock_, logger_, params_ptr);
+	                                                       is_docked_,  raw_vel_msg, clock_, logger_, params_ptr, hazards);
 
 	bool exceeded_runtime = false;
 	if (clock_->now() - action_start_time_ > max_action_runtime_) {

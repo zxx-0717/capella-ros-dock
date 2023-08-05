@@ -38,6 +38,7 @@ public:
 SimpleGoalController(motion_control_params *params_ptr)
 {
 	this->params_ptr = params_ptr;
+	std::cout << "dock_valid_obstacle_x: " << params_ptr->dock_valid_obstacle_x << std::endl;
 	init_params();
 }
 
@@ -101,7 +102,7 @@ void reset()
 // \return empty optional if no goal or velocity command to get to next goal point
 BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	const tf2::Transform & current_pose, bool sees_dock, bool is_docked,
-	capella_ros_msg::msg::Velocities raw_vel_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr)
+	capella_ros_msg::msg::Velocities raw_vel_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr, capella_ros_dock_msgs::msg::HazardDetectionVector hazards)
 {
 	// RCLCPP_INFO_STREAM(logger_, "simple_goal_controller => max_dock_action_run_time: " << params_ptr->max_dock_action_run_time << " seconds.");
 	time_start = std::chrono::high_resolution_clock::now();
@@ -124,6 +125,21 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	{
 		current_angle = tf2::getYaw(current_pose.getRotation());
 		current_position = current_pose.getOrigin();
+	}
+
+	// stop when has valid hazards
+	if(hazards_valid(current_pose, hazards))
+	{
+		last_time_hazards = clock_->now();
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop for hazards.");
+		servo_vel = geometry_msgs::msg::Twist();
+		return servo_vel;
+	}
+	now_time_hazards = clock_->now();
+	if ((now_time_hazards.seconds() - last_time_hazards.seconds()) < time_sleep)
+	{
+		servo_vel = geometry_msgs::msg::Twist();
+		return servo_vel;
 	}
 
 	// Generate velocity based on current position and next goal point looking for convergence
@@ -429,7 +445,8 @@ enum class NavigateStates
 	ANGLE_TO_X_POSITIVE_ORIENTATION,
 	ANGLE_TO_GOAL,
 	GO_TO_GOAL_POSITION,
-	GOAL_ANGLE
+	GOAL_ANGLE,
+	OBJECT_PROXIMITY
 };
 
 struct GoalPoint
@@ -473,6 +490,33 @@ double diff_angle(const GoalPoint & goal_pt, const tf2::Vector3 & cur_position, 
 	return result;
 }
 
+bool hazards_valid(const tf2::Transform & current_pose, capella_ros_dock_msgs::msg::HazardDetectionVector hazards)
+{
+	bool ret = false;
+	auto distance = std::abs(current_pose.getOrigin().getX());
+	auto detections = hazards.detections;
+	for (int i = 0; i < detections.size(); i++)
+	{
+		auto hazard = detections[i];
+		using HazardDetection = capella_ros_dock_msgs::msg::HazardDetection;
+		switch(hazard.type)
+		{
+		case HazardDetection::BACKUP_LIMIT:
+		case HazardDetection::BUMP:
+		case HazardDetection::CLIFF:
+		case HazardDetection::STALL:
+		case HazardDetection::WHEEL_DROP:
+		case HazardDetection::OBJECT_PROXIMITY:
+		{
+			ret = true;
+			break;
+		}
+		}
+	}
+	ret = ret && distance > params_ptr->dock_valid_obstacle_x;
+	return ret;
+}
+
 std::mutex mutex_;
 std::deque<GoalPoint> goal_points_;
 NavigateStates navigate_state_;
@@ -497,6 +541,11 @@ double robot_current_yaw;
 double robot_current_yaw_positive;
 bool drive_back = false;
 double theta_positive, theta_negative;
+
+rclcpp::Time last_time_hazards;
+rclcpp::Time now_time_hazards;
+float time_sleep = 3.0;
+
 };
 
 }  // namespace capella_ros_dock

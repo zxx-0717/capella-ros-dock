@@ -76,6 +76,27 @@ def generate_launch_description():
         arguments=['--ros-args', '--log-level', ['motion_control:=', LaunchConfiguration('log_level')]]
     )
 
+    # hazards_vector_publisher Node
+    hazards_vector_publisher_node = Node(
+        executable='hazards_vector_publisher',
+        package='capella_ros_dock',
+        name='hazards_vector_publisher',
+        namespace='',
+        output='screen',
+        parameters=[configured_params],
+    )
+
+    # camera_point_cloud_process Node
+    camera_point_cloud_process_node = Node(
+        executable='camera_point_cloud_process',
+        package='capella_ros_dock',
+        name='camera_point_cloud_process',
+        namespace='',
+        output='screen',
+        parameters=[configured_params],
+    )
+    
+
     # test docking Node
     test_docking_node = Node(
         executable='test_dock',
@@ -92,6 +113,8 @@ def generate_launch_description():
     launch_description.add_action(camera_launch_file)
     launch_description.add_action(aruco_launch_file)
     launch_description.add_action(motion_control_node)
+    launch_description.add_action(hazards_vector_publisher_node)
+    launch_description.add_action(camera_point_cloud_process_node)
     launch_description.add_action(test_docking_node)
 
     return launch_description

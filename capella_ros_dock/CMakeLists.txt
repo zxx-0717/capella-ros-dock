@@ -46,15 +46,15 @@ set(dependencies
 )
 
 # Hazards vector publisher
-add_library(hazard_publisher_lib  SHARED)
-target_sources(hazard_publisher_lib 
+add_library(hazards_publisher_lib  SHARED)
+target_sources(hazards_publisher_lib 
   PRIVATE 
   src/hazards_vector_publisher.cpp)
-target_include_directories(hazard_publisher_lib PUBLIC include)
-ament_target_dependencies(hazard_publisher_lib ${dependencies})
-rclcpp_components_register_node(hazard_publisher_lib
+target_include_directories(hazards_publisher_lib PUBLIC include)
+ament_target_dependencies(hazards_publisher_lib ${dependencies})
+rclcpp_components_register_node(hazards_publisher_lib
     PLUGIN "capella_ros_dock::HazardsVectorPublisher"
-    EXECUTABLE hazard_vector_publisher)
+    EXECUTABLE hazards_vector_publisher)
 
 # Robot status publisher
 # add_library(robot_state_lib SHARED)
@@ -115,7 +115,7 @@ rclcpp_components_register_node(camera_point_cloud_process_lib
 
 ############install libraries
 set(libraries_names
-  hazard_publisher_lib
+  hazards_publisher_lib
   motion_control_lib
   camera_point_cloud_process_lib
   # robot_state_lib
