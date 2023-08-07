@@ -89,6 +89,7 @@ void MotionControlNode::init_params()
 	this->declare_parameter<float>("angle_delta", 0.1);
 	this->declare_parameter<float>("marker_size", 0.2);
 	this->declare_parameter<float>("dock_valid_obstacle_x", 0.4);
+	this->declare_parameter<float>("time_sleep", 3.0);
 
 	params.max_dock_action_run_time = this->get_parameter_or<int>("max_dock_action_run_time", 180);
 	params.min_rotation = this->get_parameter_or<float>("min_rotation", 0.15);
@@ -118,8 +119,8 @@ void MotionControlNode::init_params()
 	params.cmd_vel_hz = this->get_parameter("cmd_vel_hz").get_value<int>();
 	params.angle_delta = this->get_parameter("angle_delta").get_value<float>();
 	params.marker_size = this->get_parameter("marker_size").get_value<float>();
-	params.marker_size = this->get_parameter("dock_valid_obstacle_x").get_value<float>();
-
+	params.dock_valid_obstacle_x = this->get_parameter("dock_valid_obstacle_x").get_value<float>();
+	params.time_sleep = this->get_parameter("time_sleep").get_value<float>();
 	// RCLCPP_INFO_STREAM(this->get_logger(), "max_dock_action_run_time: " << params.max_dock_action_run_time << " s.");
 }
 

@@ -53,6 +53,7 @@ int data_count;
 cv::Mat mat_point_cloud_xyz;
 bool has_obstacle{false};
 cv::Mat img_depth_points;
+bool display_img_depth_pc{false};
 
 struct obstacle_range* ob_range;
 

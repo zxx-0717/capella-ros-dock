@@ -132,11 +132,14 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	{
 		last_time_hazards = clock_->now();
 		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop for hazards.");
+		auto distance = std::abs(current_pose.getOrigin().getX());
+		RCLCPP_INFO(logger_, "distance: %f", distance);
+		RCLCPP_INFO(logger_, "throttle: %f", params_ptr->dock_valid_obstacle_x);
 		servo_vel = geometry_msgs::msg::Twist();
 		return servo_vel;
 	}
 	now_time_hazards = clock_->now();
-	if ((now_time_hazards.seconds() - last_time_hazards.seconds()) < time_sleep)
+	if ((now_time_hazards.seconds() - last_time_hazards.seconds()) < params_ptr->time_sleep)
 	{
 		servo_vel = geometry_msgs::msg::Twist();
 		return servo_vel;
@@ -544,7 +547,7 @@ double theta_positive, theta_negative;
 
 rclcpp::Time last_time_hazards;
 rclcpp::Time now_time_hazards;
-float time_sleep = 3.0;
+float time_sleep;
 
 };
 

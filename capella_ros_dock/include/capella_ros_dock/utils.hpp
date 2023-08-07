@@ -36,6 +36,7 @@ struct motion_control_params
 	float angle_delta;
 	float marker_size;
 	float dock_valid_obstacle_x;
+	float time_sleep;
 };
 } // end namespace capella_ros_dock
 

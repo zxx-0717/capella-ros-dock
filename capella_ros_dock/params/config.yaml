@@ -51,6 +51,7 @@ motion_control:
     angle_delta: 0.1
     marker_size: 0.2
     dock_valid_obstacle_x: 0.60
+    time_sleep: 3.0
 
 camera_point_cloud_process:
   ros__parameters:
@@ -62,4 +63,5 @@ camera_point_cloud_process:
     obstacle_y_max: 0.3
     obstacle_z_min: 0.26
     obstacle_z_max: 0.4
+    display_img_depth_pc: true # red for obstacle, blue for NaN， green for free space.
   

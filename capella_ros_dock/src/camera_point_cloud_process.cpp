@@ -50,6 +50,7 @@ void CameraPointCloudProcess::init_params()
 	this->declare_parameter<float>("obstacle_y_max", 0.3);
 	this->declare_parameter<float>("obstacle_z_min", 0.26);
 	this->declare_parameter<float>("obstacle_z_max", 0.5);
+	this->declare_parameter<bool>("display_img_depth_pc", false);
 
 	this->topic_point_cloud = this->get_parameter_or<std::string>("topic_name", "/camera/depth/points");
 	int pub_frequency = this->get_parameter_or<int>("pub_frequency", 5);
@@ -62,6 +63,9 @@ void CameraPointCloudProcess::init_params()
 	this->ob_range->y_max = this->get_parameter_or<float>("obstacle_y_max", 0.3);
 	this->ob_range->z_min = this->get_parameter_or<float>("obstacle_z_min", 0.26);
 	this->ob_range->z_max = this->get_parameter_or<float>("obstacle_z_max", 0.5);
+	this->display_img_depth_pc = this->get_parameter("display_img_depth_pc").get_value<bool>();
+
+	RCLCPP_INFO(this->get_logger(), "display_img_depth_pc: %s", display_img_depth_pc ? "true" : "false" );
 }
 
 void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
@@ -79,6 +83,14 @@ void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCl
 	}
 
 	point_cloud_data = msg->data;
+
+	if(point_cloud_data.size() != data_count)
+	{
+		RCLCPP_INFO(this->get_logger(), "received points cloud data error");
+		RCLCPP_INFO(this->get_logger(), "received point_cloud data_size: %d", point_cloud_data.size());
+		RCLCPP_INFO(this->get_logger(), "data_count: %d", data_count);
+		RCLCPP_INFO(this->get_logger(), "************************************************");
+	}
 	for(int count_index = 0; count_index < data_count; count_index++)
 	{
 		uchar_data_ptr[count_index] = point_cloud_data[count_index];
@@ -146,9 +158,11 @@ void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCl
 		last_pub_time = now_time;
 	}
 
-	cv::imshow("img_depth_points", img_depth_points);
-
-	cv::waitKey(10);
+	if (this->display_img_depth_pc)
+	{
+		cv::imshow("img_depth_points", img_depth_points);
+		cv::waitKey(10);
+	}
 
 	// RCLCPP_INFO(this->get_logger(), "time_end: %f s.", this->get_clock()->now().seconds());
 }
