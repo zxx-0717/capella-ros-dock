@@ -26,6 +26,7 @@ find_package(capella_ros_msg REQUIRED)
 find_package(capella_ros_service_interfaces REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(image_transport REQUIRED)
 
 set(dependencies
   angles
@@ -43,6 +44,7 @@ set(dependencies
   capella_ros_service_interfaces
   std_srvs
   OpenCV
+  image_transport
 )
 
 # Hazards vector publisher

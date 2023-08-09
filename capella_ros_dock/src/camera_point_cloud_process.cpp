@@ -28,6 +28,17 @@ CameraPointCloudProcess::CameraPointCloudProcess(const rclcpp::NodeOptions & opt
 	// auto qos = rclcpp::QoS(1).best_effort();
 	auto qos = rclcpp::SensorDataQoS();
 	point_cloud_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(topic_point_cloud, qos, std::bind(&CameraPointCloudProcess::point_cloud_sub_callback, this, _1), point_cloud_sub_options);
+	// auto custom_qos = rmw_qos_profile_sensor_data;
+	// custom_qos.depth = 5;
+
+	// point_cloud_sub_ = image_transport::create_camera_subscription(
+	// 	this, "/camera/color/image_raw",
+	// 	[&](const sensor_msgs::msg::Image::ConstSharedPtr &msg,
+	// 	    const sensor_msgs::msg::CameraInfo::ConstSharedPtr &info) {
+	// 		// point_cloud_sub_callback(msg);
+	// 	},
+	// 	"raw", custom_qos);
+
 
 	// create publisher for hazard
 	hazard_pub_ = this->create_publisher<capella_ros_dock_msgs::msg::HazardDetection>("object_proximity", rclcpp::QoS(10).best_effort());
@@ -68,8 +79,10 @@ void CameraPointCloudProcess::init_params()
 	RCLCPP_INFO(this->get_logger(), "display_img_depth_pc: %s", display_img_depth_pc ? "true" : "false" );
 }
 
-void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
+void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCloud2::ConstSharedPtr msg)
 {
+	// auto pub_time = rclcpp::Time(msg->header.stamp);
+	// RCLCPP_INFO(this->get_logger(), "pub time: %f s.", pub_time.seconds());
 	this->has_obstacle = false;
 	if (!camera_params_updated)
 	{
@@ -160,6 +173,7 @@ void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCl
 
 	if (this->display_img_depth_pc)
 	{
+		cv::namedWindow("img_depth_points", cv::WindowFlags::WINDOW_GUI_NORMAL);
 		cv::imshow("img_depth_points", img_depth_points);
 		cv::waitKey(10);
 	}

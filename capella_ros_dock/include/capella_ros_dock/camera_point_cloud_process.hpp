@@ -9,6 +9,8 @@
 #include "opencv2/opencv.hpp"
 #include <vector>
 
+#include "image_transport/image_transport.hpp"
+
 namespace capella_ros_dock
 {
 
@@ -29,11 +31,12 @@ explicit CameraPointCloudProcess(const rclcpp::NodeOptions & options = rclcpp::N
 ~CameraPointCloudProcess();
 
 void init_params();
-void point_cloud_sub_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg);
+void point_cloud_sub_callback(sensor_msgs::msg::PointCloud2::ConstSharedPtr msg);
 bool in_range(const cv::Point3f& point3f);
 
 private:
 rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr point_cloud_sub_;
+// image_transport::CameraSubscriber point_cloud_sub_;
 rclcpp::CallbackGroup::SharedPtr cb_group_point_cloud_;
 
 rclcpp::Publisher<capella_ros_dock_msgs::msg::HazardDetection>::SharedPtr hazard_pub_;

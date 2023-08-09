@@ -18,6 +18,7 @@
   <depend>boost</depend>
   <depend>tf2</depend>
   <depend>libopencv-dev</depend>
+  <depend>image_transport</depend>
 
   <build_depend>capella_ros_msg</build_depend>
   <build_depend>capella_ros_service_interfaces</build_depend>
