@@ -173,7 +173,7 @@ void CameraPointCloudProcess::point_cloud_sub_callback(sensor_msgs::msg::PointCl
 
 	if (this->display_img_depth_pc)
 	{
-		cv::namedWindow("img_depth_points", cv::WindowFlags::WINDOW_GUI_NORMAL);
+		cv::namedWindow("img_depth_points", cv::WindowFlags::WINDOW_NORMAL);
 		cv::imshow("img_depth_points", img_depth_points);
 		cv::waitKey(10);
 	}

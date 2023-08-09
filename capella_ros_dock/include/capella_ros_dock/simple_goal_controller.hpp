@@ -138,6 +138,13 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		servo_vel = geometry_msgs::msg::Twist();
 		return servo_vel;
 	}
+	if(!sees_dock && navigate_state_ != NavigateStates::LOOKUP_ARUCO_MARKER)
+	{
+		last_time_hazards = clock_->now();
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop until can see dock.");
+		servo_vel = geometry_msgs::msg::Twist();
+		return servo_vel;
+	}
 	now_time_hazards = clock_->now();
 	if ((now_time_hazards.seconds() - last_time_hazards.seconds()) < params_ptr->time_sleep)
 	{
@@ -172,7 +179,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				RCLCPP_DEBUG(logger_, "robot_y: %f", robot_y);
 				RCLCPP_DEBUG(logger_, "theta: %f", theta);
 				RCLCPP_DEBUG(logger_, "thr_angle_diff: %f", thre_angle_diff);
-				if (theta < thre_angle_diff && std::abs(robot_x) > (distance_tmp + params_ptr->deviate_second_goal_x))                                                                                                                                                                                      // 0.7 <= 0.5 + 0.2(x_error)
+				if (theta < thre_angle_diff && std::abs(robot_x) > (distance_tmp + params_ptr->deviate_second_goal_x))                                                                                                                                                                      // 0.7 <= 0.5 + 0.2(x_error)
 				{
 					navigate_state_ = NavigateStates::ANGLE_TO_GOAL;
 				}
@@ -242,7 +249,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		else
 		{
 			bound_rotation(angle_dist, params_ptr->min_rotation, params_ptr->max_rotation);
-			if(std::abs(angle_dist) < params_ptr->min_rotation)                                                                                                                                                                                             // 0.1 => 0.8 => raw_vel output 0
+			if(std::abs(angle_dist) < params_ptr->min_rotation)                                                                                                                                                                                 // 0.1 => 0.8 => raw_vel output 0
 			{
 				angle_dist = std::copysign(params_ptr->min_rotation, angle_dist);
 			}
@@ -299,7 +306,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		else
 		{
 			bound_rotation(dist_yaw, params_ptr->min_rotation, params_ptr->max_rotation);
-			if(std::abs(dist_yaw) < params_ptr->min_rotation)                                                                                                                                                                                             // 0.1 => 0.8 => raw_vel output 0
+			if(std::abs(dist_yaw) < params_ptr->min_rotation)                                                                                                                                                                                 // 0.1 => 0.8 => raw_vel output 0
 			{
 				dist_yaw = std::copysign(params_ptr->min_rotation, dist_yaw);
 			}
