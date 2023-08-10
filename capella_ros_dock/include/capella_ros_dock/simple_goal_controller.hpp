@@ -128,7 +128,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	}
 
 	// stop when has valid hazards
-	if(hazards_valid(current_pose, hazards))
+	if(hazards_valid(current_pose, hazards) && navigate_state_ > NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION)
 	{
 		last_time_hazards = clock_->now();
 		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop for hazards.");
