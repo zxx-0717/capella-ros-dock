@@ -17,6 +17,13 @@ TestDock::TestDock(std::string name, GoalRect goal_rect) : Node(name)
 	sub_opt_raw_vel.callback_group = cb_group_sub_raw_vel_;
 	raw_vel_sub_ = this->create_subscription<capella_ros_msg::msg::Velocities>("/raw_vel", 5, std::bind(&TestDock::raw_vel_sub_callback, this, _1), sub_opt_raw_vel);
 
+	// add sub for /odom
+	cb_group_sub_odom_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+	auto sub_opt_odom = rclcpp::SubscriptionOptions();
+	sub_opt_odom.callback_group = cb_group_sub_odom_;
+	odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>("/odom", 20, std::bind(&TestDock::odom_sub_callback, this, _1), sub_opt_odom);
+
+
 	cb_group_sub_charger_state_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
 	auto sub_opt_charger_state = rclcpp::SubscriptionOptions();
 	sub_opt_charger_state.callback_group = cb_group_sub_charger_state_;
@@ -86,15 +93,15 @@ bool TestDock::get_robot_pose()
 			dt = now_time - pre_time;
 			pre_time = now_time;
 			{
-				const std::lock_guard<std::mutex> lock(queue_raw_vel_mutex);
-				if (queue_raw_vel.size() == 0)
+				const std::lock_guard<std::mutex> lock(queue_odom_mutex);
+				if (queue_odom.size() == 0)
 				{
 					angular_z = 0;
 				}
 				else
 				{
-					angular_z = queue_raw_vel.front().angular_z;
-					queue_raw_vel.pop();
+					angular_z = queue_odom.front().twist.twist.angular.z;
+					queue_odom.pop();
 				}
 				rotation_angle += dt * angular_z;
 			}
@@ -175,19 +182,19 @@ void TestDock::move_to_goal_pose()
 	while (std::abs(dist_yaw) > 0.05)
 	{
 		{
-			const std::lock_guard<std::mutex> lock(queue_raw_vel_mutex);
+			const std::lock_guard<std::mutex> lock(queue_odom_mutex);
 			now_time = this->get_clock()->now().seconds();
 			dt = now_time - pre_time;
 			pre_time = now_time;
 			double angular_z = 0.;
-			if (queue_raw_vel.size() > 0)
+			if (queue_odom.size() > 0)
 			{
-				angular_z = queue_raw_vel.front().angular_z;
-				queue_raw_vel.pop();
+				angular_z = queue_odom.front().twist.twist.angular.z;
+				queue_odom.pop();
 			}
 			dist_yaw -= dt * angular_z;
 			// cout << "------------------angle to goal---------------" << endl;
-			// cout << "queue size: " << queue_raw_vel.size() << endl;
+			// cout << "queue size: " << queue_odom.size() << endl;
 			// cout << "dt: " << dt << endl;
 			// cout << "angular_z: " << angular_z << endl;
 			// cout << "dist yaw: " << dist_yaw << endl;
@@ -209,15 +216,15 @@ void TestDock::move_to_goal_pose()
 	while (std::abs(dist_linear) > 0.05)
 	{
 		{
-			const std::lock_guard<std::mutex> lock(queue_raw_vel_mutex);
+			const std::lock_guard<std::mutex> lock(queue_odom_mutex);
 			now_time = this->get_clock()->now().seconds();
 			dt = now_time - pre_time;
 			pre_time = now_time;
 			double linear_x = 0;
-			if (queue_raw_vel.size() > 0)
+			if (queue_odom.size() > 0)
 			{
-				linear_x = queue_raw_vel.front().linear_x;
-				queue_raw_vel.pop();
+				linear_x = queue_odom.front().twist.twist.linear.x;
+				queue_odom.pop();
 			}
 			dist_linear -= dt * std::abs(linear_x);
 			// cout << "------------------move to goal ------------------" << endl;
@@ -257,19 +264,19 @@ void TestDock::move_to_goal_pose()
 	while (std::abs(dist_yaw) > 0.05)
 	{
 		{
-			const std::lock_guard<std::mutex> lock(queue_raw_vel_mutex);
+			const std::lock_guard<std::mutex> lock(queue_odom_mutex);
 			now_time = this->get_clock()->now().seconds();
 			dt = now_time - pre_time;
 			pre_time = now_time;
 			double angular_z = 0.;
-			if (queue_raw_vel.size() > 0)
+			if (queue_odom.size() > 0)
 			{
-				angular_z = queue_raw_vel.front().angular_z;
-				queue_raw_vel.pop();
+				angular_z = queue_odom.front().twist.twist.angular.z;
+				queue_odom.pop();
 			}
 			dist_yaw -= dt * angular_z;
 			// cout << "------------------angle to marker ------------------" << endl;
-			// cout << "queue size: " << queue_raw_vel.size() << endl;
+			// cout << "queue size: " << queue_odom.size() << endl;
 			// cout << "dt: " << dt << endl;
 			// cout << "angular_z: " << angular_z << endl;
 			// cout << "dist yaw: " << dist_yaw << endl;
@@ -333,6 +340,7 @@ DockStatus TestDock::start_docking()
 	if (!get_robot_pose())
 	{
 		status_ = DockStatus::UNKNOW_ROBOT_POSE;
+		fail_count++;
 		return status_;
 	}
 
@@ -465,6 +473,22 @@ void TestDock::raw_vel_sub_callback(capella_ros_msg::msg::Velocities msg)
 	{
 		queue_raw_vel.pop();
 		queue_raw_vel.emplace(msg);
+	}
+}
+
+void TestDock::odom_sub_callback(nav_msgs::msg::Odometry msg)
+{
+	// cout << "odom_sub_callback" << endl;
+	const std::lock_guard<std::mutex> lock(queue_odom_mutex);
+	if ((int)queue_odom.size() < queue_odom_size)
+	{
+		queue_odom.emplace(msg);
+		// cout << "emplace" << endl;
+	}
+	else
+	{
+		queue_odom.pop();
+		queue_odom.emplace(msg);
 	}
 }
 

@@ -18,6 +18,7 @@
 #include <thread>
 #include <ctime>
 #include "capella_ros_service_interfaces/msg/charge_state.hpp"
+#include "nav_msgs/msg/odometry.hpp"
 
 using namespace std::chrono_literals;
 
@@ -61,6 +62,7 @@ public:
 	rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr dock_visible_sub_;
 	rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr robot_pose_sub_;
 	rclcpp::Subscription<capella_ros_msg::msg::Velocities>::SharedPtr raw_vel_sub_;
+	rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
 	rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeState>::SharedPtr charger_state_sub_;
 
 	rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_pub_;
@@ -69,11 +71,13 @@ public:
 	rclcpp::CallbackGroup::SharedPtr cb_group_sub_robot_pose_;
 	rclcpp::CallbackGroup::SharedPtr cb_group_sub_raw_vel_;
 	rclcpp::CallbackGroup::SharedPtr cb_group_sub_charger_state_;
+	rclcpp::CallbackGroup::SharedPtr cb_group_sub_odom_;
 
 	std::shared_ptr<std::thread> __th_process_;
 
 	void dock_visible_sub_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible msg);
 	void raw_vel_sub_callback(capella_ros_msg::msg::Velocities msg);
+	void odom_sub_callback(nav_msgs::msg::Odometry msg);
 	void robot_pose_sub_callback(geometry_msgs::msg::PoseStamped msg);
 	void timer_pub_vel_callback();
 	void dock_result_callback(const GoalHandleDock::WrappedResult &result);
@@ -92,8 +96,11 @@ public:
 	bool robot_current_pose_sub_sub = false;
 	robotPose goal_pose;
 	std::queue<capella_ros_msg::msg::Velocities> queue_raw_vel;
+	std::queue<nav_msgs::msg::Odometry> queue_odom;
 	int queue_raw_vel_size = 5;
+	int queue_odom_size = 5;
 	std::mutex queue_raw_vel_mutex;
+	std::mutex queue_odom_mutex;
 	GoalRect goal_rect;
 
 	int test_count = 5;

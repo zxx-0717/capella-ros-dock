@@ -54,6 +54,12 @@ DockingBehavior::DockingBehavior(
 		rclcpp::SensorDataQoS(),
 		std::bind(&DockingBehavior::raw_vel_sub_callback, this, _1)
 		);
+	odom_sub_ = rclcpp::create_subscription<nav_msgs::msg::Odometry>(
+		node_topics_interface,
+		"/odom",
+		rclcpp::SensorDataQoS(),
+		std::bind(&DockingBehavior::odom_sub_callback, this, _1)
+		);
 
 	docking_action_server_ = rclcpp_action::create_server<capella_ros_dock_msgs::action::Dock>(
 		node_base_interface,
@@ -90,6 +96,13 @@ void DockingBehavior::raw_vel_sub_callback(capella_ros_msg::msg::Velocities raw_
 {
 	this->raw_vel_msg = raw_vel;
 }
+
+void DockingBehavior::odom_sub_callback(nav_msgs::msg::Odometry odom)
+{
+	this->odom_msg = odom;
+}
+
+
 
 bool DockingBehavior::docking_behavior_is_done()
 {
@@ -229,7 +242,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 	}
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_, is_docked_,
-	                                                       raw_vel_msg, clock_, logger_, params_ptr, hazards);
+	                                                       odom_msg, clock_, logger_, params_ptr, hazards);
 	if(this->is_docked_)
 	{
 		RCLCPP_DEBUG(logger_, "zero cmd time => sec: %f", this->clock_.get()->now().seconds());
@@ -367,7 +380,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	}
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_,
-	                                                       is_docked_,  raw_vel_msg, clock_, logger_, params_ptr, hazards);
+	                                                       is_docked_,  odom_msg, clock_, logger_, params_ptr, hazards);
 
 	bool exceeded_runtime = false;
 	if (clock_->now() - action_start_time_ > max_action_runtime_) {

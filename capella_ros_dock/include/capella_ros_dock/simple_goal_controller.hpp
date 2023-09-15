@@ -22,6 +22,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "capella_ros_dock/utils.hpp"
 #include <inttypes.h>
+#include <nav_msgs/msg/odometry.hpp>
 
 using namespace std;
 
@@ -102,7 +103,7 @@ void reset()
 // \return empty optional if no goal or velocity command to get to next goal point
 BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	const tf2::Transform & current_pose, bool sees_dock, bool is_docked,
-	capella_ros_msg::msg::Velocities raw_vel_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr, capella_ros_dock_msgs::msg::HazardDetectionVector hazards)
+	nav_msgs::msg::Odometry odom_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr, capella_ros_dock_msgs::msg::HazardDetectionVector hazards)
 {
 	// RCLCPP_INFO_STREAM(logger_, "simple_goal_controller => max_dock_action_run_time: " << params_ptr->max_dock_action_run_time << " seconds.");
 	time_start = std::chrono::high_resolution_clock::now();
@@ -233,11 +234,11 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		double dt = now_time - pre_time;
 
 		RCLCPP_DEBUG(logger_, "dt: %f", dt);
-		RCLCPP_DEBUG(logger_, "raw_angular.z: %f", raw_vel_msg.angular_z);
-		RCLCPP_DEBUG(logger_, "delta_angular: %f", raw_vel_msg.angular_z * dt);
+		RCLCPP_DEBUG(logger_, "angular.z: %f", odom_msg.twist.twist.angular.z);
+		RCLCPP_DEBUG(logger_, "delta_angular: %f", odom_msg.twist.twist.angular.z * dt);
 		RCLCPP_DEBUG(logger_, "dist_buffer_point_yaw pre: %f", dist_buffer_point_yaw);
-		dist_buffer_point_yaw -= raw_vel_msg.angular_z * dt;
-		robot_current_yaw += raw_vel_msg.angular_z * dt;
+		dist_buffer_point_yaw -= odom_msg.twist.twist.angular.z * dt;
+		robot_current_yaw += odom_msg.twist.twist.angular.z * dt;
 		RCLCPP_DEBUG(logger_, "dist_buffer_point_yaw now: %f", dist_buffer_point_yaw);
 		double angle_dist = dist_buffer_point_yaw;
 		RCLCPP_DEBUG(logger_, "angle_dist: %f", angle_dist);
@@ -264,10 +265,10 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		servo_vel = geometry_msgs::msg::Twist();
 		now_time = clock_->now().seconds();
 		double dt = now_time - pre_time;
-		dist_buffer_point -= dt * std::abs(raw_vel_msg.linear_x);
+		dist_buffer_point -= dt * std::abs(odom_msg.twist.twist.linear.x);
 		pre_time = now_time;
 		double dist_y = dist_buffer_point;
-		RCLCPP_DEBUG(logger_, "raw_vel.linear_x: %f", raw_vel_msg.linear_x);
+		RCLCPP_DEBUG(logger_, "odom_msg.linear_x: %f", odom_msg.twist.twist.linear.x);
 		RCLCPP_DEBUG(logger_, "dt: %f", dt);
 		RCLCPP_DEBUG(logger_, "dist_buffer_point now: %f", dist_buffer_point);
 		RCLCPP_DEBUG(logger_, "dist_y: %f", dist_y);
@@ -296,7 +297,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		servo_vel = geometry_msgs::msg::Twist();
 		now_time = clock_->now().seconds();
 		double dt = now_time - pre_time;
-		robot_current_yaw += raw_vel_msg.angular_z * dt;
+		robot_current_yaw += odom_msg.twist.twist.angular.z * dt;
 		pre_time = now_time;
 		double dist_yaw = angles::shortest_angular_distance(robot_current_yaw, 0);
 		if(std::abs(dist_yaw) < params_ptr->tolerance_angle)

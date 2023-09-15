@@ -21,6 +21,7 @@
 #include "capella_ros_msg/msg/velocities.hpp"
 #include "rclcpp/qos.hpp"
 #include "capella_ros_dock/utils.hpp"
+#include "nav_msgs/msg/odometry.hpp"
 
 namespace capella_ros_dock
 {
@@ -101,6 +102,7 @@ rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::
 rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeState>::SharedPtr charge_state_sub_;
 rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr robot_pose_sub_;
 rclcpp::Subscription<capella_ros_msg::msg::Velocities>::SharedPtr raw_vel_sub_;
+rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
 
 rclcpp::Clock::SharedPtr clock_;
 rclcpp::Logger logger_;
@@ -122,9 +124,11 @@ const double UNDOCK_GOAL_OFFSET {0.5};
 rclcpp::Time last_feedback_time_;
 const rclcpp::Duration report_feedback_interval_ {std::chrono::seconds(3)};
 capella_ros_msg::msg::Velocities raw_vel_msg;
+nav_msgs::msg::Odometry odom_msg;
 motion_control_params *params_ptr;
 
 void raw_vel_sub_callback(capella_ros_msg::msg::Velocities);
+void odom_sub_callback(nav_msgs::msg::Odometry);
 };
 
 }  // namespace capella_ros_dock
