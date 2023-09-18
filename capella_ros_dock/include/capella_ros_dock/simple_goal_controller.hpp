@@ -174,7 +174,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				double robot_y = current_pose.getOrigin().getY();
 				float distance_tmp = params_ptr->last_docked_distance_offset_
 				                     + params_ptr->distance_low_speed
-				                     + params_ptr->first_goal_distance;
+						     + params_ptr->second_goal_distance;
 				double theta = std::atan2(std::abs(robot_y), std::abs(robot_x) - distance_tmp);
 				RCLCPP_DEBUG(logger_, "robot_x: %f", robot_x);
 				RCLCPP_DEBUG(logger_, "robot_y: %f", robot_y);

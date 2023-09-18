@@ -173,7 +173,9 @@ void DockingBehavior::handle_dock_servo_accepted(
 	// 	dock_position.getX() - robot_position.getX(),
 	// 	dock_position.getY() - robot_position.getY());
 	// RCLCPP_INFO(logger_, "dist_offset: %f", dist_offset);
-	const double max_goal_offset = MAX_DOCK_INTERMEDIATE_GOAL_OFFSET + last_docked_distance_offset_;
+	MAX_DOCK_INTERMEDIATE_GOAL_OFFSET = params_ptr->distance_low_speed + params_ptr->second_goal_distance;
+	last_docked_distance_offset_ = params_ptr->last_docked_distance_offset_;
+	const double max_goal_offset = MAX_DOCK_INTERMEDIATE_GOAL_OFFSET + last_docked_distance_offset_ + params_ptr->first_goal_distance;
 	// if (dist_offset > max_goal_offset) {
 	double dist_offset = max_goal_offset;
 	// }
@@ -185,12 +187,12 @@ void DockingBehavior::handle_dock_servo_accepted(
 	dock_offset.setOrigin(tf2::Vector3(-dist_offset, 0, 0));
 	dock_offset.setRotation(dock_rotation);
 	dock_path.emplace_back(dock_pose * dock_offset, 0.1, true);
-	// dock_offset.setIdentity();
-	// dock_offset.setOrigin(tf2::Vector3(-last_docked_distance_offset_, 0, 0));
-	// tf2::Transform face_dock(tf2::Transform::getIdentity());
-	// face_dock.setRotation(dock_rotation);
-	// dock_path.emplace_back(dock_pose * dock_offset * face_dock, 0.1, true);
-	dock_path.emplace_back(dock_pose, 0.1, true);
+	
+	dock_rotation.setRPY(0, 0, 0);
+	dock_offset.setOrigin(tf2::Vector3(-params_ptr->first_goal_distance, 0, 0));
+	dock_offset.setRotation(dock_rotation);
+	dock_path.emplace_back(dock_pose * dock_offset, 0.1, true);
+
 	goal_controller_->initialize_goal(dock_path, 0.2, 0.10);
 	// Setup behavior to override other commanded motion
 	BehaviorsScheduler::BehaviorsData data;
