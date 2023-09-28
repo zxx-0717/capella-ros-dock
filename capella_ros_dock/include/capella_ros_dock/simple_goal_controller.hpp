@@ -297,10 +297,20 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		servo_vel = geometry_msgs::msg::Twist();
 		now_time = clock_->now().seconds();
 		double dt = now_time - pre_time;
+		RCLCPP_DEBUG(logger_, "robot_current_yaw_before: %f", robot_current_yaw);
+		RCLCPP_DEBUG(logger_, "dt %f", dt);
+		RCLCPP_DEBUG(logger_, "odom_msg.twist.twist.angular.z: %f", odom_msg.twist.twist.angular.z);
 		robot_current_yaw += odom_msg.twist.twist.angular.z * dt;
 		pre_time = now_time;
+		RCLCPP_DEBUG(logger_, "robot_current_yaw_now: %f", robot_current_yaw);
 		double dist_yaw = angles::shortest_angular_distance(robot_current_yaw, 0);
-		if(std::abs(dist_yaw) < params_ptr->tolerance_angle)
+		RCLCPP_DEBUG(logger_, "dist_yaw: %f", dist_yaw);
+		// fix bug when get odom/twist/twist/angluar/z wrong value
+		double robot_yaw_marker = tf2::getYaw(current_pose.getRotation());
+		double dist_yaw2 = angles::shortest_angular_distance(robot_yaw_marker, 0);
+
+		RCLCPP_DEBUG(logger_, "dist_yaw2: %f", dist_yaw2);
+		if(sees_dock && std::abs(dist_yaw2) < params_ptr->tolerance_angle )
 		{
 			navigate_state_ = NavigateStates::ANGLE_TO_GOAL;
 		}
@@ -312,6 +322,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				dist_yaw = std::copysign(params_ptr->min_rotation, dist_yaw);
 			}
 			servo_vel->angular.z = dist_yaw;
+			RCLCPP_DEBUG(logger_, "servo_vel->angular.z: %f", servo_vel->angular.z);
 		}
 		break;
 	}
@@ -323,9 +334,10 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		RCLCPP_DEBUG(logger_, "goal =>  x: %f, y: %f, yaw: %f",
 		             gp.x, gp.y, gp.theta);
 		RCLCPP_DEBUG(logger_, "robot =>  x: %f, y: %f, yaw: %f",
-		             current_pose.getOrigin().getX(), current_pose.getOrigin().getY(),
+		             current_position.getX(), current_position.getY(),
 		             current_angle);
 
+		
 		double delta_y, delta_x;
 		delta_y = std::abs(gp.y - current_position.getY());
 		delta_x = std::abs(gp.x - current_position.getX());
@@ -343,7 +355,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			RCLCPP_DEBUG(logger_, "bound angle: %f", ang);
 			RCLCPP_DEBUG(logger_, "--------------------------------");
 			servo_vel = geometry_msgs::msg::Twist();
-			if (std::abs(ang_save) < params_ptr->angle_to_goal_angle_converged) {
+			// fix bug when robot had angle to marker but y coord error or odom data error,  10 degree(0.174533)
+			if (std::abs(ang_save) < params_ptr->angle_to_goal_angle_converged || (sees_dock && std::abs(std::abs(current_angle) - M_PI) <  0.174533)) {
 				navigate_state_ = NavigateStates::GO_TO_GOAL_POSITION;
 				RCLCPP_DEBUG(logger_, " ******** change to state GO_TO_GOAL_POSITION ******** ");
 			} else {
@@ -371,7 +384,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		double abs_ang = std::abs(ang);
 		servo_vel = geometry_msgs::msg::Twist();
 		// If robot is close enough to goal, move to final stage
-		if (dist_to_goal < goal_points_.front().radius) {
+		if (dist_to_goal < goal_points_.front().radius || std::abs(current_position.getX()) < std::abs(gp.x)) {
 			navigate_state_ = NavigateStates::GOAL_ANGLE;
 			RCLCPP_DEBUG(logger_, " ******** change to state GOAL_ANGLE ******** ");
 			servo_vel->linear.x = gp.drive_backwards ? -params_ptr->max_translation : params_ptr->max_translation ;

@@ -170,6 +170,7 @@ void TestDock::move_to_goal_pose()
 	// cout << "goal pose  => x: " << goal_pose.x << ", y: " << goal_pose.y << endl;
 	// cout << "goal theta: " << std::atan2(dt_y, dt_x) << endl;
 	// cout << "dist yaw: " << dist_yaw << endl;
+	// cout << "dist_linear: " << dist_linear << endl;
 
 	// angle to goal;
 	RCLCPP_INFO(this->get_logger(), "********** angle to goal **********");
@@ -291,6 +292,7 @@ DockStatus TestDock::start_docking()
 {
 	dock_end = false;
 
+	RCLCPP_INFO(get_logger(), "start docking...");
 	// wait for /marker_visible msg
 	while(!sees_dock_sub)
 	{
