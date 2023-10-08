@@ -78,7 +78,7 @@ void MotionControlNode::init_params()
 	this->declare_parameter<float>("second_goal_distance", 0.5);
 	this->declare_parameter<float>("buffer_goal_distance", 1.0);
 	this->declare_parameter<float>("camera_horizontal_view", 64.0);
-	this->declare_parameter<int>("localization_converged_time", 2);
+	this->declare_parameter<float>("localization_converged_time", 2);
 	this->declare_parameter<float>("tolerance_angle", 0.05);
 	this->declare_parameter<float>("tolerance_r", 0.1);
 	this->declare_parameter<float>("deviate_second_goal_x", 0.2);
@@ -109,7 +109,7 @@ void MotionControlNode::init_params()
 	params.second_goal_distance = this->get_parameter_or<float>("second_goal_distance", 0.50);
 	params.buffer_goal_distance = this->get_parameter_or<float>("buffer_goal_distance", 1.0);
 	params.camera_horizontal_view = this->get_parameter_or<float>("camera_horizontal_view", 64.0);
-	params.localization_converged_time = this->get_parameter_or<int>("localization_converged_time", 2);
+	params.localization_converged_time = this->get_parameter_or<float>("localization_converged_time", 2);
 	params.tolerance_angle = this->get_parameter_or<float>("tolerance_angle", 0.05);
 	params.tolerance_r = this->get_parameter_or<float>("tolerance_r", 0.1);
 	params.deviate_second_goal_x = this->get_parameter_or<float>("deviate_second_goal_x", 0.2);

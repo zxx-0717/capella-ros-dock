@@ -163,11 +163,23 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		servo_vel = geometry_msgs::msg::Twist();
 		if (sees_dock)
 		{
-			if(first_sees_dock)
+			RCLCPP_DEBUG(logger_, "see dock");
+			auto current_robot_angle = tf2::getYaw(current_pose.getRotation());
+			float dist_angle_to_X_Axis = angles::shortest_angular_distance(current_robot_angle, 0);
+			float dist_angle_to_X_Axis_abs = std::abs(dist_angle_to_X_Axis);
+			if (dist_angle_to_X_Axis_abs < 0.05 && first_sees_dock)
 			{
+				RCLCPP_DEBUG(logger_, "first see dock.(angle to x positive orientation.)");
 				first_sees_dock = false;
 				first_sees_dock_time = clock_->now().seconds();
 			}
+			else
+			{
+				servo_vel->angular.z = std::copysign(params_ptr->max_rotation, dist_angle_to_X_Axis);
+			}			
+			RCLCPP_DEBUG(logger_, "first see dock time: %f", first_sees_dock_time);
+
+
 			now_time = clock_->now().seconds();
 			if (now_time - first_sees_dock_time > params_ptr->localization_converged_time)
 			{
@@ -224,6 +236,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		else
 		{
 			servo_vel->angular.z = params_ptr->max_rotation;
+			RCLCPP_DEBUG(logger_, "can not see dock");
 		}
 		break;
 	}
@@ -337,17 +350,13 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			else
 			{
 				RCLCPP_DEBUG(logger_, "re-execute ANGLE_TO_BUFFER_POINT");
-				navigate_state_ = NavigateStates::ANGLE_TO_BUFFER_POINT;
+				navigate_state_ = NavigateStates::LOOKUP_ARUCO_MARKER;
 			}
 		}
 		else
 		{
-			bound_rotation(dist_yaw, params_ptr->min_rotation, params_ptr->max_rotation);
-			if(std::abs(dist_yaw) < params_ptr->min_rotation)                                                                                                                                                                                 // 0.1 => 0.8 => raw_vel output 0
-			{
-				dist_yaw = std::copysign(params_ptr->min_rotation, dist_yaw);
-			}
-			servo_vel->angular.z = dist_yaw;
+			bound_rotation(dist_yaw2, params_ptr->min_rotation, params_ptr->max_rotation);
+			servo_vel->angular.z = dist_yaw2;
 			RCLCPP_DEBUG(logger_, "servo_vel->angular.z: %f", servo_vel->angular.z);
 		}
 		break;
