@@ -445,19 +445,21 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				translate_velocity *= -1;
 			}
 			servo_vel->linear.x = translate_velocity;
-			RCLCPP_DEBUG(logger_, " linear_x: %f", translate_velocity);
-			double angle_dist = angles::shortest_angular_distance(current_angle, 0);
+			RCLCPP_DEBUG(logger_, "linear_x: %f", translate_velocity);
+			// double angle_dist = angles::shortest_angular_distance(current_angle, 0);
 			if(std::abs(current_position.getX()) < (params_ptr->last_docked_distance_offset_ + params_ptr->distance_low_speed))
 			{
-				if (std::abs(angle_dist) > params_ptr->rotation_low_speed)
+				RCLCPP_DEBUG(logger_, "low speed mode ");
+				if (abs_ang > params_ptr->go_to_goal_apply_rotation_angle)
 				{
-					bound_rotation(angle_dist, 0.01, params_ptr->rotation_low_speed);
-					servo_vel->angular.z = angle_dist;
-					RCLCPP_DEBUG(logger_, "low speed mode => angular.z: %f", angle_dist);
+					bound_rotation(ang, 0.01, params_ptr->rotation_low_speed);
+					servo_vel->angular.z = ang;
+					RCLCPP_DEBUG(logger_, "low speed mode => angular.z: %f", ang);
 				}
 			}
 			else
 			{
+				RCLCPP_DEBUG(logger_, "normal speed mode ");
 				if (abs_ang > params_ptr->go_to_goal_apply_rotation_angle) {
 					bound_rotation(ang, params_ptr->min_rotation, params_ptr->max_rotation);
 					servo_vel->angular.z = ang;
