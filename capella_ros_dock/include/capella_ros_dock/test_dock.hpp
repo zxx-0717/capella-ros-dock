@@ -75,6 +75,8 @@ public:
 
 	std::shared_ptr<std::thread> __th_process_;
 
+	bool goal_rejected = false;
+
 	void dock_visible_sub_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible msg);
 	void raw_vel_sub_callback(capella_ros_msg::msg::Velocities msg);
 	void odom_sub_callback(nav_msgs::msg::Odometry msg);

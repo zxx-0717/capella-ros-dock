@@ -360,10 +360,19 @@ DockStatus TestDock::start_docking()
 	auto send_goal_options = rclcpp_action::Client<Dock>::SendGoalOptions();
 	send_goal_options.result_callback = std::bind(&TestDock::dock_result_callback, this, _1);
 
-	this->client_action_dock_->async_send_goal(goal_msg, send_goal_options);
+	auto goal_future = this->client_action_dock_->async_send_goal(goal_msg, send_goal_options);
+	if(!goal_future.get())
+	{
+		RCLCPP_INFO(get_logger(), "Goal rejected.");
+		dock_end = true;
+		fail_count++;
+		status_ = DockStatus::FAILURE;
+		goal_rejected = true;
+	}
 
 	while (!dock_end)
 	{
+		// RCLCPP_DEBUG(get_logger(),"sleep 1 second.");
 		sleep(1);
 	}
 	return status_;
@@ -376,6 +385,11 @@ void TestDock::run()
 	{
 		RCLCPP_INFO(this->get_logger(), "--------------- Number %d / %d --------------- ", current_number + 1, test_count);
 		DockStatus result = start_docking();
+		if (goal_rejected)
+		{
+			RCLCPP_INFO(get_logger(), "Goal was rejected, please check the topic name /charger/state.");
+			break;
+		}
 		switch (result)
 		{
 		case DockStatus::UNKNOW_ROBOT_POSE:
@@ -439,6 +453,7 @@ double TestDock::bound_linear(double x)
 
 void TestDock::dock_result_callback(const GoalHandleDock::WrappedResult &result)
 {
+	RCLCPP_DEBUG(get_logger(), "dock_result_callback");
 	switch (result.code)
 	{
 	case rclcpp_action::ResultCode::SUCCEEDED:
