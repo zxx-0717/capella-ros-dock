@@ -37,6 +37,8 @@ struct motion_control_params
 	float marker_size;
 	float dock_valid_obstacle_x;
 	float time_sleep;
+	float go_to_goal_rotation_min;
+	float go_to_goal_rotation_max;
 };
 } // end namespace capella_ros_dock
 

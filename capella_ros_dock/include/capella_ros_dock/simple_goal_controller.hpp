@@ -470,7 +470,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			{
 				RCLCPP_DEBUG(logger_, "normal speed mode ");
 				if (abs_ang > params_ptr->go_to_goal_apply_rotation_angle) {
-					bound_rotation(ang, params_ptr->min_rotation, params_ptr->max_rotation);
+					bound_rotation(ang, params_ptr->go_to_goal_rotation_min, params_ptr->go_to_goal_rotation_max);
 					servo_vel->angular.z = ang;
 					RCLCPP_DEBUG(logger_, "normal speed mode => angular.z: %f", ang);
 				}
