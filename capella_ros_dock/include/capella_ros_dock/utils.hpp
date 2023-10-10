@@ -39,6 +39,8 @@ struct motion_control_params
 	float time_sleep;
 	float go_to_goal_rotation_min;
 	float go_to_goal_rotation_max;
+	float speed_rotation_acceleration;
+	float speed_rotation_init_abs;
 };
 } // end namespace capella_ros_dock
 

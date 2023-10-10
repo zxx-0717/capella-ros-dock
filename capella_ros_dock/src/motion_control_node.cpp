@@ -92,6 +92,8 @@ void MotionControlNode::init_params()
 	this->declare_parameter<float>("time_sleep", 3.0);
 	this->declare_parameter<float>("go_to_goal_rotation_min", 0.05);
 	this->declare_parameter<float>("go_to_goal_rotation_max", 0.10);
+	this->declare_parameter<float>("speed_rotation_acceleration", 0.20);
+	this->declare_parameter<float>("speed_rotation_init_abs", 0.02);
 
 	params.max_dock_action_run_time = this->get_parameter_or<int>("max_dock_action_run_time", 180);
 	params.min_rotation = this->get_parameter_or<float>("min_rotation", 0.15);
@@ -125,6 +127,9 @@ void MotionControlNode::init_params()
 	params.time_sleep = this->get_parameter("time_sleep").get_value<float>();
 	params.go_to_goal_rotation_min = this->get_parameter("go_to_goal_rotation_min").get_value<float>();
 	params.go_to_goal_rotation_max = this->get_parameter("go_to_goal_rotation_max").get_value<float>();
+	params.speed_rotation_acceleration = this->get_parameter("speed_rotation_acceleration").get_value<float>();
+	params.speed_rotation_init_abs = this->get_parameter("speed_rotation_init_abs").get_value<float>();
+	
 	// RCLCPP_INFO_STREAM(this->get_logger(), "max_dock_action_run_time: " << params.max_dock_action_run_time << " s.");
 }
 

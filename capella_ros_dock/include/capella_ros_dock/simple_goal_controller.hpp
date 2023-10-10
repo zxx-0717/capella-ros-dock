@@ -46,7 +46,7 @@ SimpleGoalController(motion_control_params *params_ptr)
 void init_params()
 {
 	buffer_goal_point_x = -(params_ptr->last_docked_distance_offset_
-				+ params_ptr->distance_low_speed
+	                        + params_ptr->distance_low_speed
 	                        + params_ptr->second_goal_distance
 	                        + params_ptr->buffer_goal_distance);
 
@@ -176,7 +176,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			else
 			{
 				servo_vel->angular.z = std::copysign(params_ptr->max_rotation, dist_angle_to_X_Axis);
-			}			
+			}
 			RCLCPP_DEBUG(logger_, "first see dock time: %f", first_sees_dock_time);
 
 
@@ -462,6 +462,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				if (abs_ang > params_ptr->go_to_goal_apply_rotation_angle)
 				{
 					bound_rotation(ang, 0.01, params_ptr->rotation_low_speed);
+					ang = generate_smooth_rotation_speed(last_rotation_speed_, last_rotation_speed_time_, ang, clock_);
 					servo_vel->angular.z = ang;
 					RCLCPP_DEBUG(logger_, "low speed mode => angular.z: %f", ang);
 				}
@@ -471,6 +472,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				RCLCPP_DEBUG(logger_, "normal speed mode ");
 				if (abs_ang > params_ptr->go_to_goal_apply_rotation_angle) {
 					bound_rotation(ang, params_ptr->go_to_goal_rotation_min, params_ptr->go_to_goal_rotation_max);
+					ang = generate_smooth_rotation_speed(last_rotation_speed_, last_rotation_speed_time_, ang, clock_);
 					servo_vel->angular.z = ang;
 					RCLCPP_DEBUG(logger_, "normal speed mode => angular.z: %f", ang);
 				}
@@ -555,6 +557,38 @@ void bound_rotation(double & rotation_velocity, float min, float max)
 	}
 }
 
+
+// smooth rotation speed
+float generate_smooth_rotation_speed(float & last_rotation, double & last_rotation_time, float cur_rotation, rclcpp::Clock::SharedPtr clock_)
+{
+	float acc = params_ptr->speed_rotation_acceleration;
+	float new_rotation_speed, rotation_max_change_abs, rotation_cur_change_abs;
+	if (first_pub_rotation_speed)
+	{
+		first_pub_rotation_speed = false;
+		new_rotation_speed = std::copysign(params_ptr->speed_rotation_init_abs, cur_rotation);
+	}
+	else
+	{
+		double cur_time = clock_->now().seconds();
+		rotation_max_change_abs = std::abs((cur_time - last_rotation_speed_time_) * acc);
+		rotation_cur_change_abs = std::abs(cur_rotation - last_rotation);
+		if (rotation_cur_change_abs > rotation_max_change_abs)
+		{
+			new_rotation_speed = last_rotation + std::copysign(rotation_max_change_abs, cur_rotation - last_rotation);
+		}
+		else
+		{
+			new_rotation_speed = cur_rotation;
+		}
+	}
+
+	last_rotation = new_rotation_speed;
+	last_rotation_time = clock_->now().seconds();
+
+	return new_rotation_speed;
+}
+
 double diff_angle(const GoalPoint & goal_pt, const tf2::Vector3 & cur_position, double cur_angle, rclcpp::Logger logger_)
 {
 
@@ -631,6 +665,9 @@ double theta_positive, theta_negative;
 rclcpp::Time last_time_hazards;
 rclcpp::Time now_time_hazards;
 float time_sleep;
+float last_rotation_speed_ = 0.0f;
+double last_rotation_speed_time_ = 0.0f;
+bool first_pub_rotation_speed = true;
 
 };
 
