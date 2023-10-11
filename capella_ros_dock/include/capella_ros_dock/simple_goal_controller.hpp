@@ -112,9 +112,23 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	const std::lock_guard<std::mutex> lock(mutex_);
 	if (is_docked)
 	{
-		RCLCPP_INFO(logger_, "*************** robot is docked *************");
-		goal_points_.clear();
-		first_sees_dock = true;
+		if(first_contacted)
+		{
+			first_contacted = false;
+			first_contacted_time = clock_->now().seconds();
+			RCLCPP_DEBUG(logger_, "keep moving until %f expired.", params_ptr->contacted_keep_move_time);
+		}
+		else
+		{
+			auto now_time = clock_->now().seconds();
+			if ((now_time - first_contacted_time) > params_ptr->contacted_keep_move_time)
+			{
+				RCLCPP_INFO(logger_, "*************** robot is docked *************");
+				goal_points_.clear();
+				first_sees_dock = true;
+				first_contacted = true;
+			}
+		}		
 	}
 	if (goal_points_.size() == 0) {
 		RCLCPP_INFO(logger_, "*************** goal_points.size() = 0 *************");
@@ -668,6 +682,10 @@ float time_sleep;
 float last_rotation_speed_ = 0.0f;
 double last_rotation_speed_time_ = 0.0f;
 bool first_pub_rotation_speed = true;
+
+// when has contacted, keep moving a little time
+bool first_contacted = true;
+double first_contacted_time;
 
 };
 

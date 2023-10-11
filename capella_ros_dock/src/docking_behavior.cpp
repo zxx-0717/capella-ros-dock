@@ -19,7 +19,7 @@ DockingBehavior::DockingBehavior(
 	std::shared_ptr<BehaviorsScheduler> behavior_scheduler)
 	: clock_(node_clock_interface->get_clock()),
 	logger_(node_logging_interface->get_logger()),
-	max_action_runtime_(rclcpp::Duration(std::chrono::seconds(180)))
+	max_action_runtime_(rclcpp::Duration(std::chrono::seconds(params_ptr->max_action_runtime)))
 {
 	RCLCPP_INFO(logger_, "DockingBehavior constructor.");
 	behavior_scheduler_ = behavior_scheduler;
@@ -187,7 +187,7 @@ void DockingBehavior::handle_dock_servo_accepted(
 	dock_offset.setOrigin(tf2::Vector3(-dist_offset, 0, 0));
 	dock_offset.setRotation(dock_rotation);
 	dock_path.emplace_back(dock_pose * dock_offset, 0.1, true);
-	
+
 	dock_rotation.setRPY(0, 0, 0);
 	dock_offset.setOrigin(tf2::Vector3(-params_ptr->first_goal_distance, 0, 0));
 	dock_offset.setRotation(dock_rotation);
@@ -244,7 +244,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 	}
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_, is_docked_,
-	                                                       odom_msg, clock_, logger_, params_ptr, hazards);
+	                                                        odom_msg, clock_, logger_, params_ptr, hazards);
 	if(this->is_docked_)
 	{
 		RCLCPP_DEBUG(logger_, "zero cmd time => sec: %f", this->clock_.get()->now().seconds());
@@ -382,7 +382,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	}
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_,
-	                                                       is_docked_,  odom_msg, clock_, logger_, params_ptr, hazards);
+	                                                        is_docked_,  odom_msg, clock_, logger_, params_ptr, hazards);
 
 	bool exceeded_runtime = false;
 	if (clock_->now() - action_start_time_ > max_action_runtime_) {

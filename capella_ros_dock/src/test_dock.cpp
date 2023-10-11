@@ -316,7 +316,7 @@ DockStatus TestDock::start_docking()
 
 	if(dock_success || has_contact
 	   || (sees_dock && robot_current_pose_sub_sub
-	       && ((robot_current_pose_sub.x < -0.30 && robot_current_pose_sub.x > -0.45)
+	       && ((robot_current_pose_sub.x < -0.30 && robot_current_pose_sub.x > -0.80)
 	           && (robot_current_pose_sub.y > -0.15 && robot_current_pose_sub.y < 0.15)))
 	   )
 	{
