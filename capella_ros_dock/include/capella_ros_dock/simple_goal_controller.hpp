@@ -128,7 +128,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				first_sees_dock = true;
 				first_contacted = true;
 			}
-		}		
+		}
 	}
 	if (goal_points_.size() == 0) {
 		RCLCPP_INFO(logger_, "*************** goal_points.size() = 0 *************");
@@ -186,16 +186,16 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				RCLCPP_DEBUG(logger_, "first see dock.(angle to x positive orientation.)");
 				first_sees_dock = false;
 				first_sees_dock_time = clock_->now().seconds();
+				RCLCPP_DEBUG(logger_, "first see dock time: %f", first_sees_dock_time);
 			}
 			else
 			{
 				servo_vel->angular.z = std::copysign(params_ptr->max_rotation, dist_angle_to_X_Axis);
 			}
-			RCLCPP_DEBUG(logger_, "first see dock time: %f", first_sees_dock_time);
 
 
 			now_time = clock_->now().seconds();
-			if (now_time - first_sees_dock_time > params_ptr->localization_converged_time)
+			if ( !first_sees_dock && (now_time - first_sees_dock_time > params_ptr->localization_converged_time))
 			{
 				double robot_x = current_pose.getOrigin().getX();
 				double robot_y = current_pose.getOrigin().getY();
