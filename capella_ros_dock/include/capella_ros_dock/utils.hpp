@@ -43,6 +43,8 @@ struct motion_control_params
 	float speed_rotation_init_abs;
 	int max_action_runtime;
 	float contacted_keep_move_time;
+	float undock_speed;
+	float undock_time;
 };
 } // end namespace capella_ros_dock
 

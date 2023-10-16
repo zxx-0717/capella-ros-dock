@@ -331,7 +331,7 @@ void DockingBehavior::handle_undock_accepted(
 	tf2::Transform dock_offset(tf2::Transform::getIdentity());
 	dock_offset.setOrigin(tf2::Vector3(-UNDOCK_GOAL_OFFSET, 0, 0));
 	tf2::Transform undock_offset = robot_pose * dock_offset;
-	undock_path.emplace_back(undock_offset, 0.05, true);
+	undock_path.emplace_back(undock_offset, 0.05, false);
 	tf2::Transform face_away_dock(tf2::Transform::getIdentity());
 	tf2::Quaternion undock_rotation;
 	undock_rotation.setRPY(0, 0, M_PI);

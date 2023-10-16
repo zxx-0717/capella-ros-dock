@@ -106,11 +106,24 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	const tf2::Transform & current_pose, bool sees_dock, bool is_docked,
 	nav_msgs::msg::Odometry odom_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr, capella_ros_dock_msgs::msg::HazardDetectionVector hazards)
 {
+	// impl undock (go to undock state)
+	if (goal_points_.size() >0 && !(goal_points_.front().drive_backwards))
+	{
+		RCLCPP_INFO(logger_, "***************** start undock *****************");
+		navigate_state_ = NavigateStates::UNDOCK;
+		undocking = true;
+	}
+	else
+	{
+		undocking = false;
+		start_undock = true;
+	}
+	
 	// RCLCPP_INFO_STREAM(logger_, "simple_goal_controller => max_dock_action_run_time: " << params_ptr->max_dock_action_run_time << " seconds.");
 	time_start = std::chrono::high_resolution_clock::now();
 	BehaviorsScheduler::optional_output_t servo_vel;
 	const std::lock_guard<std::mutex> lock(mutex_);
-	if (is_docked)
+	if (is_docked && !undocking)
 	{
 		if(first_contacted)
 		{
@@ -531,7 +544,37 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		RCLCPP_DEBUG(logger_, "angular.z: %f", servo_vel->angular.z);
 		break;
 	}
+	case NavigateStates::UNDOCK:
+	{
+		RCLCPP_DEBUG(logger_, "------------- UNDOCK -------------");
+		
+		servo_vel = geometry_msgs::msg::Twist();
+		if(start_undock)
+		{
+			undock_start_time = clock_->now().seconds();
+			start_undock = false;
+			RCLCPP_DEBUG(logger_, "undock_start_time: %f", undock_start_time);
+			undock_time = params_ptr->undock_time;
+			undock_speed = params_ptr->undock_speed;
+			RCLCPP_DEBUG(logger_, "undock_speed: %f", undock_speed);
+			RCLCPP_DEBUG(logger_, "undock_time: %f", undock_time);
+		}
+		double now_time = clock_->now().seconds();
+		double delta_time = now_time - undock_start_time;
+		RCLCPP_DEBUG(logger_, "delta_time: %f", delta_time);
+		if (delta_time < undock_time)
+		{
+			servo_vel->linear.x = undock_speed;
+		}
+		else
+		{
+			goal_points_.clear();
+			RCLCPP_INFO(logger_, "undock end.");
+			undocking = false;
+		}
+		break;
 	}
+	} // end of switch
 	time_end = std::chrono::high_resolution_clock::now();
 	time_cost = std::chrono::duration_cast<std::chrono::milliseconds>(time_end - time_start).count();
 	RCLCPP_DEBUG(logger_, "cost %d ms.", time_cost);
@@ -548,7 +591,8 @@ enum class NavigateStates
 	ANGLE_TO_X_POSITIVE_ORIENTATION,
 	ANGLE_TO_GOAL,
 	GO_TO_GOAL_POSITION,
-	GOAL_ANGLE
+	GOAL_ANGLE,
+	UNDOCK
 };
 
 struct GoalPoint
@@ -686,6 +730,13 @@ bool first_pub_rotation_speed = true;
 // when has contacted, keep moving a little time
 bool first_contacted = true;
 double first_contacted_time;
+
+// impl for undock
+bool  start_undock = true;
+bool undocking = false;
+double undock_start_time;
+double undock_time;
+double undock_speed;
 
 };
 
