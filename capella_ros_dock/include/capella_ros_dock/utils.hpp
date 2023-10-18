@@ -45,6 +45,8 @@ struct motion_control_params
 	float contacted_keep_move_time;
 	float undock_speed;
 	float undock_time;
+	float undock_obstacle_lr;
+	float undock_obstacle_front;
 };
 } // end namespace capella_ros_dock
 

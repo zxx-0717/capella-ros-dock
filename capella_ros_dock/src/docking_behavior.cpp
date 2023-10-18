@@ -60,6 +60,12 @@ DockingBehavior::DockingBehavior(
 		rclcpp::SensorDataQoS(),
 		std::bind(&DockingBehavior::odom_sub_callback, this, _1)
 		);
+	laserScan_sub_ = rclcpp::create_subscription<sensor_msgs::msg::LaserScan>(
+		node_topics_interface,
+		"/scan",
+		rclcpp::SensorDataQoS(),
+		std::bind(&DockingBehavior::laserScan_sub_callback, this, _1)
+		);
 
 	docking_action_server_ = rclcpp_action::create_server<capella_ros_dock_msgs::action::Dock>(
 		node_base_interface,
@@ -283,16 +289,38 @@ rclcpp_action::GoalResponse DockingBehavior::handle_undock_goal(
 	std::shared_ptr<const capella_ros_dock_msgs::action::Undock::Goal>/*goal*/)
 {
 	RCLCPP_INFO(logger_, "Received new undock goal");
+	
+	if (!sees_dock_)
+	{
+		RCLCPP_WARN(logger_, "Robot cannot see the aruco marker, reject");
+		return rclcpp_action::GoalResponse::REJECT;
+	}
+	auto current_pose = last_robot_pose_.getOrigin();
+	double x,y;
+	x = current_pose.getX();
+	y = current_pose.getY();
+	if (std::abs(x) > (params_ptr->last_docked_distance_offset_ + 0.5))
+	{
+		RCLCPP_WARN(logger_, "Robot had undocked, reject");
+		return rclcpp_action::GoalResponse::REJECT;
+	}
 
 	if (!docking_behavior_is_done()) {
 		RCLCPP_WARN(logger_, "A docking behavior is already running, reject");
 		return rclcpp_action::GoalResponse::REJECT;
 	}
 
-	if (!is_docked_) {
-		RCLCPP_WARN(logger_, "Robot already undocked, reject");
+	if (undock_has_obstacle_)
+	{
+		RCLCPP_WARN(logger_, "There are some obstacles in front of robot, reject");
 		return rclcpp_action::GoalResponse::REJECT;
 	}
+
+
+	// if (!is_docked_) {
+	// 	RCLCPP_WARN(logger_, "Robot already undocked, reject");
+	// 	return rclcpp_action::GoalResponse::REJECT;
+	// }
 	return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
 }
 
@@ -447,6 +475,85 @@ void DockingBehavior::calibrate_docked_distance_offset(
 	last_docked_distance_offset_ = std::hypot(pos_diff.getX(), pos_diff.getY());
 	calibrated_offset_ = true;
 	RCLCPP_DEBUG(logger_, "Setting robot dock offset to %f", last_docked_distance_offset_);
+}
+
+void DockingBehavior::laserScan_sub_callback(sensor_msgs::msg::LaserScan msg)
+{
+	if (!has_table)
+	{
+		laser_min_angle = msg.angle_min;
+		laser_data_size = msg.ranges.size();
+		laser_angle_increament = msg.angle_increment;
+		RCLCPP_INFO(logger_, "min_angle: %f", laser_min_angle);
+		RCLCPP_INFO(logger_, "laser_data_size: %d", laser_data_size);
+		RCLCPP_INFO(logger_, "laser_angle_increament: %f", laser_angle_increament);
+		generate_sin_cos_table(laser_min_angle, laser_angle_increament, laser_data_size);
+		has_table = true;
+		undock_has_obstacle_ = check_undock_has_obstale(msg);
+	}
+	else
+	{
+		undock_has_obstacle_ = check_undock_has_obstale(msg);
+	}
+
+	// debug results
+	if(undock_has_obstacle_)
+	{
+		// RCLCPP_DEBUG_STREAM_THROTTLE(logger_, *clock_, 1000, "undock, has obstale.");
+	}
+	else
+	{
+		// RCLCPP_DEBUG_STREAM_THROTTLE(logger_, *clock_, 1000, "undock, free space.");
+	}	
+}
+
+void DockingBehavior::generate_sin_cos_table(float theta_min, float angle_increament, int size)
+{
+	sin_table.resize(size);
+	cos_table.resize(size);
+	for(int i = 0; i < size; i++)
+	{
+		sin_table[i] = sin(theta_min + angle_increament * i);
+		cos_table[i] = cos(theta_min + angle_increament * i);
+	}
+}
+
+bool DockingBehavior::check_undock_has_obstale(sensor_msgs::msg::LaserScan msg)
+{
+	bool ret = false;
+	float pos_lr, pos_front;
+	// sin(x) => left/right, cos(x) => front
+	float range;
+	for(int i = 0; i < laser_data_size; i++)
+	{
+		range = msg.ranges[i];
+		if(isinf(range) || range < msg.range_min || range > msg.range_max)
+		{
+			continue;
+		}
+		else
+		{
+			pos_lr = std::abs(range * sin_table[i]);
+			pos_front = std::abs(range * cos_table[i]);
+			// RCLCPP_DEBUG(logger_, "range: %f", range);
+			// RCLCPP_DEBUG(logger_, "sin: %f", sin_table[i]);
+			// RCLCPP_DEBUG(logger_, "cos: %f", cos_table[i]);
+			// RCLCPP_DEBUG(logger_, "pos_lr: %f", pos_lr);
+			// RCLCPP_DEBUG(logger_, "pos_front: %f", pos_front);
+			
+			if (pos_lr < params_ptr->undock_obstacle_lr && pos_front < params_ptr->undock_obstacle_front)
+			{
+				ret = true;
+				break;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		
+	}
+	return ret;
 }
 
 }  // namespace capella_ros_dock

@@ -22,6 +22,7 @@
 #include "rclcpp/qos.hpp"
 #include "capella_ros_dock/utils.hpp"
 #include "nav_msgs/msg/odometry.hpp"
+#include "sensor_msgs/msg/laser_scan.hpp"
 
 namespace capella_ros_dock
 {
@@ -104,6 +105,8 @@ rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr robot_pose_sub_
 rclcpp::Subscription<capella_ros_msg::msg::Velocities>::SharedPtr raw_vel_sub_;
 rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
 
+rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laserScan_sub_;
+
 rclcpp::Clock::SharedPtr clock_;
 rclcpp::Logger logger_;
 std::shared_ptr<BehaviorsScheduler> behavior_scheduler_;
@@ -129,6 +132,20 @@ motion_control_params *params_ptr;
 
 void raw_vel_sub_callback(capella_ros_msg::msg::Velocities);
 void odom_sub_callback(nav_msgs::msg::Odometry);
+
+void laserScan_sub_callback(sensor_msgs::msg::LaserScan);
+
+bool undock_has_obstacle_ = false;
+// sin/cos table generated or not
+bool has_table = false;
+float laser_min_angle;
+float laser_angle_increament;
+int laser_data_size;
+std::vector<float> sin_table;
+std::vector<float> cos_table;
+
+void generate_sin_cos_table(float theta_min, float increament, int size);
+bool check_undock_has_obstale(sensor_msgs::msg::LaserScan);
 };
 
 }  // namespace capella_ros_dock
