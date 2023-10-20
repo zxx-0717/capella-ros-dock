@@ -24,6 +24,8 @@
 #include "nav_msgs/msg/odometry.hpp"
 #include "sensor_msgs/msg/laser_scan.hpp"
 
+#include "capella_ros_service_interfaces/action/undock.hpp"
+
 namespace capella_ros_dock
 {
 
@@ -80,23 +82,23 @@ BehaviorsScheduler::optional_output_t execute_dock_servo(
 
 rclcpp_action::GoalResponse handle_undock_goal(
 	const rclcpp_action::GoalUUID & uuid,
-	std::shared_ptr<const capella_ros_dock_msgs::action::Undock::Goal> goal);
+	std::shared_ptr<const capella_ros_service_interfaces::action::Undock::Goal> goal);
 
 rclcpp_action::CancelResponse handle_undock_cancel(
 	const std::shared_ptr<
-		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle);
+		rclcpp_action::ServerGoalHandle<capella_ros_service_interfaces::action::Undock> > goal_handle);
 
 void handle_undock_accepted(
 	const std::shared_ptr<
-		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle);
+		rclcpp_action::ServerGoalHandle<capella_ros_service_interfaces::action::Undock> > goal_handle);
 
 BehaviorsScheduler::optional_output_t execute_undock(
 	const std::shared_ptr<
-		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle,
+		rclcpp_action::ServerGoalHandle<capella_ros_service_interfaces::action::Undock> > goal_handle,
 	const RobotState & current_state);
 
 rclcpp_action::Server<capella_ros_dock_msgs::action::Dock>::SharedPtr docking_action_server_;
-rclcpp_action::Server<capella_ros_dock_msgs::action::Undock>::SharedPtr undocking_action_server_;
+rclcpp_action::Server<capella_ros_service_interfaces::action::Undock>::SharedPtr undocking_action_server_;
 
 
 rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr dock_visible_sub_;

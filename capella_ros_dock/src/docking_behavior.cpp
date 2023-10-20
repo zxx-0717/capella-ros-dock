@@ -77,7 +77,7 @@ DockingBehavior::DockingBehavior(
 		std::bind(&DockingBehavior::handle_dock_servo_cancel, this, _1),
 		std::bind(&DockingBehavior::handle_dock_servo_accepted, this, _1));
 
-	undocking_action_server_ = rclcpp_action::create_server<capella_ros_dock_msgs::action::Undock>(
+	undocking_action_server_ = rclcpp_action::create_server<capella_ros_service_interfaces::action::Undock>(
 		node_base_interface,
 		node_clock_interface,
 		node_logging_interface,
@@ -286,7 +286,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 
 rclcpp_action::GoalResponse DockingBehavior::handle_undock_goal(
 	const rclcpp_action::GoalUUID & /*uuid*/,
-	std::shared_ptr<const capella_ros_dock_msgs::action::Undock::Goal>/*goal*/)
+	std::shared_ptr<const capella_ros_service_interfaces::action::Undock::Goal>/*goal*/)
 {
 	RCLCPP_INFO(logger_, "Received new undock goal");
 	
@@ -326,7 +326,7 @@ rclcpp_action::GoalResponse DockingBehavior::handle_undock_goal(
 
 rclcpp_action::CancelResponse DockingBehavior::handle_undock_cancel(
 	const std::shared_ptr<
-		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> >/*goal_handle*/)
+		rclcpp_action::ServerGoalHandle<capella_ros_service_interfaces::action::Undock> >/*goal_handle*/)
 {
 	RCLCPP_INFO(logger_, "Received request to cancel undock goal");
 	return rclcpp_action::CancelResponse::ACCEPT;
@@ -334,7 +334,7 @@ rclcpp_action::CancelResponse DockingBehavior::handle_undock_cancel(
 
 void DockingBehavior::handle_undock_accepted(
 	const std::shared_ptr<
-		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle)
+		rclcpp_action::ServerGoalHandle<capella_ros_service_interfaces::action::Undock> > goal_handle)
 {
 	// Create new Docking Action
 	running_dock_action_ = true;
@@ -378,8 +378,10 @@ void DockingBehavior::handle_undock_accepted(
 	if (!ret) {
 		// for some reason we couldn't set the new behavior, treat this as a goal being cancelled
 		RCLCPP_WARN(logger_, "Undock behavior failed to start");
-		auto result = std::make_shared<capella_ros_dock_msgs::action::Undock::Result>();
+		auto result = std::make_shared<capella_ros_service_interfaces::action::Undock::Result>();
 		result->is_docked = is_docked_;
+		result->sees_charger = sees_dock_;
+		result->success = false;
 		goal_handle->abort(result);
 		goal_controller_->reset();
 		running_dock_action_ = false;
@@ -389,14 +391,16 @@ void DockingBehavior::handle_undock_accepted(
 
 BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	const std::shared_ptr<
-		rclcpp_action::ServerGoalHandle<capella_ros_dock_msgs::action::Undock> > goal_handle,
+		rclcpp_action::ServerGoalHandle<capella_ros_service_interfaces::action::Undock> > goal_handle,
 	const RobotState & current_state)
 {
 	BehaviorsScheduler::optional_output_t servo_cmd;
 	// Handle if goal is cancelling
 	if (goal_handle->is_canceling()) {
-		auto result = std::make_shared<capella_ros_dock_msgs::action::Undock::Result>();
+		auto result = std::make_shared<capella_ros_service_interfaces::action::Undock::Result>();
 		result->is_docked = is_docked_;
+		result->sees_charger = sees_dock_;
+		result->success = false;
 		goal_handle->canceled(result);
 		goal_controller_->reset();
 		running_dock_action_ = false;
@@ -419,12 +423,15 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	}
 
 	if (!servo_cmd || exceeded_runtime) {
-		auto result = std::make_shared<capella_ros_dock_msgs::action::Undock::Result>();
+		auto result = std::make_shared<capella_ros_service_interfaces::action::Undock::Result>();
 		result->is_docked = is_docked_;
+		result->sees_charger = sees_dock_;
 		if (!is_docked_) {
 			RCLCPP_INFO(logger_, "Undock Goal Succeeded");
+			result->success = true;
 			goal_handle->succeed(result);
 		} else {
+			result->success = false;
 			RCLCPP_INFO(logger_, "Undock Goal Aborted");
 			goal_handle->abort(result);
 		}

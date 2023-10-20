@@ -19,14 +19,14 @@ def generate_launch_description():
     dock_pkg_path = get_package_share_directory('capella_ros_dock')
 
     # create launch configuration variables
-    params_file_path = LaunchConfiguration('params_file', default=os.path.join(dock_pkg_path, 'params', 'config.yaml'))
+    params_file_path = LaunchConfiguration('params_files', default=os.path.join(dock_pkg_path, 'params', 'config.yaml'))
     motion_control_log_level = LaunchConfiguration('motion_control_log_level')
     test_count = LaunchConfiguration('test_count', default = 1)
     
     # declare launch arguments   
     # test_count_launch_arg = DeclareLaunchArgument('test_count', default_value=TextSubstitution(text="1"))
     log_level_arg = DeclareLaunchArgument('log_level', default_value='info', description='define motion_control node log level')
-    params_file_arg = DeclareLaunchArgument('params_filess', default_value=params_file_path)
+    params_file_arg = DeclareLaunchArgument('params_files', default_value=params_file_path)
     
     # configured params file
     param_substitutions = {
@@ -112,7 +112,7 @@ def generate_launch_description():
     launch_description.add_action(wifi_node)
     # launch_description.add_action(camera_launch_file)
     launch_description.add_action(aruco_launch_file)
-    # launch_description.add_action(motion_control_node)
+    launch_description.add_action(motion_control_node)
     launch_description.add_action(hazards_vector_publisher_node)
     launch_description.add_action(camera_point_cloud_process_node)
     # launch_description.add_action(test_docking_node)
