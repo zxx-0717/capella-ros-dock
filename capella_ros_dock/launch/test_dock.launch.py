@@ -54,6 +54,13 @@ def generate_launch_description():
         name='wifi_server',
         respawn=True
     )
+    # blutooth Node
+    bluetooth_node = Node(
+        executable='charge_server_bluetooth',
+        package='capella_charge_service',
+        name='bluetooth_server',
+        respawn=True
+    )
 
     # camera(orbbec dabai_dcw) launch file
     camera_launch_file = IncludeLaunchDescription(
@@ -109,7 +116,8 @@ def generate_launch_description():
     launch_description.add_action(log_level_arg)
     launch_description.add_action(params_file_arg)
     # launch_description.add_action(serial_node)
-    launch_description.add_action(wifi_node)
+    # launch_description.add_action(wifi_node)
+    launch_description.add_action(bluetooth_node)
     # launch_description.add_action(camera_launch_file)
     launch_description.add_action(aruco_launch_file)
     launch_description.add_action(motion_control_node)
