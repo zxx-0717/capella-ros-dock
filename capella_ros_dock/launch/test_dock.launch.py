@@ -62,6 +62,17 @@ def generate_launch_description():
         respawn=True
     )
 
+    # manual dock node
+    manual_dock_node = Node(
+        executable='manual_dock',
+        package='capella_ros_dock',
+        name='manual_dock',
+        namespace='',
+        output='screen',
+        parameters=[configured_params],
+        arguments=['--ros-args', '--log-level', ['motion_control:=', LaunchConfiguration('log_level')]]
+    )
+
     # camera(orbbec dabai_dcw) launch file
     camera_launch_file = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(camera_pkg_path, 'launch', 'dabai_dcw.launch.py'))
@@ -80,7 +91,6 @@ def generate_launch_description():
         namespace='',
         output='screen',
         parameters=[configured_params],
-        arguments=['--ros-args', '--log-level', ['motion_control:=', LaunchConfiguration('log_level')]]
     )
 
     # hazards_vector_publisher Node
@@ -118,6 +128,7 @@ def generate_launch_description():
     # launch_description.add_action(serial_node)
     # launch_description.add_action(wifi_node)
     launch_description.add_action(bluetooth_node)
+    launch_description.add_action(manual_dock_node)
     # launch_description.add_action(camera_launch_file)
     launch_description.add_action(aruco_launch_file)
     launch_description.add_action(motion_control_node)

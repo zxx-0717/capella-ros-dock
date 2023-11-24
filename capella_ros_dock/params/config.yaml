@@ -18,7 +18,7 @@ test_dock:
     x_min: -180
     x_max: -100
     y_min: 0
-    y_max: 10
+    y_max: 5
 
 motion_control:
   ros__parameters:
@@ -70,9 +70,18 @@ camera_point_cloud_process:
     pub_frequency: 30
     obstacle_x_min: -0.2  # obstacle coordinates range; camera depth frame => (x,right) (y,down) (z,front) use camera orientation for reference
     obstacle_x_max: 0.2
-    obstacle_y_min: -0.8
-    obstacle_y_max: 0.3
+    obstacle_y_min: -1.0
+    obstacle_y_max: 0.0
     obstacle_z_min: 0.26
     obstacle_z_max: 0.4
-    display_img_depth_pc: true # red for obstacle, blue for NaN， green for free space.
+    display_img_depth_pc: false # red for obstacle, blue for NaN， green for free space.
+
+manual_dock:
+  ros__parameters:
+    pose_x_min: -0.9
+    pose_x_max: -0.4
+    pose_y_min: -0.1
+    pose_y_max: 0.1
+    yaw_min: -3.14
+    yaw_max: 3.14
   

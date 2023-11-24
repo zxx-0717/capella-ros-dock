@@ -25,6 +25,10 @@
 #include "sensor_msgs/msg/laser_scan.hpp"
 
 #include "capella_ros_service_interfaces/action/undock.hpp"
+#include "aruco_msgs/msg/pose_with_id.hpp"
+#include "aruco_msgs/msg/marker_and_mac.hpp"
+#include "std_msgs/msg/string.hpp"
+#include "aruco_msgs/msg/marker_and_mac_vector.hpp"
 
 namespace capella_ros_dock
 {
@@ -56,7 +60,7 @@ void calibrate_docked_distance_offset(
 
 
 // callback
-void robot_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg);
+void robot_pose_callback(aruco_msgs::msg::PoseWithId::ConstSharedPtr msg);
 // void dock_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg);
 void dock_visible_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible::ConstSharedPtr msg);
 void charge_state_callback(capella_ros_service_interfaces::msg::ChargeState::ConstSharedPtr msg);
@@ -103,11 +107,14 @@ rclcpp_action::Server<capella_ros_service_interfaces::action::Undock>::SharedPtr
 
 rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr dock_visible_sub_;
 rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeState>::SharedPtr charge_state_sub_;
-rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr robot_pose_sub_;
+rclcpp::Subscription<aruco_msgs::msg::PoseWithId>::SharedPtr robot_pose_sub_;
 rclcpp::Subscription<capella_ros_msg::msg::Velocities>::SharedPtr raw_vel_sub_;
 rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
 
 rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laserScan_sub_;
+
+rclcpp::Subscription<std_msgs::msg::String>::SharedPtr charger_id_sub_;
+rclcpp::Subscription<aruco_msgs::msg::MarkerAndMacVector>::SharedPtr marker_and_mac_sub_;
 
 rclcpp::Clock::SharedPtr clock_;
 rclcpp::Logger logger_;
@@ -137,6 +144,9 @@ void odom_sub_callback(nav_msgs::msg::Odometry);
 
 void laserScan_sub_callback(sensor_msgs::msg::LaserScan);
 
+void charger_id_callback(std_msgs::msg::String);
+void marker_and_mac_callback(aruco_msgs::msg::MarkerAndMacVector);
+
 bool undock_has_obstacle_ = false;
 // sin/cos table generated or not
 bool has_table = false;
@@ -145,6 +155,11 @@ float laser_angle_increament;
 int laser_data_size;
 std::vector<float> sin_table;
 std::vector<float> cos_table;
+
+int marker_id_;
+std::string charger_id_;
+aruco_msgs::msg::MarkerAndMacVector marker_and_mac_vector;
+
 
 void generate_sin_cos_table(float theta_min, float increament, int size);
 bool check_undock_has_obstale(sensor_msgs::msg::LaserScan);

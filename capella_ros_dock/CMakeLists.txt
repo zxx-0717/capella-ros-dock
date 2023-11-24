@@ -27,6 +27,7 @@ find_package(capella_ros_service_interfaces REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(image_transport REQUIRED)
+find_package(aruco_msgs)
 
 set(dependencies
   angles
@@ -45,6 +46,7 @@ set(dependencies
   std_srvs
   OpenCV
   image_transport
+  aruco_msgs
 )
 
 # Hazards vector publisher
@@ -115,11 +117,26 @@ rclcpp_components_register_node(camera_point_cloud_process_lib
   PLUGIN "capella_ros_dock::CameraPointCloudProcess" 
   EXECUTABLE camera_point_cloud_process)
 
+# manual_dock library
+add_library(manual_dock_lib SHARED)
+target_sources(manual_dock_lib
+  PRIVATE
+  src/manual_dock.cpp
+)
+
+target_include_directories(manual_dock_lib PUBLIC include)
+ament_target_dependencies(manual_dock_lib
+  ${dependencies})
+rclcpp_components_register_node(manual_dock_lib
+  PLUGIN "capella_ros_dock::ManualDock" 
+  EXECUTABLE manual_dock)
+
 ############install libraries
 set(libraries_names
   hazards_publisher_lib
   motion_control_lib
   camera_point_cloud_process_lib
+  manual_dock_lib
   # robot_state_lib
 )
 install(TARGETS ${libraries_names}

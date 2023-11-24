@@ -42,9 +42,9 @@ DockingBehavior::DockingBehavior(
 		std::bind(&DockingBehavior::charge_state_callback, this, _1)
 		);
 
-	robot_pose_sub_ = rclcpp::create_subscription<geometry_msgs::msg::PoseStamped>(
+	robot_pose_sub_ = rclcpp::create_subscription<aruco_msgs::msg::PoseWithId>(
 		node_topics_interface,
-		"/aruco_single/pose",
+		"/aruco_single/pose_with_id",
 		rclcpp::SensorDataQoS(),
 		std::bind(&DockingBehavior::robot_pose_callback, this, _1));
 
@@ -66,6 +66,20 @@ DockingBehavior::DockingBehavior(
 		rclcpp::SensorDataQoS(),
 		std::bind(&DockingBehavior::laserScan_sub_callback, this, _1)
 		);
+	
+	charger_id_sub_ = rclcpp::create_subscription<std_msgs::msg::String>(
+		node_topics_interface,
+		"/charger/id",
+		rclcpp::QoS(rclcpp::KeepLast(1)).transient_local().reliable(),
+		std::bind(&DockingBehavior::charger_id_callback, this, _1)
+		);
+	marker_and_mac_sub_ = rclcpp::create_subscription<aruco_msgs::msg::MarkerAndMacVector>(
+		node_topics_interface,
+		"/aruco_single/id_mac",
+		rclcpp::QoS(rclcpp::KeepLast(30)),
+		std::bind(&DockingBehavior::marker_and_mac_callback, this, _1)
+		);
+	
 
 	docking_action_server_ = rclcpp_action::create_server<capella_ros_dock_msgs::action::Dock>(
 		node_base_interface,
@@ -462,10 +476,13 @@ void DockingBehavior::charge_state_callback(capella_ros_service_interfaces::msg:
 	this->is_docked_ = msg->has_contact;
 }
 
-void DockingBehavior::robot_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg)
+void DockingBehavior::robot_pose_callback(aruco_msgs::msg::PoseWithId::ConstSharedPtr msg)
 {
 	const std::lock_guard<std::mutex> lock(robot_pose_mutex_);
-	tf2::convert(msg->pose, last_robot_pose_);
+	if(msg->marker_id == this->marker_id_)
+	{
+		tf2::convert(msg->pose.pose, last_robot_pose_);
+	}
 }
 
 // void DockingBehavior::dock_pose_callback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg)
@@ -512,6 +529,23 @@ void DockingBehavior::laserScan_sub_callback(sensor_msgs::msg::LaserScan msg)
 	{
 		// RCLCPP_DEBUG_STREAM_THROTTLE(logger_, *clock_, 1000, "undock, free space.");
 	}	
+}
+
+void DockingBehavior::charger_id_callback(std_msgs::msg::String msg)
+{
+	charger_id_ = msg.data;
+	for(int i = 0; i < marker_and_mac_vector.marker_and_mac_vector.size(); i++)
+	{
+		if(charger_id_.compare(marker_and_mac_vector.marker_and_mac_vector[i].bluetooth_mac) == 0)
+		{
+			marker_id_ = marker_and_mac_vector.marker_and_mac_vector[i].marker_id;
+		}
+	}
+}
+
+void DockingBehavior::marker_and_mac_callback(aruco_msgs::msg::MarkerAndMacVector msg)
+{
+	this->marker_and_mac_vector = msg;
 }
 
 void DockingBehavior::generate_sin_cos_table(float theta_min, float angle_increament, int size)

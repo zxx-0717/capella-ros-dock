@@ -170,9 +170,19 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	if(!sees_dock && navigate_state_ > NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION)
 	{
 		last_time_hazards = clock_->now();
-		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop until can see dock.");
-		servo_vel = geometry_msgs::msg::Twist();
-		return servo_vel;
+		// RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop until can see dock.");
+		if (std::abs(current_position.getX()) > 0.9)
+		{
+			navigate_state_ = NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION;
+			servo_vel = geometry_msgs::msg::Twist();
+			return servo_vel;
+		}
+		else
+		{
+			RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "robot cann't see the charger,but it is too linear to the charger ,stop moving...");
+			servo_vel = geometry_msgs::msg::Twist();
+			return servo_vel;
+		}
 	}
 	now_time_hazards = clock_->now();
 	if ((now_time_hazards.seconds() - last_time_hazards.seconds()) < params_ptr->time_sleep)
