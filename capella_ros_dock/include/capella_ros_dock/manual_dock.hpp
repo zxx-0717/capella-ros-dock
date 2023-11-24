@@ -32,6 +32,8 @@ public:
         int marker_id;
         std::string bluetooth_mac;
         bool charger_position_{false};
+        bool last_charger_position_{false};
+        bool charger_position_pub_first{false};
         float robot_x, robot_y, robot_yaw;
         bool processing{false};
 

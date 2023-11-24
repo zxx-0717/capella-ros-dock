@@ -48,7 +48,7 @@ namespace capella_ros_dock
                         sub_ops3
                 );
 
-                charger_position_pub_ = this->create_publisher<std_msgs::msg::Bool>("charger_position_bool", 10);
+                charger_position_pub_ = this->create_publisher<std_msgs::msg::Bool>("charger_position_bool", rclcpp::QoS(rclcpp::KeepLast(1)).reliable().transient_local());
                 
 
                 std::thread thread1(std::bind(&ManualDock::manual_dock_check_callback, this));
@@ -119,7 +119,20 @@ namespace capella_ros_dock
 
                 std_msgs::msg::Bool msg_pub;
                 msg_pub.data = this->charger_position_;
-                charger_position_pub_->publish(msg_pub);
+                if(!charger_position_pub_first)
+                {
+                        charger_position_pub_first = true;
+                        charger_position_pub_->publish(msg_pub);
+                }
+                else
+                {
+                        if (last_charger_position_ != charger_position_)
+                        {
+                                charger_position_pub_->publish(msg_pub);
+                        }
+                }
+
+                last_charger_position_ = charger_position_;
         }
 
         bool ManualDock::in_charger_range(float x, float y, float yaw)
