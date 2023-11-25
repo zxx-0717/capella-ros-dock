@@ -111,6 +111,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	{
 		RCLCPP_INFO(logger_, "***************** start undock *****************");
 		navigate_state_ = NavigateStates::UNDOCK;
+		sleep(0.5); // wait for /charger/stop to execute.
 		undocking = true;
 	}
 	else
