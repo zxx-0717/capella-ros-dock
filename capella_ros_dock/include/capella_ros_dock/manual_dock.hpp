@@ -7,6 +7,7 @@
 #include "aruco_msgs/msg/pose_with_id.hpp"
 #include "aruco_msgs/msg/marker_and_mac_vector.hpp"
 #include "capella_ros_service_interfaces/msg/charge_state.hpp"
+#include "capella_ros_service_interfaces/msg/charge_marker_visible.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "capella_ros_msg/srv/charge_pile_wifi.hpp"
 #include "std_msgs/msg/bool.hpp"
@@ -36,6 +37,7 @@ public:
         bool charger_position_pub_first{false};
         float robot_x, robot_y, robot_yaw;
         bool processing{false};
+        bool charger_visible{false};
 
         rclcpp::Client<capella_ros_msg::srv::ChargePileWifi>::SharedPtr client_bluetooth;
         rclcpp::Client<std_srvs::srv::Empty>::SharedPtr client_start_charging;
@@ -46,11 +48,13 @@ public:
         // subscriptions
         rclcpp::Subscription<aruco_msgs::msg::MarkerAndMacVector>::SharedPtr marker_and_mac_sub_;
         rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeState>::SharedPtr charger_state_sub_;
+        rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr charger_visible_sub_;
         rclcpp::Subscription<aruco_msgs::msg::PoseWithId>::SharedPtr pose_with_id_sub_;
 
         void marker_and_mac_sub_callback(aruco_msgs::msg::MarkerAndMacVector);
         void charger_state_sub_callback(capella_ros_service_interfaces::msg::ChargeState);
         void pose_with_id_sub_callback(aruco_msgs::msg::PoseWithId);
+        void charger_visible_sub_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible);
 
         // publisher
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr charger_position_pub_;

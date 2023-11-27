@@ -36,6 +36,10 @@ namespace capella_ros_dock
                 rclcpp::SubscriptionOptions sub_ops3 = rclcpp::SubscriptionOptions();
                 sub_ops3.callback_group = cb_group3;
 
+                rclcpp::CallbackGroup::SharedPtr cb_group4 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+                rclcpp::SubscriptionOptions sub_ops4 = rclcpp::SubscriptionOptions();
+                sub_ops4.callback_group = cb_group4;
+
                 marker_and_mac_sub_ = this->create_subscription<aruco_msgs::msg::MarkerAndMacVector>(
                         "aruco_single/id_mac",
                         30,
@@ -55,7 +59,12 @@ namespace capella_ros_dock
                         sub_ops3
                 );
 
-                
+                charger_visible_sub_ = this->create_subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>(
+                        "marker_visible",
+                        30,
+                        std::bind(&ManualDock::charger_visible_sub_callback, this, std::placeholders::_1),
+                        sub_ops4
+                );               
                 
 
                 std::thread thread1(std::bind(&ManualDock::manual_dock_check_callback, this));
@@ -90,6 +99,31 @@ namespace capella_ros_dock
         void ManualDock::charger_state_sub_callback(capella_ros_service_interfaces::msg::ChargeState msg)
         {
                 this->charger_state = msg;
+        }
+
+        void ManualDock::charger_visible_sub_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible msg)
+        {
+                this->charger_visible = msg.marker_visible;
+                if(!charger_visible)
+                {
+                        charger_position_ = false;
+                        std_msgs::msg::Bool msg_pub;
+                        msg_pub.data = charger_position_;
+                        if(!charger_position_pub_first)
+                        {
+                                charger_position_pub_first = true;
+                                charger_position_pub_->publish(msg_pub);
+                        }
+                        else
+                        {
+                                if (last_charger_position_ != charger_position_)
+                                {
+                                        charger_position_pub_->publish(msg_pub);
+                                }
+                        }
+
+                        last_charger_position_ = charger_position_;
+                }
         }
 
         void ManualDock::pose_with_id_sub_callback(aruco_msgs::msg::PoseWithId msg)
@@ -161,7 +195,8 @@ namespace capella_ros_dock
                         if(!processing)
                         {
                                 processing = true;
-                                if (charger_position_ 
+                                if (charger_visible
+                                        && charger_position_ 
                                         && !charger_state.is_docking 
                                         && !charger_state.is_charging)
                                 {
@@ -177,22 +212,29 @@ namespace capella_ros_dock
                                 }
                                 else
                                 {
+                                        if(!charger_visible)
+                                        {
+                                                RCLCPP_INFO(get_logger(), "robot can not see the marker.");
+                                                continue;;                                        }
                                         if(!charger_position_ )
                                         {
-                                                RCLCPP_INFO(get_logger(), "robot's position is not in charger_range.");
+                                                RCLCPP_INFO(get_logger(), "robot's position is not in charger_range.(x: %f, y: %f)", robot_x, robot_y);
+                                                continue;
                                         }
                                         if(charger_state.is_docking)
                                         {
                                                 RCLCPP_INFO(get_logger(), "robot's state is auto-charging.");
+                                                continue;
                                         }
                                         if(charger_state.is_charging)
                                         {
                                                 RCLCPP_INFO(get_logger(), "robot is charging.");
+                                                continue;
                                         }                   
                 
                                 }
                         }
-                        sleep(5);
+                        sleep(9);
                         processing = false;
                 }                
         }
