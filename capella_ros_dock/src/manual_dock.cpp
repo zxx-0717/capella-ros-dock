@@ -13,6 +13,13 @@ namespace capella_ros_dock
                 RCLCPP_INFO(this->get_logger(), "manual_dock node start.");
                 init_params();
 
+                // publisher
+                charger_position_pub_ = this->create_publisher<std_msgs::msg::Bool>("charger_position_bool", rclcpp::QoS(rclcpp::KeepLast(1)).reliable().transient_local());
+                // publish false for init
+                std_msgs::msg::Bool msg_bool;
+                msg_bool.data = false;
+                charger_position_pub_->publish(msg_bool);
+
                 // client
                 client_bluetooth = this->create_client<capella_ros_msg::srv::ChargePileWifi>("/bluetooth_bssid");
                 client_start_charging = this->create_client<std_srvs::srv::Empty>("/charger/start");
@@ -48,7 +55,7 @@ namespace capella_ros_dock
                         sub_ops3
                 );
 
-                charger_position_pub_ = this->create_publisher<std_msgs::msg::Bool>("charger_position_bool", rclcpp::QoS(rclcpp::KeepLast(1)).reliable().transient_local());
+                
                 
 
                 std::thread thread1(std::bind(&ManualDock::manual_dock_check_callback, this));
