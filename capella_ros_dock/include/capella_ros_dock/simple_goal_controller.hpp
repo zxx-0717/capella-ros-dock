@@ -103,15 +103,25 @@ void reset()
 // with goal point based on radius.
 // \return empty optional if no goal or velocity command to get to next goal point
 BehaviorsScheduler::optional_output_t get_velocity_for_position(
-	const tf2::Transform & current_pose, bool sees_dock, bool is_docked,
+	const tf2::Transform & current_pose, bool sees_dock, bool is_docked, bool bluetooth_contact,
 	nav_msgs::msg::Odometry odom_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr, capella_ros_dock_msgs::msg::HazardDetectionVector hazards)
 {
+	BehaviorsScheduler::optional_output_t servo_vel;
+	// if bluetooth_contact is false, just stop, waiting bluetooth to connect;
+	if (!bluetooth_contact)
+	{
+		RCLCPP_INFO(logger_, "stop for waiting bluetooth to be connected.");
+		sleep(1);
+		servo_vel = geometry_msgs::msg::Twist();
+		return servo_vel;
+	}
+	
 	// impl undock (go to undock state)
 	if (goal_points_.size() >0 && !(goal_points_.front().drive_backwards))
 	{
 		RCLCPP_INFO(logger_, "***************** start undock *****************");
 		navigate_state_ = NavigateStates::UNDOCK;
-		sleep(0.5); // wait for /charger/stop to execute.
+		sleep(1); // wait for /charger/stop to execute.
 		undocking = true;
 	}
 	else
@@ -122,7 +132,6 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	
 	// RCLCPP_INFO_STREAM(logger_, "simple_goal_controller => max_dock_action_run_time: " << params_ptr->max_dock_action_run_time << " seconds.");
 	time_start = std::chrono::high_resolution_clock::now();
-	BehaviorsScheduler::optional_output_t servo_vel;
 	const std::lock_guard<std::mutex> lock(mutex_);
 	if (is_docked && !undocking)
 	{

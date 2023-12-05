@@ -139,6 +139,8 @@ capella_ros_msg::msg::Velocities raw_vel_msg;
 nav_msgs::msg::Odometry odom_msg;
 motion_control_params *params_ptr;
 
+bool bluetooth_contact{false};
+
 void raw_vel_sub_callback(capella_ros_msg::msg::Velocities);
 void odom_sub_callback(nav_msgs::msg::Odometry);
 
