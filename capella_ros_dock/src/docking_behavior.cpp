@@ -60,6 +60,18 @@ DockingBehavior::DockingBehavior(
 		rclcpp::SensorDataQoS(),
 		std::bind(&DockingBehavior::odom_sub_callback, this, _1)
 		);
+	odom_for_dock_moving_sub_ = rclcpp::create_subscription<nav_msgs::msg::Odometry>(
+		node_topics_interface,
+		"/odom_for_dock_moving",
+		rclcpp::QoS(rclcpp::KeepLast(10)).best_effort(),
+		std::bind(&DockingBehavior::odom_for_dock_moving_sub_callback, this, _1)
+		);
+	cmd_vel_sub_ = rclcpp::create_subscription<geometry_msgs::msg::Twist>(
+		node_topics_interface,
+		"/cmd_vel",
+		rclcpp::QoS(rclcpp::KeepLast(10)).best_effort(),
+		std::bind(&DockingBehavior::cmd_vel_sub_callback, this, _1)
+		);
 	laserScan_sub_ = rclcpp::create_subscription<sensor_msgs::msg::LaserScan>(
 		node_topics_interface,
 		"/scan",
@@ -120,6 +132,32 @@ void DockingBehavior::raw_vel_sub_callback(capella_ros_msg::msg::Velocities raw_
 void DockingBehavior::odom_sub_callback(nav_msgs::msg::Odometry odom)
 {
 	this->odom_msg = odom;
+}
+
+void DockingBehavior::odom_for_dock_moving_sub_callback(nav_msgs::msg::Odometry odom)
+{
+	this->odom_for_dock_moving_msg = odom;
+}
+
+void DockingBehavior::cmd_vel_sub_callback(geometry_msgs::msg::Twist msg)
+{
+	this->cmd_vel_msg = msg;
+	this->odom_selected_msg = odom_msg;
+
+	double weight_odom, weight_odom_for_dock_moving;
+	if (std::abs(msg.linear.x) > 2e-2) // min(linear.x) = 0.03 
+	{
+		weight_odom = std::abs(msg.linear.x - odom_msg.twist.twist.linear.x);
+		weight_odom_for_dock_moving = std::abs(msg.linear.x - odom_for_dock_moving_msg.twist.twist.linear.x);
+	}
+	else if (std::abs(msg.angular.z) > 1e-3)
+	{
+		weight_odom = std::abs(msg.angular.z - odom_msg.twist.twist.angular.z);
+		weight_odom_for_dock_moving = std::abs(msg.angular.z - odom_for_dock_moving_msg.twist.twist.angular.z);
+	}
+
+	// smaller weight, closer to origin data;
+	this->odom_selected_msg = weight_odom < weight_odom_for_dock_moving ? odom_msg : odom_for_dock_moving_msg;
 }
 
 
@@ -264,7 +302,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 	}
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_, is_docked_, bluetooth_contact,
-	                                                        odom_msg, clock_, logger_, params_ptr, hazards);
+	                                                        odom_selected_msg, clock_, logger_, params_ptr, hazards);
 	if(this->is_docked_)
 	{
 		RCLCPP_DEBUG(logger_, "zero cmd time => sec: %f", this->clock_.get()->now().seconds());
@@ -428,7 +466,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	}
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_,
-	                                                        is_docked_, bluetooth_contact, odom_msg, clock_, logger_, params_ptr, hazards);
+	                                                        is_docked_, bluetooth_contact, odom_selected_msg, clock_, logger_, params_ptr, hazards);
 
 	bool exceeded_runtime = false;
 	if (clock_->now() - action_start_time_ > max_action_runtime_) {

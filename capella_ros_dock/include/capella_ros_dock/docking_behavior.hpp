@@ -29,6 +29,7 @@
 #include "aruco_msgs/msg/marker_and_mac.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "aruco_msgs/msg/marker_and_mac_vector.hpp"
+#include "geometry_msgs/msg/twist.hpp"
 
 namespace capella_ros_dock
 {
@@ -110,6 +111,8 @@ rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeState>::SharedPt
 rclcpp::Subscription<aruco_msgs::msg::PoseWithId>::SharedPtr robot_pose_sub_;
 rclcpp::Subscription<capella_ros_msg::msg::Velocities>::SharedPtr raw_vel_sub_;
 rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
+rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_for_dock_moving_sub_;
+rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub_;
 
 rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laserScan_sub_;
 
@@ -137,12 +140,17 @@ rclcpp::Time last_feedback_time_;
 const rclcpp::Duration report_feedback_interval_ {std::chrono::seconds(3)};
 capella_ros_msg::msg::Velocities raw_vel_msg;
 nav_msgs::msg::Odometry odom_msg;
+nav_msgs::msg::Odometry odom_for_dock_moving_msg;
+nav_msgs::msg::Odometry odom_selected_msg;
+geometry_msgs::msg::Twist cmd_vel_msg;
 motion_control_params *params_ptr;
 
 bool bluetooth_contact{false};
 
 void raw_vel_sub_callback(capella_ros_msg::msg::Velocities);
 void odom_sub_callback(nav_msgs::msg::Odometry);
+void odom_for_dock_moving_sub_callback(nav_msgs::msg::Odometry);
+void cmd_vel_sub_callback(geometry_msgs::msg::Twist);
 
 void laserScan_sub_callback(sensor_msgs::msg::LaserScan);
 

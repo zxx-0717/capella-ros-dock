@@ -214,7 +214,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			auto current_robot_angle = tf2::getYaw(current_pose.getRotation());
 			float dist_angle_to_X_Axis = angles::shortest_angular_distance(current_robot_angle, 0);
 			float dist_angle_to_X_Axis_abs = std::abs(dist_angle_to_X_Axis);
-			if (dist_angle_to_X_Axis_abs < 0.05 && first_sees_dock)
+			if (dist_angle_to_X_Axis_abs < M_PI && first_sees_dock) // origin 0.05; tmp fix bug : robot is  too linear to marker,when rotate until  < 0.05 ,can not see marker again.
 			{
 				RCLCPP_DEBUG(logger_, "first see dock.(angle to x positive orientation.)");
 				first_sees_dock = false;

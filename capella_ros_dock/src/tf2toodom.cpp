@@ -12,9 +12,11 @@ TF2ToOdom::TF2ToOdom(const rclcpp::NodeOptions & options)
         tf_time_last_ = this->get_clock()->now().seconds(); 
         odom_dummy_ = nav_msgs::msg::Odometry();
         tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
+        tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
         tf_stamed_last_ = geometry_msgs::msg::TransformStamped();
         tf_stamed_current_ = geometry_msgs::msg::TransformStamped();
-        odom_dummy_timer_ = this->create_wall_timer(50ms, std::bind(&TF2ToOdom::odom_dummy_timer_callback));
+        odom_dummy_timer_ = this->create_wall_timer(50ms, std::bind(&TF2ToOdom::odom_dummy_timer_callback, this));
+        odom_dummy_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("odom_for_dock_moving", rclcpp::QoS(rclcpp::KeepLast(10)).best_effort());
 }
 
 bool TF2ToOdom::getTransform(
@@ -25,7 +27,7 @@ bool TF2ToOdom::getTransform(
 
 	if (!tf_buffer_->canTransform(
 		    refFrame, childFrame, tf2::TimePointZero,
-		    tf2::durationFromSec(0.5), &errMsg))
+		    tf2::durationFromSec(0.10), &errMsg))
 	{
 		RCLCPP_ERROR_STREAM(this->get_logger(), "Unable to get pose from TF: " << errMsg);
 		return false;
@@ -33,7 +35,7 @@ bool TF2ToOdom::getTransform(
 		try {
 			transform = tf_buffer_->lookupTransform(
 				refFrame, childFrame, tf2::TimePointZero, tf2::durationFromSec(
-					0.05));
+					0.10));
 		} catch (const tf2::TransformException & e) {
 			RCLCPP_ERROR_STREAM(
 				this->get_logger(),
@@ -49,13 +51,14 @@ bool TF2ToOdom::getTransform(
                 {
                         tf_time_current_ = this->get_clock()->now().seconds();
                         auto delta_time = tf_time_current_ - tf_time_last_;
+                        RCLCPP_DEBUG(this->get_logger(), "delta_time: %f", delta_time);
 
                         auto robot_x_last = tf_stamed_last_.transform.translation.x;
-                        // auto robot_y_last = tf_stamed_last_.transform.translation.y;
+                        auto robot_y_last = tf_stamed_last_.transform.translation.y;
                         auto robot_yaw_last = tf2::getYaw(tf_stamed_last_.transform.rotation);
 
                         auto robot_x_current = tf_stamed_current_.transform.translation.x;
-                        // auto robot_y_current = tf_stamed_current_.transform.translation.y;
+                        auto robot_y_current = tf_stamed_current_.transform.translation.y;
                         auto robot_yaw_current = tf2::getYaw(tf_stamed_current_.transform.rotation);
 
                         odom_dummy_.header = tf_stamed_current_.header;
@@ -64,11 +67,12 @@ bool TF2ToOdom::getTransform(
                         odom_dummy_.pose.pose.position.y = tf_stamed_current_.transform.translation.y;
                         odom_dummy_.pose.pose.position.z = tf_stamed_current_.transform.translation.z;
                         odom_dummy_.pose.pose.orientation = tf_stamed_current_.transform.rotation;
-                        odom_dummy_.twist.twist.linear.x = (robot_x_current - robot_x_last) / delta_time;
-                        // odom_dummy_.twist.twist.linear.y = (robot_y_current - robot_y_last) / delta_time;
-                        odom_dummy_.twist.twist.angular.z = (robot_yaw_current - robot_yaw_last) / delta_time;
+                        double moving_orientation = std::atan2(robot_y_current - robot_y_last, robot_x_current - robot_x_last);
+                        int sign = angles::shortest_angular_distance(moving_orientation, robot_x_current) < M_PI / 2.0 ? 1 : -1;
+                        odom_dummy_.twist.twist.linear.x = (std::hypot(robot_x_current - robot_x_last, robot_y_current - robot_y_last)) / delta_time * sign;
+                        odom_dummy_.twist.twist.angular.z = angles::shortest_angular_distance(robot_yaw_last, robot_yaw_current) / delta_time;
 
-                        odom_dummy_pub_.publish(odom_dummy_);
+                        odom_dummy_pub_->publish(odom_dummy_);
 
                         tf_stamed_last_ = tf_stamed_current_;
                         tf_time_last_ = tf_time_current_;
