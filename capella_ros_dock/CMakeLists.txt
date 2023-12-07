@@ -131,12 +131,28 @@ rclcpp_components_register_node(manual_dock_lib
   PLUGIN "capella_ros_dock::ManualDock" 
   EXECUTABLE manual_dock)
 
+
+# tf2toodom library
+add_library(tf2_to_odom_lib SHARED)
+target_sources(tf2_to_odom_lib
+  PRIVATE
+  src/tf2toodom.cpp
+)
+
+target_include_directories(tf2_to_odom_lib PUBLIC include)
+ament_target_dependencies(tf2_to_odom_lib
+  ${dependencies})
+rclcpp_components_register_node(tf2_to_odom_lib
+  PLUGIN "capella_ros_dock::TF2ToOdom" 
+  EXECUTABLE tf2_to_odom)
+
 ############install libraries
 set(libraries_names
   hazards_publisher_lib
   motion_control_lib
   camera_point_cloud_process_lib
   manual_dock_lib
+  tf2_to_odom_lib
   # robot_state_lib
 )
 install(TARGETS ${libraries_names}
