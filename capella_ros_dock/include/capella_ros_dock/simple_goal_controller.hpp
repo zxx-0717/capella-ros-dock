@@ -207,6 +207,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	case NavigateStates::LOOKUP_ARUCO_MARKER:
 	{
 		RCLCPP_DEBUG(logger_, "------------- LOOKUP_ARUCO_MARKER -------------");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "------------- LOOKUP_ARUCO_MARKER -------------");
 		servo_vel = geometry_msgs::msg::Twist();
 		if (sees_dock)
 		{
@@ -290,6 +291,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	case NavigateStates::ANGLE_TO_BUFFER_POINT:
 	{
 		RCLCPP_DEBUG(logger_, "------------- ANGLE_TO_BUFFER_POINT -------------");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "------------- ANGLE_TO_BUFFER_POINT -------------");
 		servo_vel = geometry_msgs::msg::Twist();
 		now_time = clock_->now().seconds();
 		double dt = now_time - pre_time;
@@ -323,6 +325,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	case NavigateStates::MOVE_TO_BUFFER_POINT:
 	{
 		RCLCPP_DEBUG(logger_, "------------- MOVE_TO_BUFFER_POINT -------------");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "------------- MOVE_TO_BUFFER_POINT -------------");
 		servo_vel = geometry_msgs::msg::Twist();
 		now_time = clock_->now().seconds();
 		double dt = now_time - pre_time;
@@ -355,6 +358,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	case NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION:
 	{
 		RCLCPP_DEBUG(logger_, "------------- ANGLE_TO_X_POSITIVE_ORIENTATION -------------");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "------------- ANGLE_TO_X_POSITIVE_ORIENTATION -------------");
 		servo_vel = geometry_msgs::msg::Twist();
 		now_time = clock_->now().seconds();
 		double dt = now_time - pre_time;
@@ -411,6 +415,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	case NavigateStates::ANGLE_TO_GOAL:
 	{
 		RCLCPP_DEBUG(logger_, "------------- ANGLE_TO_GOAL -------------");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "------------- ANGLE_TO_GOAL -------------");
 		const GoalPoint & gp = goal_points_.front();
 
 		RCLCPP_DEBUG(logger_, "goal =>  x: %f, y: %f, yaw: %f",
@@ -450,6 +455,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	case NavigateStates::GO_TO_GOAL_POSITION:
 	{
 		RCLCPP_DEBUG(logger_, "------------- GO_TO_GOAL_POSITION -------------");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "------------- GO_TO_GOAL_POSITION -------------");
 		const GoalPoint & gp = goal_points_.front();
 		RCLCPP_DEBUG(logger_, "goal =>  x: %f, y: %f, yaw: %f",
 		             gp.x, gp.y, gp.theta);
@@ -533,6 +539,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		RCLCPP_DEBUG(logger_, "***********************************");
 		RCLCPP_DEBUG(logger_, "***********************************");
 		RCLCPP_DEBUG(logger_, "------------- GOAL_ANGLE -------------");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "------------- GOAL_ANGLE -------------");
 		const GoalPoint & gp = goal_points_.front();
 		RCLCPP_DEBUG(logger_, "goal =>  x: %f, y: %f, yaw: %f",
 		             gp.x, gp.y, gp.theta);
@@ -567,6 +574,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	case NavigateStates::UNDOCK:
 	{
 		RCLCPP_DEBUG(logger_, "------------- UNDOCK -------------");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "------------- UNDOCK -------------");
 		
 		servo_vel = geometry_msgs::msg::Twist();
 		if(start_undock)
