@@ -142,22 +142,90 @@ void DockingBehavior::odom_for_dock_moving_sub_callback(nav_msgs::msg::Odometry 
 void DockingBehavior::cmd_vel_sub_callback(geometry_msgs::msg::Twist msg)
 {
 	this->cmd_vel_msg = msg;
-	this->odom_selected_msg = odom_msg;
 
 	double weight_odom, weight_odom_for_dock_moving;
+	weight_odom = weight_odom_for_dock_moving = 0.0;
+
+	// keep weight bigger whose sign is same to origin value;
+	if (msg.linear.x > 0)
+	{
+		if (odom_msg.twist.twist.linear.x > 0)
+		{
+			weight_odom += 1.0;
+		}
+		if (odom_for_dock_moving_msg.twist.twist.linear.x > 0)
+		{
+			weight_odom_for_dock_moving += 1.0;
+		}
+	}
+	if (msg.linear.x < 0)
+	{
+		if (odom_msg.twist.twist.linear.x < 0)
+		{
+			weight_odom += 1.0;
+		}
+		if (odom_for_dock_moving_msg.twist.twist.linear.x < 0)
+		{
+			weight_odom_for_dock_moving += 1.0;
+		}
+	}
+	if (msg.angular.z > 0)
+	{
+		if (odom_msg.twist.twist.angular.z > 0)
+		{
+			weight_odom += 1.0;
+		}
+		if (odom_for_dock_moving_msg.twist.twist.angular.z > 0)
+		{
+			weight_odom_for_dock_moving += 1.0;
+		}
+	}
+	if (msg.angular.z < 0)
+	{
+		if (odom_msg.twist.twist.angular.z < 0)
+		{
+			weight_odom += 1.0;
+		}
+		if (odom_for_dock_moving_msg.twist.twist.angular.z < 0)
+		{
+			weight_odom_for_dock_moving += 1.0;
+		}
+	}
+
 	if (std::abs(msg.linear.x) > 2e-2) // min(linear.x) = 0.03 
 	{
-		weight_odom = std::abs(msg.linear.x - odom_msg.twist.twist.linear.x);
-		weight_odom_for_dock_moving = std::abs(msg.linear.x - odom_for_dock_moving_msg.twist.twist.linear.x);
+		// model: origin_value * 0.4 < real_value < origin_value * 1.6
+		if ((odom_msg.twist.twist.linear.x > msg.linear.x * 0.2) && (odom_msg.twist.twist.linear.x < msg.linear.x * 1.8))
+		{
+			weight_odom += (0.8 - std::abs(odom_msg.twist.twist.linear.x - msg.linear.x) / (msg.linear.x)) / 0.8;
+		}
+		if ((odom_for_dock_moving_msg.twist.twist.linear.x > 0.2 * msg.linear.x) && (odom_for_dock_moving_msg.twist.twist.linear.x < 1.8 * msg.linear.x))
+		{
+			weight_odom_for_dock_moving += (0.8 - std::abs(odom_for_dock_moving_msg.twist.twist.linear.x - msg.linear.x) / (msg.linear.x)) / 0.8 ;
+		}
 	}
 	else if (std::abs(msg.angular.z) > 1e-3)
 	{
-		weight_odom = std::abs(msg.angular.z - odom_msg.twist.twist.angular.z);
-		weight_odom_for_dock_moving = std::abs(msg.angular.z - odom_for_dock_moving_msg.twist.twist.angular.z);
+		if ((odom_msg.twist.twist.angular.z > msg.angular.z * 0.2) && (odom_msg.twist.twist.angular.z < msg.angular.z * 1.8))
+		{
+			weight_odom += (0.8 - std::abs(odom_msg.twist.twist.angular.z - msg.angular.z) / (msg.angular.z)) / 0.8;
+		}
+		if ((odom_for_dock_moving_msg.twist.twist.angular.z > 0.2 * msg.angular.z) && (odom_for_dock_moving_msg.twist.twist.angular.z < 1.8 * msg.angular.z))
+		{
+			weight_odom_for_dock_moving += (0.8 - std::abs(odom_for_dock_moving_msg.twist.twist.angular.z - msg.angular.z) / (msg.angular.z)) / 0.8;;
+		}
 	}
 
-	// smaller weight, closer to origin data;
-	this->odom_selected_msg = weight_odom < weight_odom_for_dock_moving ? odom_msg : odom_for_dock_moving_msg;
+	// bigger weight, closer to origin data;
+	this->odom_selected_msg = weight_odom >= weight_odom_for_dock_moving ? odom_msg : odom_for_dock_moving_msg;
+	if (weight_odom >= weight_odom)
+	{
+		RCLCPP_DEBUG(this->get_logger(), "odom selected: /odom === weight_odom: %f, weight_odom_dock: %f", weight_odom, weight_odom_for_dock_moving);
+	}
+	else
+	{
+		RCLCPP_DEBUG(this->get_logger(), "odom selected: /odom_for_dock_moving === weight_odom: %f, weight_odom_dock: %f", weight_odom, weight_odom_for_dock_moving);
+	}
 }
 
 
