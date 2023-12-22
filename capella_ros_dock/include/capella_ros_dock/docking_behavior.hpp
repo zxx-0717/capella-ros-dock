@@ -159,6 +159,7 @@ std::vector<float> cos_table;
 int marker_id_;
 std::string charger_id_;
 aruco_msgs::msg::MarkerAndMacVector marker_and_mac_vector;
+bool bluetooth_connected{false};
 
 
 void generate_sin_cos_table(float theta_min, float increament, int size);

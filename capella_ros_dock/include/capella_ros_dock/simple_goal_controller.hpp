@@ -103,7 +103,7 @@ void reset()
 // with goal point based on radius.
 // \return empty optional if no goal or velocity command to get to next goal point
 BehaviorsScheduler::optional_output_t get_velocity_for_position(
-	const tf2::Transform & current_pose, bool sees_dock, bool is_docked,
+	const tf2::Transform & current_pose, bool sees_dock, bool is_docked, bool bluetooth_connected,
 	nav_msgs::msg::Odometry odom_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr, capella_ros_dock_msgs::msg::HazardDetectionVector hazards)
 {
 	// impl undock (go to undock state)
@@ -442,7 +442,13 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	}
 	case NavigateStates::GO_TO_GOAL_POSITION:
 	{
+		servo_vel = geometry_msgs::msg::Twist();
 		RCLCPP_DEBUG(logger_, "------------- GO_TO_GOAL_POSITION -------------");
+		if (!bluetooth_connected)
+		{
+			RCLCPP_INFO_THROTTLE(logger_, *clock_, 2000, "bluetooth disconnected, waiting ......");
+			break;
+		}
 		const GoalPoint & gp = goal_points_.front();
 		RCLCPP_DEBUG(logger_, "goal =>  x: %f, y: %f, yaw: %f",
 		             gp.x, gp.y, gp.theta);
@@ -457,7 +463,6 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 
 		RCLCPP_DEBUG(logger_, "diff angle: %f", ang);
 		double abs_ang = std::abs(ang);
-		servo_vel = geometry_msgs::msg::Twist();
 		// If robot is close enough to goal, move to final stage
 		if (dist_to_goal < goal_points_.front().radius || std::abs(current_position.getX()) < std::abs(gp.x)) {
 			navigate_state_ = NavigateStates::GOAL_ANGLE;

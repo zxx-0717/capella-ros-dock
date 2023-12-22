@@ -263,7 +263,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 		robot_pose = last_robot_pose_;
 	}
 	auto hazards = current_state.hazards;
-	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_, is_docked_,
+	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_, is_docked_, bluetooth_connected,
 	                                                        odom_msg, clock_, logger_, params_ptr, hazards);
 	if(this->is_docked_)
 	{
@@ -428,7 +428,8 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	}
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_,
-	                                                        is_docked_,  odom_msg, clock_, logger_, params_ptr, hazards);
+	                                                        is_docked_, bluetooth_connected,
+								 odom_msg, clock_, logger_, params_ptr, hazards);
 
 	bool exceeded_runtime = false;
 	if (clock_->now() - action_start_time_ > max_action_runtime_) {
@@ -474,6 +475,7 @@ void DockingBehavior::charge_state_callback(capella_ros_service_interfaces::msg:
 	// 	            msg->stamp.sec, msg->stamp.nanosec);
 	// } // 调试 需临时更改msg消息类型定义
 	this->is_docked_ = msg->has_contact;
+	this->bluetooth_connected = !(msg->pid.compare("") == 0);
 }
 
 void DockingBehavior::robot_pose_callback(aruco_msgs::msg::PoseWithId::ConstSharedPtr msg)
