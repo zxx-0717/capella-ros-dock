@@ -125,7 +125,7 @@ def generate_launch_description():
     # charge_manager_pkg nodes
     # charge_manager node
     charge_manager_node = Node(
-        executable='charge_manager',
+        executable='charge_manage',
         package='charge_manager',
         name='charge_manager_node',
     )
@@ -134,7 +134,7 @@ def generate_launch_description():
     charge_action_node = Node(
         executable='charge_action',
         package='charge_manager',
-        name='charge_manager_node',
+        name='charge_action_node',
     )
     # bluetooth_old node
     bluetooth_old_node = Node(
@@ -150,9 +150,9 @@ def generate_launch_description():
 
     # launch_description.add_action(wifi_node)
     # launch_description.add_action(bluetooth_node)
-    # launch_description.add_action(bluetooth_old_node)
-    # launch_description.add_action(charge_manager_node)
-    # launch_description.add_action(charge_action_node)
+    launch_description.add_action(bluetooth_old_node)
+    launch_description.add_action(charge_manager_node)
+    launch_description.add_action(charge_action_node)
 
     launch_description.add_action(manual_dock_node)
     # launch_description.add_action(camera_launch_file)
