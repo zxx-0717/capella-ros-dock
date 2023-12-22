@@ -28,6 +28,7 @@ find_package(std_srvs REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(aruco_msgs)
+find_package(charge_manager_msgs REQUIRED)
 
 set(dependencies
   angles
@@ -47,6 +48,7 @@ set(dependencies
   OpenCV
   image_transport
   aruco_msgs
+  charge_manager_msgs
 )
 
 # Hazards vector publisher

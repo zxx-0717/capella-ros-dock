@@ -9,11 +9,11 @@
 #include "capella_ros_service_interfaces/msg/charge_state.hpp"
 #include "capella_ros_service_interfaces/msg/charge_marker_visible.hpp"
 #include "std_srvs/srv/empty.hpp"
-#include "capella_ros_msg/srv/charge_pile_wifi.hpp"
 #include "std_msgs/msg/bool.hpp"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 #include "tf2/utils.h"
 #include <thread>
+#include "charge_manager_msgs/srv/connect_bluetooth.hpp"
 
 namespace capella_ros_dock
 {
@@ -39,7 +39,7 @@ public:
         bool processing{false};
         bool charger_visible{false};
 
-        rclcpp::Client<capella_ros_msg::srv::ChargePileWifi>::SharedPtr client_bluetooth;
+        rclcpp::Client<charge_manager_msgs::srv::ConnectBluetooth>::SharedPtr client_bluetooth;
         rclcpp::Client<std_srvs::srv::Empty>::SharedPtr client_start_charging;
 
         void init_params();
@@ -60,7 +60,7 @@ public:
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr charger_position_pub_;
 
         void manual_dock_check_callback();
-        void client_bluetooth_callback(const rclcpp::Client<capella_ros_msg::srv::ChargePileWifi>::SharedFuture future);
+        void client_bluetooth_callback(const rclcpp::Client<charge_manager_msgs::srv::ConnectBluetooth>::SharedFuture future);
 
 };
 } // end of namespace

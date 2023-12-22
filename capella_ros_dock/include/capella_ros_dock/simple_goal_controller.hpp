@@ -237,6 +237,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				}
 				else
 				{
+					RCLCPP_DEBUG(logger_, "robot_x: %f, robot_y: %f", robot_x, robot_y);
+					RCLCPP_DEBUG(logger_, "buffer_goal_point_x: %f, buffer_goal_point_y: %f", buffer_goal_point_x, buffer_goal_point_y);
 					dist_buffer_point = std::hypot(robot_x - buffer_goal_point_x,
 					                               robot_y - buffer_goal_point_y);
 					robot_current_yaw = tf2::getYaw(current_pose.getRotation());
@@ -387,7 +389,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			}
 			else
 			{
-				RCLCPP_DEBUG(logger_, "re-execute ANGLE_TO_BUFFER_POINT");
+				RCLCPP_INFO(logger_, "re-execute ANGLE_TO_BUFFER_POINT(dist_buffer_point: %f, dist_goal_converged: %f)", dist_buffer_point, params_ptr->dist_goal_converged);
 				navigate_state_ = NavigateStates::LOOKUP_ARUCO_MARKER;
 			}
 		}

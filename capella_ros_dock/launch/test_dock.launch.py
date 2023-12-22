@@ -122,12 +122,38 @@ def generate_launch_description():
         parameters=[configured_params],
     )
 
+    # charge_manager_pkg nodes
+    # charge_manager node
+    charge_manager_node = Node(
+        executable='charge_manager',
+        package='charge_manager',
+        name='charge_manager_node',
+    )
+
+    # charge_action node
+    charge_action_node = Node(
+        executable='charge_action',
+        package='charge_manager',
+        name='charge_manager_node',
+    )
+    # bluetooth_old node
+    bluetooth_old_node = Node(
+        executable='charge_bluetooth_old',
+        package='charge_manager',
+        name='bluetooth_old_node',
+    )
+
     # launch_description.add_action(test_count_launch_arg)
     launch_description.add_action(log_level_arg)
     launch_description.add_action(params_file_arg)
     # launch_description.add_action(serial_node)
+
     # launch_description.add_action(wifi_node)
-    launch_description.add_action(bluetooth_node)
+    # launch_description.add_action(bluetooth_node)
+    # launch_description.add_action(bluetooth_old_node)
+    # launch_description.add_action(charge_manager_node)
+    # launch_description.add_action(charge_action_node)
+
     launch_description.add_action(manual_dock_node)
     # launch_description.add_action(camera_launch_file)
     launch_description.add_action(aruco_launch_file)

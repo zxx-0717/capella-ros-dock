@@ -21,7 +21,7 @@ namespace capella_ros_dock
                 charger_position_pub_->publish(msg_bool);
 
                 // client
-                client_bluetooth = this->create_client<capella_ros_msg::srv::ChargePileWifi>("/bluetooth_bssid");
+                client_bluetooth = this->create_client<charge_manager_msgs::srv::ConnectBluetooth>("/connect_bluetooth");
                 client_start_charging = this->create_client<std_srvs::srv::Empty>("/charger/start");
 
                 rclcpp::CallbackGroup::SharedPtr cb_group1 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
@@ -195,18 +195,26 @@ namespace capella_ros_dock
                         if(!processing)
                         {
                                 processing = true;
-                                if (charger_visible
+                                bool manual_charge_satisfied = false;
+                                manual_charge_satisfied = charger_visible
                                         && charger_position_ 
                                         && !charger_state.is_docking 
-                                        && !charger_state.is_charging)
+                                        && !charger_state.is_charging;
+                                if (manual_charge_satisfied)
                                 {
                                         RCLCPP_INFO(this->get_logger(), "robot is in charger position range, and it is not in docking state, and it is not charging, start manual dock...");
                                         RCLCPP_INFO(this->get_logger(), "connect bluetooth %s(marker_id: %d)...", this->bluetooth_mac.c_str(), this->marker_id);
-                                        auto request1 = std::make_shared<capella_ros_msg::srv::ChargePileWifi::Request>();
-                                        request1->ssid = this->bluetooth_mac;
+                                        auto request1 = std::make_shared<charge_manager_msgs::srv::ConnectBluetooth::Request>();
+                                        request1->mac = this->bluetooth_mac;
                                         while(!client_bluetooth->wait_for_service(1s))
                                         {
                                                 RCLCPP_INFO(this->get_logger(), "connect bluetooth service is not available, wating...");
+                                                manual_charge_satisfied = charger_visible
+                                                                                && charger_position_ 
+                                                                                && !charger_state.is_docking 
+                                                                                && !charger_state.is_charging;
+                                                if (!manual_charge_satisfied)
+                                                break;
                                         }
                                         auto result1 = client_bluetooth->async_send_request(request1, std::bind(&ManualDock::client_bluetooth_callback, this, _1));                          
                                 }
@@ -239,7 +247,7 @@ namespace capella_ros_dock
                 }                
         }
 
-        void ManualDock::client_bluetooth_callback(const rclcpp::Client<capella_ros_msg::srv::ChargePileWifi>::SharedFuture future)
+        void ManualDock::client_bluetooth_callback(const rclcpp::Client<charge_manager_msgs::srv::ConnectBluetooth>::SharedFuture future)
         {
                 if(future.get()->success)
                 {
