@@ -5,3 +5,5 @@ bool is_docked
 ---
 # Feedback
 bool sees_dock
+string state
+string infos

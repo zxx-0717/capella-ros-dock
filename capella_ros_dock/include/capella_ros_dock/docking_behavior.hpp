@@ -161,6 +161,9 @@ std::string charger_id_;
 aruco_msgs::msg::MarkerAndMacVector marker_and_mac_vector;
 bool bluetooth_connected{false};
 
+std::string state;
+std::string infos;
+
 
 void generate_sin_cos_table(float theta_min, float increament, int size);
 bool check_undock_has_obstale(sensor_msgs::msg::LaserScan);

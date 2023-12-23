@@ -104,7 +104,7 @@ void reset()
 // \return empty optional if no goal or velocity command to get to next goal point
 BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	const tf2::Transform & current_pose, bool sees_dock, bool is_docked, bool bluetooth_connected,
-	nav_msgs::msg::Odometry odom_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr, capella_ros_dock_msgs::msg::HazardDetectionVector hazards)
+	nav_msgs::msg::Odometry odom_msg, rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_, motion_control_params* params_ptr, capella_ros_dock_msgs::msg::HazardDetectionVector hazards, std::string & state, std::string & infos)
 {
 	// impl undock (go to undock state)
 	if (goal_points_.size() >0 && !(goal_points_.front().drive_backwards))
@@ -146,6 +146,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	}
 	if (goal_points_.size() == 0) {
 		RCLCPP_INFO(logger_, "*************** goal_points.size() = 0 *************");
+		state = std::string("goal_points.size() = 0");
+		infos = "Reason: goal_points.size() = 0 ==> stop ...";
 		return servo_vel;
 	}
 
@@ -160,37 +162,56 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	// stop when has valid hazards
 	if(hazards_valid(current_pose, hazards) && navigate_state_ > NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION)
 	{
-		last_time_hazards = clock_->now();
+		last_time_cannot_see_dock = clock_->now();
 		RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop for hazards.");
 		auto distance = std::abs(current_pose.getOrigin().getX());
 		RCLCPP_DEBUG(logger_, "distance: %f", distance);
 		RCLCPP_DEBUG(logger_, "throttle: %f", params_ptr->dock_valid_obstacle_x);
 		servo_vel = geometry_msgs::msg::Twist();
+		state = std::string(" > ANGLE_TO_X_POSITIVE_ORIENTATION");
+		infos = std::string("Reason: have valid hazards and navigate_state > ANGLE_TO_X_POSITIVE_ORIENTATION  ==> stop ...");
 		return servo_vel;
+	}
+	if (sees_dock)
+	{
+		first_cannot_see_dock = true;
 	}
 	if(!sees_dock && navigate_state_ > NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION)
 	{
-		last_time_hazards = clock_->now();
-		// RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop until can see dock.");
-		if (std::abs(current_position.getX()) > 0.9)
+		if (first_cannot_see_dock)
 		{
-			navigate_state_ = NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION;
+			last_time_cannot_see_dock = clock_->now();
+			first_cannot_see_dock = false;
+		}
+		now_time_cannot_see_dock = clock_->now();
+		if ((now_time_cannot_see_dock.seconds() - last_time_cannot_see_dock.seconds()) < params_ptr->time_sleep)
+		{
 			servo_vel = geometry_msgs::msg::Twist();
+			state = std::string(" > ANGLE_TO_X_POSITIVE_ORIENTATION");
+			infos = std::string("Reason: cannot see dock and navigate_state > ANGLE_TO_X_POSITIVE_ORIENTATION and stop time < time_sleep(default 5s) ==> stop");
 			return servo_vel;
 		}
 		else
 		{
-			RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "robot cann't see the charger,but it is too linear to the charger ,stop moving...");
-			servo_vel = geometry_msgs::msg::Twist();
-			return servo_vel;
+			// RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "stop until can see dock.");
+			if (std::abs(current_position.getX()) > 0.9)
+			{
+				navigate_state_ = NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION;
+				servo_vel = geometry_msgs::msg::Twist();
+				state = std::string(" > ANGLE_TO_X_POSITIVE_ORIENTATION");
+				infos = std::string("Reason: can not see marker more than time_sleep(default 5s) and navigate_state > ANGLE_TO_X_POSITIVE_ORIENTATION and robot.x > 0.9  ==> stop, change state to ANGLE_TO_X_POSITIVE_ORIENTATION");
+				return servo_vel;
+			}
+			else
+			{
+				RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "robot cann't see the charger,but it is too linear to the charger ,stop moving...");
+				servo_vel = geometry_msgs::msg::Twist();
+				state = std::string(" > ANGLE_TO_X_POSITIVE_ORIENTATION");
+				infos = std::string("Reason: can not see marker more than time_sleep(default 5s) and navigate_state > ANGLE_TO_X_POSITIVE_ORIENTATION and robot.x < 0.9  ==> stop, waiting for camera can see marker until timeout");
+				return servo_vel;
+			}
 		}
-	}
-	now_time_hazards = clock_->now();
-	if ((now_time_hazards.seconds() - last_time_hazards.seconds()) < params_ptr->time_sleep)
-	{
-		servo_vel = geometry_msgs::msg::Twist();
-		return servo_vel;
-	}
+	}	
 
 	// Generate velocity based on current position and next goal point looking for convergence
 	// with goal point based on radius.
@@ -211,10 +232,14 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				first_sees_dock = false;
 				first_sees_dock_time = clock_->now().seconds();
 				RCLCPP_DEBUG(logger_, "first see dock time: %f", first_sees_dock_time);
+				state = std::string("LOOKUP_ARUCO_MARKER");
+				infos = std::string("Reason: first sees dock ==> record first sees dock time.");
 			}
 			else
 			{
 				servo_vel->angular.z = std::copysign(params_ptr->max_rotation, dist_angle_to_X_Axis);
+				state = std::string("LOOKUP_ARUCO_MARKER");
+				infos = std::string("Reason: not first sees dock ==> rotate robot");
 			}
 
 
@@ -234,6 +259,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 				if (theta < thre_angle_diff && std::abs(robot_x) > (distance_tmp + params_ptr->deviate_second_goal_x))                                                                                                                                                                      // 0.7 <= 0.5 + 0.2(x_error)
 				{
 					navigate_state_ = NavigateStates::ANGLE_TO_GOAL;
+					state = std::string("LOOKUP_ARUCO_MARKER");
+					infos = std::string("Reason: robot's position converged ==> directly change state to ANGLE_TO_GOAL");
 				}
 				else
 				{
@@ -270,6 +297,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 					RCLCPP_DEBUG(logger_, "dist_buffer_point_yaw: %f", dist_buffer_point_yaw);
 					pre_time = clock_->now().seconds();
 					navigate_state_ = NavigateStates::ANGLE_TO_BUFFER_POINT;
+					state = std::string("LOOKUP_ARUCO_MARKER");
+					infos = std::string("Reason: robot's position not converged ==> directly change state to ANGLE_TO_BUFFER_POINT");
 				}
 			}
 		}
@@ -277,6 +306,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		{
 			servo_vel->angular.z = params_ptr->max_rotation;
 			RCLCPP_DEBUG(logger_, "can not see dock");
+			state = std::string("LOOKUP_ARUCO_MARKER");
+			infos = std::string("Reason: can not see marker ==> rotate robot");
 		}
 		break;
 	}
@@ -300,6 +331,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		if(std::abs(angle_dist) < params_ptr->tolerance_angle)
 		{
 			navigate_state_ = NavigateStates::MOVE_TO_BUFFER_POINT;
+			state = std::string("ANGLE_TO_BUFFER_POINT");
+			infos = std::string("Reason: ANGLE_TO_BUFFER_POINT converged ==> change state to MOVE_TO_BUFFER_POINT");
 		}
 		else
 		{
@@ -310,6 +343,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			}
 			servo_vel->angular.z = angle_dist;
 			RCLCPP_DEBUG(logger_, "angular.z: %f", angle_dist);
+			state = std::string("ANGLE_TO_BUFFER_POINT");
+			infos = std::string("Reason: ANGLE_TO_BUFFER_POINT not converged ==> keep on rotating robot");
 		}
 		break;
 	}
@@ -329,6 +364,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		if (std::abs(dist_y) < params_ptr->tolerance_r)
 		{
 			navigate_state_ = NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION;
+			state = std::string("MOVE_TO_BUFFER_POINT");
+			infos = std::string("Reason: MOVE_TO_BUFFER_POINT converged ==> change state to ANGLE_TO_X_POSITIVE_ORIENTATION");
 		}
 		else
 		{
@@ -342,6 +379,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			}
 			servo_vel->linear.x = translate_velocity;
 			RCLCPP_DEBUG(logger_, "linear.x: : %f", translate_velocity);
+			state = std::string("MOVE_TO_BUFFER_POINT");
+			infos = std::string("Reason: MOVE_TO_BUFFER_POINT not converged ==> keep on moving");
 		}
 		break;
 	}
@@ -386,11 +425,15 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			if (dist_buffer_point < params_ptr->dist_goal_converged)
 			{
 				navigate_state_ = NavigateStates::ANGLE_TO_GOAL;
+				state = std::string("MOVE_TO_BUFFER_POINT");
+				infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION converged (robot's position < dist_goal_converged) ==> change state to ANGLE_TO_GOAL");
 			}
 			else
 			{
 				RCLCPP_INFO(logger_, "re-execute ANGLE_TO_BUFFER_POINT(dist_buffer_point: %f, dist_goal_converged: %f)", dist_buffer_point, params_ptr->dist_goal_converged);
 				navigate_state_ = NavigateStates::LOOKUP_ARUCO_MARKER;
+				state = std::string("MOVE_TO_BUFFER_POINT");
+				infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION not converged(robot's position > dist_goal_converged) ==> change state to LOOKUP_ARUCO_MARKER");
 			}
 		}
 		else
@@ -398,6 +441,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			bound_rotation(dist_yaw2, params_ptr->min_rotation, params_ptr->max_rotation);
 			servo_vel->angular.z = dist_yaw2;
 			RCLCPP_DEBUG(logger_, "servo_vel->angular.z: %f", servo_vel->angular.z);
+			state = std::string("MOVE_TO_BUFFER_POINT");
+			infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION converged ==> keep on rotating");
 		}
 		break;
 	}
@@ -420,6 +465,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		if (dist_to_goal <= gp.radius || delta_y < params_ptr->dist_error_y_1) {
 			servo_vel = geometry_msgs::msg::Twist();
 			navigate_state_ = NavigateStates::GO_TO_GOAL_POSITION;
+			state = std::string("ANGLE_TO_GOAL");
+			infos = std::string("Reason: ANGLE_TO_GOAL converged ==> change state to GO_TO_GOAL_POSITION");
 		}
 		else
 		{
@@ -434,8 +481,12 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			if (std::abs(ang_save) < params_ptr->angle_to_goal_angle_converged || (sees_dock && std::abs(std::abs(current_angle) - M_PI) <  0.174533)) {
 				navigate_state_ = NavigateStates::GO_TO_GOAL_POSITION;
 				RCLCPP_DEBUG(logger_, " ******** change to state GO_TO_GOAL_POSITION ******** ");
+				state = std::string("ANGLE_TO_GOAL");
+				infos = std::string("Reason: ANGLE_TO_GOAL converged ==> change state to GO_TO_GOAL_POSITION");
 			} else {
 				servo_vel->angular.z = ang;
+				state = std::string("ANGLE_TO_GOAL");
+				infos = std::string("Reason: ANGLE_TO_GOAL not converged ==> keep on rotating");
 			}
 		}
 		break;
@@ -447,6 +498,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		if (!bluetooth_connected)
 		{
 			RCLCPP_INFO_THROTTLE(logger_, *clock_, 2000, "bluetooth disconnected, waiting ......");
+			state = std::string("GO_TO_GOAL_POSITION");
+			infos = std::string("Reason: bluetooth disconnected ==> stop");
 			break;
 		}
 		const GoalPoint & gp = goal_points_.front();
@@ -468,6 +521,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			navigate_state_ = NavigateStates::GOAL_ANGLE;
 			RCLCPP_DEBUG(logger_, " ******** change to state GOAL_ANGLE ******** ");
 			servo_vel->linear.x = gp.drive_backwards ? -params_ptr->max_translation : params_ptr->max_translation;
+			state = std::string("GO_TO_GOAL_POSITION");
+			infos = std::string("GO_TO_GOAL_POSITION converged ==> change state to GOAL_ANGLE");
 			// If robot angle has deviated too much from path, reset
 		}
 		// else if (abs_ang > params_ptr->go_to_goal_angle_too_far && delta_y > params_ptr->dist_error_y_1 && (delta_x + delta_y) > params_ptr->dist_error_x_and_y) {
@@ -510,6 +565,9 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 					ang = generate_smooth_rotation_speed(last_rotation_speed_, last_rotation_speed_time_, ang, clock_);
 					servo_vel->angular.z = ang;
 					RCLCPP_DEBUG(logger_, "low speed mode => angular.z: %f", ang);
+
+					state = std::string("GO_TO_GOAL_POSITION");
+					infos = std::string("GO_TO_GOAL_POSITION (low speed mode) ==> keep on moving");
 				}
 			}
 			else
@@ -520,6 +578,9 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 					ang = generate_smooth_rotation_speed(last_rotation_speed_, last_rotation_speed_time_, ang, clock_);
 					servo_vel->angular.z = ang;
 					RCLCPP_DEBUG(logger_, "normal speed mode => angular.z: %f", ang);
+
+					state = std::string("GO_TO_GOAL_POSITION");
+					infos = std::string("GO_TO_GOAL_POSITION (normal speed mode) ==> keep on moving");
 				}
 			}
 
@@ -560,6 +621,8 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		}
 		RCLCPP_DEBUG(logger_, " linear_x: %f", servo_vel->linear.x);
 		RCLCPP_DEBUG(logger_, "angular.z: %f", servo_vel->angular.z);
+		state = std::string("GOAL_ANGLE");
+		infos = std::string("GOAL_ANGLE  ==> keep on rotating");
 		break;
 	}
 	case NavigateStates::UNDOCK:
@@ -738,8 +801,8 @@ double robot_current_yaw_positive;
 bool drive_back = false;
 double theta_positive, theta_negative;
 
-rclcpp::Time last_time_hazards;
-rclcpp::Time now_time_hazards;
+rclcpp::Time last_time_cannot_see_dock;
+rclcpp::Time now_time_cannot_see_dock;
 float time_sleep;
 float last_rotation_speed_ = 0.0f;
 double last_rotation_speed_time_ = 0.0f;
@@ -748,6 +811,8 @@ bool first_pub_rotation_speed = true;
 // when has contacted, keep moving a little time
 bool first_contacted = true;
 double first_contacted_time;
+
+bool first_cannot_see_dock = true;
 
 // impl for undock
 bool  start_undock = true;

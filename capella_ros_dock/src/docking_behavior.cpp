@@ -264,7 +264,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 	}
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_, is_docked_, bluetooth_connected,
-	                                                        odom_msg, clock_, logger_, params_ptr, hazards);
+	                                                        odom_msg, clock_, logger_, params_ptr, hazards, state, infos);
 	if(this->is_docked_)
 	{
 		RCLCPP_DEBUG(logger_, "zero cmd time => sec: %f", this->clock_.get()->now().seconds());
@@ -291,6 +291,8 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_dock_servo(
 		// Publish feedback
 		auto feedback = std::make_shared<capella_ros_dock_msgs::action::Dock::Feedback>();
 		feedback->sees_dock = sees_dock_;
+		feedback->state = state;
+		feedback->infos = infos;
 		goal_handle->publish_feedback(feedback);
 		last_feedback_time_ = current_time;
 	}
@@ -429,7 +431,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	auto hazards = current_state.hazards;
 	servo_cmd = goal_controller_->get_velocity_for_position(robot_pose, sees_dock_,
 	                                                        is_docked_, bluetooth_connected,
-								 odom_msg, clock_, logger_, params_ptr, hazards);
+								 odom_msg, clock_, logger_, params_ptr, hazards, state, infos);
 
 	bool exceeded_runtime = false;
 	if (clock_->now() - action_start_time_ > max_action_runtime_) {
