@@ -40,6 +40,10 @@ namespace capella_ros_dock
                 rclcpp::SubscriptionOptions sub_ops4 = rclcpp::SubscriptionOptions();
                 sub_ops4.callback_group = cb_group4;
 
+                rclcpp::CallbackGroup::SharedPtr cb_group5 = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+                rclcpp::SubscriptionOptions sub_ops5 = rclcpp::SubscriptionOptions();
+                sub_ops5.callback_group = cb_group5;
+
                 marker_and_mac_sub_ = this->create_subscription<aruco_msgs::msg::MarkerAndMacVector>(
                         "aruco_single/id_mac",
                         30,
@@ -64,7 +68,14 @@ namespace capella_ros_dock
                         30,
                         std::bind(&ManualDock::charger_visible_sub_callback, this, std::placeholders::_1),
                         sub_ops4
-                );               
+                );
+
+                is_undocking_state_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+                        "is_undocking_state",
+                        5,
+                        std::bind(&ManualDock::is_undocking_state_callback, this, std::placeholders::_1),
+                        sub_ops5
+                );      
                 
 
                 std::thread thread1(std::bind(&ManualDock::manual_dock_check_callback, this));
@@ -176,6 +187,12 @@ namespace capella_ros_dock
                 last_charger_position_ = charger_position_;
         }
 
+        void ManualDock::is_undocking_state_callback(std_msgs::msg::Bool msg)
+        {
+                is_undocking_state = msg.data;
+                is_undocking_state_last_time_sub = this->get_clock()->now().seconds();
+        }
+
         bool ManualDock::in_charger_range(float x, float y, float yaw)
         {
                 bool ret = false;
@@ -195,11 +212,17 @@ namespace capella_ros_dock
                         if(!processing)
                         {
                                 processing = true;
+                                auto now_time = this->get_clock()->now().seconds();
+                                if ((now_time - is_undocking_state_last_time_sub) > is_undocking_state_timeout)
+                                {
+                                        is_undocking_state = false;
+                                }
                                 bool manual_charge_satisfied = false;
                                 manual_charge_satisfied = charger_visible
                                         && charger_position_ 
                                         && !charger_state.is_docking 
-                                        && !charger_state.is_charging;
+                                        && !charger_state.is_charging
+                                        && !is_undocking_state;
                                 if (manual_charge_satisfied)
                                 {
                                         RCLCPP_INFO(this->get_logger(), "robot is in charger position range, and it is not in docking state, and it is not charging, start manual dock...");
@@ -212,7 +235,8 @@ namespace capella_ros_dock
                                                 manual_charge_satisfied = charger_visible
                                                                                 && charger_position_ 
                                                                                 && !charger_state.is_docking 
-                                                                                && !charger_state.is_charging;
+                                                                                && !charger_state.is_charging
+                                                                                && !is_undocking_state;
                                                 if (!manual_charge_satisfied)
                                                 break;
                                         }

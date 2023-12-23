@@ -425,14 +425,14 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			if (dist_buffer_point < params_ptr->dist_goal_converged)
 			{
 				navigate_state_ = NavigateStates::ANGLE_TO_GOAL;
-				state = std::string("MOVE_TO_BUFFER_POINT");
+				state = std::string("ANGLE_TO_X_POSITIVE_ORIENTATION");
 				infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION converged (robot's position < dist_goal_converged) ==> change state to ANGLE_TO_GOAL");
 			}
 			else
 			{
 				RCLCPP_INFO(logger_, "re-execute ANGLE_TO_BUFFER_POINT(dist_buffer_point: %f, dist_goal_converged: %f)", dist_buffer_point, params_ptr->dist_goal_converged);
 				navigate_state_ = NavigateStates::LOOKUP_ARUCO_MARKER;
-				state = std::string("MOVE_TO_BUFFER_POINT");
+				state = std::string("ANGLE_TO_X_POSITIVE_ORIENTATION");
 				infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION not converged(robot's position > dist_goal_converged) ==> change state to LOOKUP_ARUCO_MARKER");
 			}
 		}
@@ -441,7 +441,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			bound_rotation(dist_yaw2, params_ptr->min_rotation, params_ptr->max_rotation);
 			servo_vel->angular.z = dist_yaw2;
 			RCLCPP_DEBUG(logger_, "servo_vel->angular.z: %f", servo_vel->angular.z);
-			state = std::string("MOVE_TO_BUFFER_POINT");
+			state = std::string("ANGLE_TO_X_POSITIVE_ORIENTATION");
 			infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION converged ==> keep on rotating");
 		}
 		break;

@@ -28,6 +28,12 @@ DockingBehavior::DockingBehavior(
 	goal_controller_ = std::make_shared<SimpleGoalController>(params_ptr);
 	// RCLCPP_INFO_STREAM(logger_, "max_dock_action_run_time: " << params_ptr->max_dock_action_run_time << " seconds.");
 
+	undock_state_pub_ = rclcpp::create_publisher<std_msgs::msg::Bool>(
+		node_topics_interface,
+		"is_undocking_state",
+		5
+	);
+
 	dock_visible_sub_ = rclcpp::create_subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>(
 		node_topics_interface,
 		"/marker_visible",
@@ -127,6 +133,11 @@ void DockingBehavior::odom_sub_callback(nav_msgs::msg::Odometry odom)
 bool DockingBehavior::docking_behavior_is_done()
 {
 	return !running_dock_action_;
+}
+
+bool DockingBehavior::undocking_behavior_is_done()
+{
+	return !running_undock_action_;
 }
 
 rclcpp_action::GoalResponse DockingBehavior::handle_dock_servo_goal(
@@ -321,8 +332,8 @@ rclcpp_action::GoalResponse DockingBehavior::handle_undock_goal(
 		return rclcpp_action::GoalResponse::REJECT;
 	}
 
-	if (!docking_behavior_is_done()) {
-		RCLCPP_WARN(logger_, "A docking behavior is already running, reject");
+	if (!undocking_behavior_is_done()) {
+		RCLCPP_WARN(logger_, "An un_docking behavior is already running, reject");
 		return rclcpp_action::GoalResponse::REJECT;
 	}
 
@@ -353,7 +364,7 @@ void DockingBehavior::handle_undock_accepted(
 		rclcpp_action::ServerGoalHandle<capella_ros_service_interfaces::action::Undock> > goal_handle)
 {
 	// Create new Docking Action
-	running_dock_action_ = true;
+	running_undock_action_ = true;
 	action_start_time_ = clock_->now();
 
 	SimpleGoalController::CmdPath undock_path;
@@ -386,7 +397,7 @@ void DockingBehavior::handle_undock_accepted(
 
 	BehaviorsScheduler::BehaviorsData data;
 	data.run_func = std::bind(&DockingBehavior::execute_undock, this, goal_handle, _1);
-	data.is_done_func = std::bind(&DockingBehavior::docking_behavior_is_done, this);
+	data.is_done_func = std::bind(&DockingBehavior::undocking_behavior_is_done, this);
 	data.stop_on_new_behavior = true;
 	data.apply_backup_limits = false;
 
@@ -400,7 +411,7 @@ void DockingBehavior::handle_undock_accepted(
 		result->success = false;
 		goal_handle->abort(result);
 		goal_controller_->reset();
-		running_dock_action_ = false;
+		running_undock_action_ = false;
 	}
 	last_feedback_time_ = clock_->now();
 }
@@ -419,7 +430,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 		result->success = false;
 		goal_handle->canceled(result);
 		goal_controller_->reset();
-		running_dock_action_ = false;
+		running_undock_action_ = false;
 		return BehaviorsScheduler::optional_output_t();
 	}
 	// Get next command
@@ -433,8 +444,12 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 	                                                        is_docked_, bluetooth_connected,
 								 odom_msg, clock_, logger_, params_ptr, hazards, state, infos);
 
+	
+	auto msg = std_msgs::msg::Bool();
+	msg.data = true;
+	undock_state_pub_->publish(msg);
 	bool exceeded_runtime = false;
-	if (clock_->now() - action_start_time_ > max_action_runtime_) {
+	if ((clock_->now() - action_start_time_) > rclcpp::Duration(std::chrono::seconds((int)(params_ptr->undock_time) + 2))) {
 		RCLCPP_INFO(logger_, "Undock Goal Exceeded Runtime");
 		exceeded_runtime = true;
 	}
@@ -453,7 +468,7 @@ BehaviorsScheduler::optional_output_t DockingBehavior::execute_undock(
 			goal_handle->abort(result);
 		}
 		goal_controller_->reset();
-		running_dock_action_ = false;
+		running_undock_action_ = false;
 		return BehaviorsScheduler::optional_output_t();
 	}
 

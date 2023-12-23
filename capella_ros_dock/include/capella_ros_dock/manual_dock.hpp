@@ -14,6 +14,7 @@
 #include "tf2/utils.h"
 #include <thread>
 #include "charge_manager_msgs/srv/connect_bluetooth.hpp"
+#include "std_msgs/msg/bool.hpp"
 
 namespace capella_ros_dock
 {
@@ -50,11 +51,17 @@ public:
         rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeState>::SharedPtr charger_state_sub_;
         rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr charger_visible_sub_;
         rclcpp::Subscription<aruco_msgs::msg::PoseWithId>::SharedPtr pose_with_id_sub_;
+        rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr is_undocking_state_sub_;
 
         void marker_and_mac_sub_callback(aruco_msgs::msg::MarkerAndMacVector);
         void charger_state_sub_callback(capella_ros_service_interfaces::msg::ChargeState);
         void pose_with_id_sub_callback(aruco_msgs::msg::PoseWithId);
         void charger_visible_sub_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible);
+        void is_undocking_state_callback(std_msgs::msg::Bool);
+        
+        float is_undocking_state_last_time_sub;
+        float is_undocking_state_timeout = 2.0;
+        bool is_undocking_state = false;
 
         // publisher
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr charger_position_pub_;

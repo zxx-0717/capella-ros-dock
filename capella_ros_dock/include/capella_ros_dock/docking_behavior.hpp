@@ -30,6 +30,8 @@
 #include "std_msgs/msg/string.hpp"
 #include "aruco_msgs/msg/marker_and_mac_vector.hpp"
 
+#include "std_msgs/msg/bool.hpp"
+
 namespace capella_ros_dock
 {
 
@@ -53,6 +55,7 @@ DockingBehavior(
 
 private:
 bool docking_behavior_is_done();
+bool undocking_behavior_is_done();
 
 void calibrate_docked_distance_offset(
 	const tf2::Transform & docked_robot_pose,
@@ -122,6 +125,7 @@ std::shared_ptr<BehaviorsScheduler> behavior_scheduler_;
 std::atomic<bool> is_docked_ {false};
 std::atomic<bool> sees_dock_ {false};
 std::atomic<bool> running_dock_action_ {false};
+std::atomic<bool> running_undock_action_ {false};
 std::shared_ptr<SimpleGoalController> goal_controller_;
 std::mutex robot_pose_mutex_;
 tf2::Transform last_robot_pose_;
@@ -138,6 +142,8 @@ const rclcpp::Duration report_feedback_interval_ {std::chrono::seconds(1)};
 capella_ros_msg::msg::Velocities raw_vel_msg;
 nav_msgs::msg::Odometry odom_msg;
 motion_control_params *params_ptr;
+
+rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr undock_state_pub_;
 
 void raw_vel_sub_callback(capella_ros_msg::msg::Velocities);
 void odom_sub_callback(nav_msgs::msg::Odometry);
