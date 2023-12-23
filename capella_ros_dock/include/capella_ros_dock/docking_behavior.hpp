@@ -134,7 +134,7 @@ bool calibrated_offset_ {false};
 double MAX_DOCK_INTERMEDIATE_GOAL_OFFSET {0.6};   // 0.5 + 0.1
 double UNDOCK_GOAL_OFFSET {0.5};
 rclcpp::Time last_feedback_time_;
-const rclcpp::Duration report_feedback_interval_ {std::chrono::seconds(3)};
+const rclcpp::Duration report_feedback_interval_ {std::chrono::seconds(1)};
 capella_ros_msg::msg::Velocities raw_vel_msg;
 nav_msgs::msg::Odometry odom_msg;
 motion_control_params *params_ptr;
