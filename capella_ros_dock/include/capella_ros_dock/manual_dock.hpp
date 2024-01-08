@@ -15,6 +15,11 @@
 #include <thread>
 #include "charge_manager_msgs/srv/connect_bluetooth.hpp"
 #include "std_msgs/msg/bool.hpp"
+#include "geometry_msgs/msg/pose_with_covariance_stamped.hpp"
+#include "rclcpp/executor.hpp"
+#include "tf2_ros/buffer.h"
+#include "tf2_ros/transform_listener.h"
+#include "std_msgs/msg/float32.hpp"
 
 namespace capella_ros_dock
 {
@@ -36,7 +41,7 @@ public:
         bool charger_position_{false};
         bool last_charger_position_{false};
         bool charger_position_pub_first{false};
-        float robot_x, robot_y, robot_yaw;
+        float robot_x_marker, robot_y_marker, robot_yaw_marker;
         bool processing{false};
         bool charger_visible{false};
 
@@ -44,7 +49,8 @@ public:
         rclcpp::Client<std_srvs::srv::Empty>::SharedPtr client_start_charging;
 
         void init_params();
-        bool in_charger_range(float x, float y, float yaw);
+        bool in_charger_range_marker(float x, float y, float yaw);
+        bool in_charger_range_map(float x, float y, float yaw);
         
         // subscriptions
         rclcpp::Subscription<aruco_msgs::msg::MarkerAndMacVector>::SharedPtr marker_and_mac_sub_;
@@ -52,22 +58,39 @@ public:
         rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr charger_visible_sub_;
         rclcpp::Subscription<aruco_msgs::msg::PoseWithId>::SharedPtr pose_with_id_sub_;
         rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr is_undocking_state_sub_;
+        rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pose_map_sub_;
+        rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr localization_score_sub_;
 
         void marker_and_mac_sub_callback(aruco_msgs::msg::MarkerAndMacVector);
         void charger_state_sub_callback(capella_ros_service_interfaces::msg::ChargeState);
         void pose_with_id_sub_callback(aruco_msgs::msg::PoseWithId);
         void charger_visible_sub_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible);
         void is_undocking_state_callback(std_msgs::msg::Bool);
+        void pose_map_sub_callback(geometry_msgs::msg::PoseWithCovarianceStamped);
+        bool getTransform(const std::string & refFrame, const std::string & childFrame,geometry_msgs::msg::TransformStamped & transform);
+        void localization_sub_callback(std_msgs::msg::Float32);
         
         float is_undocking_state_last_time_sub;
         float is_undocking_state_timeout = 2.0;
         bool is_undocking_state = false;
+
+        float robot_x = 999.0;
+        float robot_y = 999.0;
+        float robot_yaw = 0.0;
+
+        void getRobotPose(float& x, float& y, float& z);
 
         // publisher
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr charger_position_pub_;
 
         void manual_dock_check_callback();
         void client_bluetooth_callback(const rclcpp::Client<charge_manager_msgs::srv::ConnectBluetooth>::SharedFuture future);
+
+        std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+        std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
+
+        float charger_pose_x, charger_pose_y, charger_pose_yaw;
+        float localization_score = 0.0;
 
 };
 } // end of namespace
