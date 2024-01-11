@@ -16,10 +16,12 @@
 #include "charge_manager_msgs/srv/connect_bluetooth.hpp"
 #include "std_msgs/msg/bool.hpp"
 #include "geometry_msgs/msg/pose_with_covariance_stamped.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
 #include "rclcpp/executor.hpp"
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
 #include "std_msgs/msg/float32.hpp"
+#include "angles/angles.h"
 
 namespace capella_ros_dock
 {
@@ -58,7 +60,8 @@ public:
         rclcpp::Subscription<capella_ros_service_interfaces::msg::ChargeMarkerVisible>::SharedPtr charger_visible_sub_;
         rclcpp::Subscription<aruco_msgs::msg::PoseWithId>::SharedPtr pose_with_id_sub_;
         rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr is_undocking_state_sub_;
-        rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pose_map_sub_;
+        rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr is_docking_state_sub_;
+        rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr charger_pose_map_sub_;
         rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr localization_score_sub_;
 
         void marker_and_mac_sub_callback(aruco_msgs::msg::MarkerAndMacVector);
@@ -66,13 +69,18 @@ public:
         void pose_with_id_sub_callback(aruco_msgs::msg::PoseWithId);
         void charger_visible_sub_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible);
         void is_undocking_state_callback(std_msgs::msg::Bool);
-        void pose_map_sub_callback(geometry_msgs::msg::PoseWithCovarianceStamped);
+        void is_docking_state_callback(std_msgs::msg::Bool);
+        void charger_pose_map_sub_callback(geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr);
         bool getTransform(const std::string & refFrame, const std::string & childFrame,geometry_msgs::msg::TransformStamped & transform);
         void localization_sub_callback(std_msgs::msg::Float32);
         
         float is_undocking_state_last_time_sub;
-        float is_undocking_state_timeout = 2.0;
+        float is_undocking_state_timeout = 10.0;
         bool is_undocking_state = false;
+
+        float is_docking_state_last_time_sub;
+        float is_docking_state_timeout = 10.0;
+        bool is_docking_state = false;
 
         float robot_x = 999.0;
         float robot_y = 999.0;

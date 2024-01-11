@@ -64,7 +64,7 @@ namespace capella_ros_dock
                 );
                 charger_state_sub_ = this->create_subscription<capella_ros_service_interfaces::msg::ChargeState>(
                         "/charger/state",
-                        30,
+                        rclcpp::QoS(rclcpp::KeepLast(1)).best_effort().durability_volatile(),
                         std::bind(&ManualDock::charger_state_sub_callback, this, std::placeholders::_1),
                         sub_ops2
                 );
@@ -84,15 +84,15 @@ namespace capella_ros_dock
 
                 is_undocking_state_sub_ = this->create_subscription<std_msgs::msg::Bool>(
                         "is_undocking_state",
-                        5,
+                        1,
                         std::bind(&ManualDock::is_undocking_state_callback, this, std::placeholders::_1),
                         sub_ops5
                 );
 
-                pose_map_sub_ = this->create_subscription<geometry_msgs::msg::PoseWithCovarianceStamped>(
-                        "/charger/pose",
-                        rclcpp::QoS(1).transient_local().reliable(),
-                        std::bind(&ManualDock::pose_map_sub_callback, this, std::placeholders::_1),
+                charger_pose_map_sub_ = this->create_subscription<geometry_msgs::msg::PoseWithCovarianceStamped>(
+                        "charger/pose",
+                        rclcpp::QoS(rclcpp::KeepLast(1)).reliable().transient_local(),
+                        std::bind(&ManualDock::charger_pose_map_sub_callback, this, std::placeholders::_1),
                         sub_ops6
                 );
 
@@ -101,7 +101,14 @@ namespace capella_ros_dock
                         5,
                         std::bind(&ManualDock::localization_sub_callback, this, std::placeholders::_1),
                         sub_ops7
-                );                
+                );
+
+                is_docking_state_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+                        "is_docking_state",
+                        1,
+                        std::bind(&ManualDock::is_docking_state_callback, this, std::placeholders::_1),
+                        sub_ops5
+                );
 
                 std::thread thread1(std::bind(&ManualDock::manual_dock_check_callback, this));
                 thread1.detach();
@@ -149,15 +156,18 @@ namespace capella_ros_dock
         }
 
         bool ManualDock::in_charger_range_map(float x, float y, float yaw)
-        {
+        {                
                 bool ret = false;
-                if (std::hypot(robot_x - charger_pose_x, robot_y - charger_pose_y) > 4.0)
+                float dist_r, dist_yaw;
+                dist_r = std::hypot(robot_x - charger_pose_x, robot_y - charger_pose_y);
+                dist_yaw = std::abs(angles::shortest_angular_distance(robot_yaw, charger_pose_yaw));
+                if ( dist_r > 3.0)
                 {
                         ret = false;
                 }
                 else
                 {
-                        if (std::abs(robot_yaw - charger_pose_yaw) < 0.785)
+                        if ( dist_yaw < 0.785)
                         {
                                 ret = true;
                         }
@@ -166,17 +176,20 @@ namespace capella_ros_dock
                                 ret = false;
                         }
                 }
+                RCLCPP_INFO_THROTTLE(this->get_logger(), *(this->get_clock()), 5000, "robot(%f, %f, %f), charger(%f, %f, %f)", robot_x, robot_y, robot_yaw, charger_pose_x, charger_pose_y, charger_pose_yaw);
+                RCLCPP_INFO_THROTTLE(this->get_logger(), *(this->get_clock()), 5000, "dist_r: %f, dist_yaw: %f", dist_r, dist_yaw);
 
                 return ret;
         }
 
-        void ManualDock::pose_map_sub_callback(geometry_msgs::msg::PoseWithCovarianceStamped msg)
+        void ManualDock::charger_pose_map_sub_callback(geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg)
         {
                 tf2::Transform tf;
-                tf2::convert(msg, tf);
+                tf2::convert(msg->pose.pose, tf);
                 charger_pose_x = tf.getOrigin().getX();
                 charger_pose_y = tf.getOrigin().getY();
                 charger_pose_yaw = tf2::getYaw(tf.getRotation());
+                RCLCPP_INFO(this->get_logger(), "charger pose: (x: %f, y: %f)", charger_pose_x, charger_pose_y);
         }
 
         bool ManualDock::getTransform(
@@ -314,6 +327,12 @@ namespace capella_ros_dock
                 is_undocking_state_last_time_sub = this->get_clock()->now().seconds();
         }
 
+        void ManualDock::is_docking_state_callback(std_msgs::msg::Bool msg)
+        {
+                is_docking_state = msg.data;
+                is_docking_state_last_time_sub = this->get_clock()->now().seconds();
+        }
+
         bool ManualDock::in_charger_range_marker(float x, float y, float yaw)
         {
                 bool ret = false;
@@ -338,12 +357,17 @@ namespace capella_ros_dock
                                 {
                                         is_undocking_state = false;
                                 }
+                                if ((now_time - is_docking_state_last_time_sub) > is_docking_state_timeout)
+                                {
+                                        is_docking_state = false;
+                                }
                                 bool manual_charge_satisfied = false;
                                 manual_charge_satisfied = charger_visible
                                         && charger_position_ 
                                         && !charger_state.is_docking 
                                         && !charger_state.is_charging
-                                        && !is_undocking_state;
+                                        && !is_undocking_state
+                                        && !is_docking_state;
                                 if (manual_charge_satisfied)
                                 {
                                         RCLCPP_INFO(this->get_logger(), "robot is in charger position range, and it is not in docking state, and it is not charging, start manual dock...");
@@ -357,11 +381,17 @@ namespace capella_ros_dock
                                                                                 && charger_position_ 
                                                                                 && !charger_state.is_docking 
                                                                                 && !charger_state.is_charging
-                                                                                && !is_undocking_state;
+                                                                                && !is_undocking_state
+                                                                                && !is_docking_state;
                                                 if (!manual_charge_satisfied)
                                                 break;
                                         }
-                                        auto result1 = client_bluetooth->async_send_request(request1, std::bind(&ManualDock::client_bluetooth_callback, this, _1));                          
+                                        if (this->bluetooth_mac.compare(this->charger_state.pid) != 0)
+                                        {
+                                                RCLCPP_INFO(this->get_logger(), "*** manual call /connectbluetooth service. ***");
+                                                auto result1 = client_bluetooth->async_send_request(request1, std::bind(&ManualDock::client_bluetooth_callback, this, _1));
+                                        }
+                                                                  
                                 }
                                 else
                                 {
@@ -387,7 +417,7 @@ namespace capella_ros_dock
                 
                                 }
                         }
-                        sleep(9);
+                        sleep(10);
                         processing = false;
                 }                
         }
@@ -397,9 +427,13 @@ namespace capella_ros_dock
                 if(future.get()->success)
                 {
                         RCLCPP_INFO(this->get_logger(), "bluetooth connection success");
-                        RCLCPP_INFO(this->get_logger(), "call service /charger/start");
-                        auto request2 = std::make_shared<std_srvs::srv::Empty::Request>();
-                        auto result2 = client_start_charging->async_send_request(request2);
+                        if(this->charger_state.has_contact)
+                        {
+                                RCLCPP_INFO(this->get_logger(), "*** munual call service /charger/start service ***");
+                                auto request2 = std::make_shared<std_srvs::srv::Empty::Request>();
+                                auto result2 = client_start_charging->async_send_request(request2);
+                        }
+                        
                 }
                 else
                 {

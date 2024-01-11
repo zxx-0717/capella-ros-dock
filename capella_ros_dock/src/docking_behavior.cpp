@@ -44,7 +44,7 @@ DockingBehavior::DockingBehavior(
 	charge_state_sub_ = rclcpp::create_subscription<capella_ros_service_interfaces::msg::ChargeState>(
 		node_topics_interface,
 		"charger/state",
-		50,
+		rclcpp::QoS(rclcpp::KeepLast(1)).best_effort().durability_volatile(),
 		std::bind(&DockingBehavior::charge_state_callback, this, _1)
 		);
 
@@ -146,10 +146,10 @@ rclcpp_action::GoalResponse DockingBehavior::handle_dock_servo_goal(
 {
 	RCLCPP_INFO(logger_, "Received new dock servo goal");
 
-	if (!docking_behavior_is_done()) {
-		RCLCPP_WARN(logger_, "A docking behavior is already running, reject");
-		return rclcpp_action::GoalResponse::REJECT;
-	}
+	// if (!docking_behavior_is_done()) {
+	// 	RCLCPP_WARN(logger_, "A docking behavior is already running, reject");
+	// 	return rclcpp_action::GoalResponse::REJECT;
+	// }
 
 	if (is_docked_) {
 		RCLCPP_WARN(logger_, "Robot already docked, reject");
