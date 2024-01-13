@@ -154,7 +154,7 @@ def generate_launch_description():
     # launch_description.add_action(charge_manager_node)
     # launch_description.add_action(charge_action_node)
 
-    launch_description.add_action(manual_dock_node)
+    # launch_description.add_action(manual_dock_node)
     # launch_description.add_action(camera_launch_file)
     launch_description.add_action(aruco_launch_file)
     launch_description.add_action(motion_control_node)

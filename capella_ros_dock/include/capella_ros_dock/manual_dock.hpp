@@ -22,6 +22,7 @@
 #include "tf2_ros/transform_listener.h"
 #include "std_msgs/msg/float32.hpp"
 #include "angles/angles.h"
+#include "nav_msgs/msg/odometry.hpp"
 
 namespace capella_ros_dock
 {
@@ -40,19 +41,18 @@ public:
         float pose_x_min, pose_x_max, pose_y_min, pose_y_max, yaw_min, yaw_max;
         int marker_id;
         std::string bluetooth_mac;
-        bool charger_position_{false};
         bool last_charger_position_{false};
-        bool charger_position_pub_first{false};
-        float robot_x_marker, robot_y_marker, robot_yaw_marker;
         bool processing{false};
         bool charger_visible{false};
+
+        bool use_marker{true};
 
         rclcpp::Client<charge_manager_msgs::srv::ConnectBluetooth>::SharedPtr client_bluetooth;
         rclcpp::Client<std_srvs::srv::Empty>::SharedPtr client_start_charging;
 
         void init_params();
-        bool in_charger_range_marker(float x, float y, float yaw);
-        bool in_charger_range_map(float x, float y, float yaw);
+        bool in_charger_range_charger();
+        bool in_charger_range_map();
         
         // subscriptions
         rclcpp::Subscription<aruco_msgs::msg::MarkerAndMacVector>::SharedPtr marker_and_mac_sub_;
@@ -63,6 +63,7 @@ public:
         rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr is_docking_state_sub_;
         rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr charger_pose_map_sub_;
         rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr localization_score_sub_;
+        rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
 
         void marker_and_mac_sub_callback(aruco_msgs::msg::MarkerAndMacVector);
         void charger_state_sub_callback(capella_ros_service_interfaces::msg::ChargeState);
@@ -73,6 +74,7 @@ public:
         void charger_pose_map_sub_callback(geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr);
         bool getTransform(const std::string & refFrame, const std::string & childFrame,geometry_msgs::msg::TransformStamped & transform);
         void localization_sub_callback(std_msgs::msg::Float32);
+        void odom_sub_callback(nav_msgs::msg::Odometry::SharedPtr msg);
         
         float is_undocking_state_last_time_sub;
         float is_undocking_state_timeout = 10.0;
@@ -82,11 +84,20 @@ public:
         float is_docking_state_timeout = 10.0;
         bool is_docking_state = false;
 
-        float robot_x = 999.0;
-        float robot_y = 999.0;
-        float robot_yaw = 0.0;
+        float robot_x_map = 7777.0;
+        float robot_y_map = 7777.0;
+        float robot_yaw_map = 0.0;
 
-        void getRobotPose(float& x, float& y, float& z);
+        float robot_x_charger = 0.0;
+        float robot_y_charger = 0.0;
+        float robot_yaw_charger = 0.0;
+
+        void get_robot_pose_map(float& x, float& y, float& yaw);
+        void get_robot_pose_charger(float& x, float& y, float& yaw);
+        bool is_in_charger_range_map{true};
+        bool is_in_charger_range_charger{true};
+        bool is_in_charger_range{true};
+        bool is_in_charger_range_last{false};
 
         // publisher
         rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr charger_position_pub_;
@@ -99,6 +110,20 @@ public:
 
         float charger_pose_x, charger_pose_y, charger_pose_yaw;
         float localization_score = 0.0;
+
+        float robot_x_map_charging = 7700.0;
+        float robot_y_map_charging= 7700.0;
+        float robot_yaw_map_charging = 0.0;
+        float odom_charging_x = 7700.0;
+        float odom_charging_y = 7700.0;
+        float odom_charging_yaw = 0.0;
+        float odom_current_x, odom_current_y, odom_current_yaw;
+        bool is_charging_position_moved(float x1, float y1, float yaw1, float x2, float y2, float yaw2);
+        bool robot_moved_baselink{true};
+        bool robot_moved_odom{true};
+        float score_max = 0.8;
+
+        bool bluetooth_connecting{false};
 
 };
 } // end of namespace
