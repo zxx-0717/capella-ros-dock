@@ -514,7 +514,7 @@ namespace capella_ros_dock
         {
                 bool ret = true;
 
-                if(std::hypot(x1 - x2, y1 - y2) > 0.1)
+                if(std::hypot(x1 - x2, y1 - y2) > 0.25)
                 {
                         ret = true;
                 }
