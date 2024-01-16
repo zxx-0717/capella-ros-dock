@@ -43,7 +43,7 @@ motion_control:
     buffer_goal_distance: 0.4
     camera_horizontal_view: 58.0
     localization_converged_time: 0.5 # wait (n) seconds for coordinates to be converged
-    tolerance_angle: 0.05
+    tolerance_angle: 0.20
     tolerance_r: 0.1
     deviate_second_goal_x: 0.2
     dist_error_y_1: 0.05
