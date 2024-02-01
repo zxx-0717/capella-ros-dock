@@ -23,6 +23,8 @@
 #include "std_msgs/msg/float32.hpp"
 #include "angles/angles.h"
 #include "nav_msgs/msg/odometry.hpp"
+#include "charge_manager_msgs/action/charge.hpp"
+#include "rclcpp_action/rclcpp_action.hpp"
 
 namespace capella_ros_dock
 {
@@ -49,6 +51,10 @@ public:
 
         rclcpp::Client<charge_manager_msgs::srv::ConnectBluetooth>::SharedPtr client_bluetooth;
         rclcpp::Client<std_srvs::srv::Empty>::SharedPtr client_start_charging;
+        rclcpp_action::Client<charge_manager_msgs::action::Charge>::SharedPtr charge_client_;
+
+        void charge_result_callback(rclcpp_action::ClientGoalHandle<charge_manager_msgs::action::Charge>::WrappedResult);
+        bool charge_action_executing{false};
 
         void init_params();
         bool in_charger_range_charger();

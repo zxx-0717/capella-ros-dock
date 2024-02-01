@@ -20,6 +20,8 @@ namespace capella_ros_dock
                 tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
 	        tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
+                this->charge_client_ = rclcpp_action::create_client<charge_manager_msgs::action::Charge>(this, "charge_client_manual");
+
                 // client
                 client_bluetooth = this->create_client<charge_manager_msgs::srv::ConnectBluetooth>("/connect_bluetooth");
                 client_start_charging = this->create_client<std_srvs::srv::Empty>("/charger/start");
@@ -166,9 +168,9 @@ namespace capella_ros_dock
                         robot_y = 8888.0;
                         yaw = 0.0;
                 }
-                RCLCPP_INFO_THROTTLE(get_logger(), *(this->get_clock()), 5000, "score: %f, robot(%f, %f, %f), charger(%f, %f, %f)", 
-                        localization_score, robot_x_map, robot_y_map, robot_yaw_map,
-                        charger_pose_x, charger_pose_y, charger_pose_yaw);
+                // RCLCPP_INFO_THROTTLE(get_logger(), *(this->get_clock()), 5000, "score: %f, robot(%f, %f, %f), charger(%f, %f, %f)", 
+                //         localization_score, robot_x_map, robot_y_map, robot_yaw_map,
+                //         charger_pose_x, charger_pose_y, charger_pose_yaw);
         }
 
         void ManualDock::get_robot_pose_charger(float& x, float& y, float& yaw)
@@ -422,38 +424,58 @@ namespace capella_ros_dock
                                 if (manual_charge_satisfied)
                                 {
                                         RCLCPP_INFO(this->get_logger(), "manual charging satisfied...");
-                                        auto request1 = std::make_shared<charge_manager_msgs::srv::ConnectBluetooth::Request>();
-                                        request1->mac = this->bluetooth_mac;
-                                        if(!client_bluetooth->wait_for_service(1s))
+                                        auto charge_goal = charge_manager_msgs::action::Charge::Goal();
+                                        charge_goal.mac = this->bluetooth_mac;
+                                        charge_goal.restore = 0;
+                                        charge_goal.type = 1;
+                                        if(!this->charge_client_->wait_for_action_server())
                                         {
-                                                RCLCPP_INFO(this->get_logger(), "connect bluetooth service is not available, waiting...");
+                                                RCLCPP_INFO(this->get_logger(), "Charge action not on line, waiting ...");
                                         }
                                         else
                                         {
-                                                if ((this->bluetooth_mac.compare(this->charger_state.pid) != 0))
+                                                if (!this->charge_action_executing)
                                                 {
-                                                        if(!bluetooth_connecting)
-                                                        {
-                                                                bluetooth_connecting = true;
-                                                                RCLCPP_INFO(this->get_logger(), "*** bluetooth disconnected, manual call /connectbluetooth service. ***");
-                                                                RCLCPP_INFO(this->get_logger(), "connect bluetooth %s(marker_id: %d)...", this->bluetooth_mac.c_str(), this->marker_id);
-                                                                auto result1 = client_bluetooth->async_send_request(request1, std::bind(&ManualDock::client_bluetooth_callback, this, _1));
-                                                        }
-                                                }                                                
-                                                else
-                                                {
-                                                        if(this->charger_state.has_contact)
-                                                        {
-                                                                RCLCPP_INFO(this->get_logger(), "*** bluetooth connected, has_contact: true => munual call service /charger/start service ***");
-                                                                auto request2 = std::make_shared<std_srvs::srv::Empty::Request>();
-                                                                auto result2 = client_start_charging->async_send_request(request2);
-                                                        }
-                                                        else
-                                                        {
-                                                                RCLCPP_INFO(get_logger(), "*** bluetooth connected, has_contact: false => keep on moving robot.");
-                                                        }
+                                                        RCLCPP_INFO(this->get_logger(), "------------------------ call /charge action ------------------------");
+                                                        this->charge_action_executing = true;
+                                                        auto send_goals_options = rclcpp_action::Client<charge_manager_msgs::action::Charge>::SendGoalOptions();
+                                                        send_goals_options.result_callback = std::bind(&ManualDock::charge_result_callback, this, _1);
+                                                        this->charge_client_->async_send_goal(charge_goal, send_goals_options);
                                                 }
-                                        }                                  
+                                        }
+
+                                        // auto request1 = std::make_shared<charge_manager_msgs::srv::ConnectBluetooth::Request>();
+                                        // request1->mac = this->bluetooth_mac;
+                                        // if(!client_bluetooth->wait_for_service(1s))
+                                        // {
+                                        //         RCLCPP_INFO(this->get_logger(), "connect bluetooth service is not available, waiting...");
+                                        // }
+                                        // else
+                                        // {
+                                        //         if ((this->bluetooth_mac.compare(this->charger_state.pid) != 0))
+                                        //         {
+                                        //                 if(!bluetooth_connecting)
+                                        //                 {
+                                        //                         bluetooth_connecting = true;
+                                        //                         RCLCPP_INFO(this->get_logger(), "*** bluetooth disconnected, manual call /connectbluetooth service. ***");
+                                        //                         RCLCPP_INFO(this->get_logger(), "connect bluetooth %s(marker_id: %d)...", this->bluetooth_mac.c_str(), this->marker_id);
+                                        //                         auto result1 = client_bluetooth->async_send_request(request1, std::bind(&ManualDock::client_bluetooth_callback, this, _1));
+                                        //                 }
+                                        //         }                                                
+                                        //         else
+                                        //         {
+                                        //                 if(this->charger_state.has_contact)
+                                        //                 {
+                                        //                         RCLCPP_INFO(this->get_logger(), "*** bluetooth connected, has_contact: true => munual call service /charger/start service ***");
+                                        //                         auto request2 = std::make_shared<std_srvs::srv::Empty::Request>();
+                                        //                         auto result2 = client_start_charging->async_send_request(request2);
+                                        //                 }
+                                        //                 else
+                                        //                 {
+                                        //                         RCLCPP_INFO(get_logger(), "*** bluetooth connected, has_contact: false => keep on moving robot.");
+                                        //                 }
+                                        //         }
+                                        // }                                  
                                 }
                                 else
                                 {
@@ -490,6 +512,11 @@ namespace capella_ros_dock
                 }                
         }
 
+        void ManualDock::charge_result_callback(rclcpp_action::ClientGoalHandle<charge_manager_msgs::action::Charge>::WrappedResult result)
+        {
+                this->charge_action_executing = false;
+        }
+
         void ManualDock::client_bluetooth_callback(const rclcpp::Client<charge_manager_msgs::srv::ConnectBluetooth>::SharedFuture future)
         {
                 if(future.get()->success)
@@ -514,7 +541,7 @@ namespace capella_ros_dock
         {
                 bool ret = true;
 
-                if(std::hypot(x1 - x2, y1 - y2) > 0.25)
+                if(std::hypot(x1 - x2, y1 - y2) > 1.0)
                 {
                         ret = true;
                 }
