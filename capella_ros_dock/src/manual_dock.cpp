@@ -20,7 +20,7 @@ namespace capella_ros_dock
                 tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
 	        tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
-                this->charge_client_ = rclcpp_action::create_client<charge_manager_msgs::action::Charge>(this, "charge_client_manual");
+                this->charge_client_ = rclcpp_action::create_client<charge_manager_msgs::action::Charge>(this, "charge");
 
                 // client
                 client_bluetooth = this->create_client<charge_manager_msgs::srv::ConnectBluetooth>("/connect_bluetooth");
@@ -125,8 +125,8 @@ namespace capella_ros_dock
 
                 std::thread thread1(std::bind(&ManualDock::manual_dock_check_callback, this));
                 thread1.detach();
-                auto cb_group_check_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-                auto charger_position_timer_ = this->create_wall_timer(std::chrono::seconds(10), std::bind(&ManualDock::manual_dock_check_callback, this));
+                // auto cb_group_check_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+                // auto charger_position_timer_ = this->create_wall_timer(std::chrono::seconds(10), std::bind(&ManualDock::manual_dock_check_callback, this));
 
                 sleep(1); // important !!! do not delete.
                 // publish false for init
@@ -285,7 +285,7 @@ namespace capella_ros_dock
                 get_robot_pose_map(robot_x_map, robot_y_map, robot_yaw_map);
                 if(charger_state.has_contact && charger_state.is_charging)
                 {
-                        RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 5000, "Update charging pose coordinates......");
+                        // RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 10000, "Display charging pose coordinates per 10s......");
                         odom_charging_x = odom_current_x;
                         odom_charging_y = odom_current_y;
                         odom_charging_yaw = odom_current_yaw;
@@ -306,21 +306,24 @@ namespace capella_ros_dock
                         score_max = 0.8;
                         robot_moved_baselink = is_charging_position_moved(robot_x_map_charging, robot_y_map_charging, robot_yaw_map_charging, robot_x_map, robot_y_map, robot_yaw_map);
                         robot_moved_odom = is_charging_position_moved(odom_charging_x, odom_charging_y, odom_charging_yaw, odom_current_x, odom_current_y, odom_current_yaw);
-                        RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 5000, "robot_moved_base_link: %s, robot_moved_odom: %s", robot_moved_baselink ? "true":"false", robot_moved_odom ? "true" : "false" );
+                        RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 10000, "robot_moved_base_link: %s, robot_moved_odom: %s", robot_moved_baselink ? "true":"false", robot_moved_odom ? "true" : "false" );
                 }
 
-                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 10000, "*******************************************************");
-                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 10000,  "robot_map_charging: (%f, %f, %f)", robot_x_map_charging, robot_y_map_charging, robot_yaw_map_charging);
-                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 10000,  "robot_map_current : (%f, %f, %f), localization_score: %f,", robot_x_map, robot_y_map, robot_yaw_map, localization_score);
-                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 10000,  "odom_map_charging : (%f, %f, %f)", odom_charging_x, odom_charging_y, odom_charging_yaw);
-                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 10000,  "odom_map_current  : (%f, %f, %f)", odom_current_x, odom_current_y, odom_current_yaw);
-                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 10000, "*******************************************************");
+                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 15000, "******************************* charger/state callback *******************************");
+                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 15000,  "robot_map_charging: (%f, %f, %f)", robot_x_map_charging, robot_y_map_charging, robot_yaw_map_charging);
+                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 15000,  "robot_map_current : (%f, %f, %f), localization_score: %f,", robot_x_map, robot_y_map, robot_yaw_map, localization_score);
+                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 15000,  "dist_map: %f ", std::hypot(robot_x_map_charging - robot_x_map, robot_y_map_charging - robot_y_map));
+                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 15000,  "odom_map_charging : (%f, %f, %f)", odom_charging_x, odom_charging_y, odom_charging_yaw);
+                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 15000,  "odom_map_current  : (%f, %f, %f)", odom_current_x, odom_current_y, odom_current_yaw);
+                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 15000,  "dist_odom: %f ", std::hypot(odom_charging_x - odom_current_x, odom_charging_y - odom_current_y));
+                RCLCPP_INFO_THROTTLE(get_logger(), *this->get_clock(), 15000, "******************************* charger/state callback *******************************");
         }
 
         void ManualDock::charger_visible_sub_callback(capella_ros_service_interfaces::msg::ChargeMarkerVisible msg)
         {
                 this->charger_visible = msg.marker_visible;
                 std_msgs::msg::Bool msg_pub;
+                RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 60000, "charger_visible: %s", charger_visible ? "true" : "false");
                 if(!charger_visible)
                 {
                         use_marker = false;
@@ -423,17 +426,20 @@ namespace capella_ros_dock
                                         && !is_docking_state;
                                 if (manual_charge_satisfied)
                                 {
-                                        RCLCPP_INFO(this->get_logger(), "manual charging satisfied...");
+                                        RCLCPP_INFO(this->get_logger(), " ====== manual charging satisfied ======");
                                         auto charge_goal = charge_manager_msgs::action::Charge::Goal();
                                         charge_goal.mac = this->bluetooth_mac;
                                         charge_goal.restore = 0;
                                         charge_goal.type = 1;
-                                        if(!this->charge_client_->wait_for_action_server())
+                                        auto ret = this->charge_client_->wait_for_action_server(2s);
+                                        RCLCPP_INFO(get_logger(), "ret: %s", ret ? "true" : "false");
+                                        if(!ret)
                                         {
                                                 RCLCPP_INFO(this->get_logger(), "Charge action not on line, waiting ...");
                                         }
                                         else
                                         {
+                                                RCLCPP_INFO(get_logger(), "charge_action_executing: %s", charge_action_executing ? "true" : "false");
                                                 if (!this->charge_action_executing)
                                                 {
                                                         RCLCPP_INFO(this->get_logger(), "------------------------ call /charge action ------------------------");
@@ -441,6 +447,10 @@ namespace capella_ros_dock
                                                         auto send_goals_options = rclcpp_action::Client<charge_manager_msgs::action::Charge>::SendGoalOptions();
                                                         send_goals_options.result_callback = std::bind(&ManualDock::charge_result_callback, this, _1);
                                                         this->charge_client_->async_send_goal(charge_goal, send_goals_options);
+                                                }
+                                                else
+                                                {
+                                                        RCLCPP_INFO(get_logger(), "Robot is manual-charging .....");
                                                 }
                                         }
 
@@ -478,31 +488,37 @@ namespace capella_ros_dock
                                         // }                                  
                                 }
                                 else
-                                {
+                                { 
                                         if(!charger_visible)
                                         {
-                                                RCLCPP_INFO(get_logger(), "robot can not see the marker.");                                      
+                                                RCLCPP_INFO(get_logger(), "Reason: robot can not see the marker.");                                      
                                         }
                                         if(use_marker && !is_in_charger_range_charger)
                                         {
-                                                RCLCPP_INFO(get_logger(), "robot's position is not in charger_range_charger.(%f, %f, %f)", robot_x_charger, robot_y_charger, robot_yaw_charger);
+                                                RCLCPP_INFO(get_logger(), "Reason: robot's position is not in charger_range_charger.(%f, %f, %f)", robot_x_charger, robot_y_charger, robot_yaw_charger);
                                         }
                                         if(!use_marker)
                                         {
-                                                RCLCPP_INFO(get_logger(), "-----------------------------------------------------------");
+                                                RCLCPP_INFO(get_logger(), "-----------------------------Reason: use_marker: %s -----------------------------", use_marker ? "true" : "false");
                                                 RCLCPP_INFO(get_logger(), "robot_map_charging: (%f, %f, %f)", robot_x_map_charging, robot_y_map_charging, robot_yaw_map_charging);
                                                 RCLCPP_INFO(get_logger(), "robot_map_current : (%f, %f, %f), localization_score: %f,", robot_x_map, robot_y_map, robot_yaw_map, localization_score);
+                                                RCLCPP_INFO(get_logger(), "dist_map: %f", std::hypot(robot_x_map_charging - robot_x_map, robot_y_map_charging - robot_y_map));
                                                 RCLCPP_INFO(get_logger(), "odom_map_charging : (%f, %f, %f)", odom_charging_x, odom_charging_y, odom_charging_yaw);
                                                 RCLCPP_INFO(get_logger(), "odom_map_current  : (%f, %f, %f)", odom_current_x, odom_current_y, odom_current_yaw);
-                                                RCLCPP_INFO(get_logger(), "-----------------------------------------------------------");
+                                                RCLCPP_INFO(get_logger(), "dist_odom: %f", std::hypot(odom_current_x - odom_current_x, odom_charging_y - odom_current_y));
+                                                RCLCPP_INFO(get_logger(), "-----------------------------Reason: use_marker: %s -----------------------------", use_marker ? "true" : "false");
                                         }
-                                        if(charger_state.is_docking)
+                                        if(is_docking_state)
                                         {
-                                                RCLCPP_INFO(get_logger(), "robot's state is auto-charging.");
+                                                RCLCPP_INFO(get_logger(), "Reason: robot's state is executing charge action.");
+                                        }
+                                        if (is_undocking_state)
+                                        {
+                                                RCLCPP_INFO(get_logger(), "Reason: robot's state is undocking.");
                                         }
                                         if(charger_state.is_charging)
                                         {
-                                                RCLCPP_INFO(get_logger(), "robot is charging.");
+                                                RCLCPP_INFO(get_logger(), "Reason: robot is charging.");
                                         }                   
                 
                                 }
@@ -515,6 +531,7 @@ namespace capella_ros_dock
         void ManualDock::charge_result_callback(rclcpp_action::ClientGoalHandle<charge_manager_msgs::action::Charge>::WrappedResult result)
         {
                 this->charge_action_executing = false;
+                RCLCPP_INFO(get_logger(), "====== manual-charing ended! ======");
         }
 
         void ManualDock::client_bluetooth_callback(const rclcpp::Client<charge_manager_msgs::srv::ConnectBluetooth>::SharedFuture future)
