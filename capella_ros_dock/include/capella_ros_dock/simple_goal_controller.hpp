@@ -176,6 +176,27 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 	{
 		first_cannot_see_dock = true;
 	}
+
+	
+	if ((navigate_state_ > NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION) && need_get_outof_charger_range && (clock_->now().seconds() - last_time_cannot_see_dock.seconds()) < (params_ptr->time_sleep + 2))
+	{
+		servo_vel = geometry_msgs::msg::Twist();
+		servo_vel->linear.x = 0.15;
+		state = std::string("get_outof_charger_range");
+		infos = std::string("Reason: get_outof_charger_range executing ......");
+		return servo_vel;
+	}
+	if (((clock_->now().seconds() - last_time_cannot_see_dock.seconds()) > (params_ptr->time_sleep + 2)) && (!get_out_of_charger_range_completed))
+	{
+		need_get_outof_charger_range = false;
+		get_out_of_charger_range_completed = true;
+		navigate_state_ = NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION;
+		servo_vel = geometry_msgs::msg::Twist();
+		state = std::string(" get_outof_charge_range completed");
+		infos = std::string("Reason: get_outof_charger_range completed, go to state ANGLE_TO_X_POSITIVE_ORIENTATION");
+		return servo_vel;
+	}
+
 	if(!sees_dock && navigate_state_ > NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION)
 	{
 		if (first_cannot_see_dock)
@@ -204,14 +225,16 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 			}
 			else
 			{
-				RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "robot cann't see the charger,but it is too linear to the charger ,stop moving...");
+				need_get_outof_charger_range = true;
+				get_out_of_charger_range_completed = false;
+				RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000, "robot cann't see the charger,but it is too linear to the charger , try to get robot out of charger range......");
 				servo_vel = geometry_msgs::msg::Twist();
 				state = std::string(" > ANGLE_TO_X_POSITIVE_ORIENTATION");
-				infos = std::string("Reason: can not see marker more than time_sleep(default 5s) and navigate_state > ANGLE_TO_X_POSITIVE_ORIENTATION and robot.x < 0.9  ==> stop, waiting for camera can see marker until timeout");
+				infos = std::string("Reason: can not see marker more than time_sleep(default 5s) and navigate_state > ANGLE_TO_X_POSITIVE_ORIENTATION and robot.x < 0.9  ==> stop and try to get robot out of charger range......");
 				return servo_vel;
 			}
 		}
-	}	
+	}
 
 	// Generate velocity based on current position and next goal point looking for convergence
 	// with goal point based on radius.
@@ -440,9 +463,9 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		{
 			bound_rotation(dist_yaw2, params_ptr->min_rotation, params_ptr->max_rotation);
 			servo_vel->angular.z = dist_yaw2;
-			RCLCPP_DEBUG(logger_, "servo_vel->angular.z: %f", servo_vel->angular.z);
+			RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000,  "servo_vel->angular.z: %f", servo_vel->angular.z);
 			state = std::string("ANGLE_TO_X_POSITIVE_ORIENTATION");
-			infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION converged ==> keep on rotating");
+			infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION not converged ==> keep on rotating");
 		}
 		break;
 	}
@@ -807,6 +830,8 @@ float time_sleep;
 float last_rotation_speed_ = 0.0f;
 double last_rotation_speed_time_ = 0.0f;
 bool first_pub_rotation_speed = true;
+bool need_get_outof_charger_range = false;
+bool get_out_of_charger_range_completed = true;
 
 // when has contacted, keep moving a little time
 bool first_contacted = true;
