@@ -184,6 +184,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		servo_vel->linear.x = 0.15;
 		state = std::string("get_outof_charger_range");
 		infos = std::string("Reason: get_outof_charger_range executing ......");
+		RCLCPP_INFO_THROTTLE(logger_, *clock_, 400, "get_outof_charger_range executing");
 		return servo_vel;
 	}
 	if (((clock_->now().seconds() - last_time_cannot_see_dock.seconds()) > (params_ptr->time_sleep + 2)) && (!get_out_of_charger_range_completed))
@@ -192,6 +193,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		get_out_of_charger_range_completed = true;
 		navigate_state_ = NavigateStates::ANGLE_TO_X_POSITIVE_ORIENTATION;
 		servo_vel = geometry_msgs::msg::Twist();
+		RCLCPP_INFO(logger_, "get_outof_charge_range completed");
 		state = std::string(" get_outof_charge_range completed");
 		infos = std::string("Reason: get_outof_charger_range completed, go to state ANGLE_TO_X_POSITIVE_ORIENTATION");
 		return servo_vel;
@@ -463,7 +465,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		{
 			bound_rotation(dist_yaw2, params_ptr->min_rotation, params_ptr->max_rotation);
 			servo_vel->angular.z = dist_yaw2;
-			RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000,  "servo_vel->angular.z: %f", servo_vel->angular.z);
+			RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000,  "ANGLE_TO_X_POSITIVE_ORIENTATION => servo_vel->angular.z: %f", servo_vel->angular.z);
 			state = std::string("ANGLE_TO_X_POSITIVE_ORIENTATION");
 			infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION not converged ==> keep on rotating");
 		}
