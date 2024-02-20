@@ -463,8 +463,7 @@ BehaviorsScheduler::optional_output_t get_velocity_for_position(
 		}
 		else
 		{
-			bound_rotation(dist_yaw2, params_ptr->min_rotation, params_ptr->max_rotation);
-			servo_vel->angular.z = dist_yaw2;
+			servo_vel->angular.z = (params_ptr->min_rotation + params_ptr->max_rotation) / 2.0;
 			RCLCPP_INFO_THROTTLE(logger_, *clock_, 1000,  "ANGLE_TO_X_POSITIVE_ORIENTATION => servo_vel->angular.z: %f", servo_vel->angular.z);
 			state = std::string("ANGLE_TO_X_POSITIVE_ORIENTATION");
 			infos = std::string("Reason: ANGLE_TO_X_POSITIVE_ORIENTATION not converged ==> keep on rotating");
@@ -715,7 +714,7 @@ void bound_rotation(double & rotation_velocity, float min, float max)
 	double abs_rot = std::abs(rotation_velocity);
 	if (abs_rot > max) {
 		rotation_velocity = std::copysign(max, rotation_velocity);
-	} else if (abs_rot < min && abs_rot > 0.01) {
+	} else if (abs_rot < min) {
 		// min speed if desire small non zero velocity
 		rotation_velocity = std::copysign(min, rotation_velocity);
 	}
